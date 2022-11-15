@@ -19,6 +19,11 @@ export class RouteNotFoundError extends ClientError {
     }
 }
 
+export class UnauthorizedError extends ClientError {
+    public constructor(message: string) {
+        super(401, message);
+    }
+}
 export class ValidationError extends ClientError {
     public constructor(message: string) {
         super(400, message);

@@ -7,11 +7,11 @@ export interface IUserModel extends mongoose.Document {
     firstName: string;
     lastName: string;
     email: string;
-    identityNum: number;
+    identityNum: string;
     city: string;
     street: string;
     password: string;
-    roleId: mongoose.Schema.Types.ObjectId;
+    roleId: mongoose.Types.ObjectId;
 }
 
 // 2. Model schema - describing validation, data, constraints...
@@ -46,14 +46,15 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
             maxlength: [100, "Email to long"],
             // Options:
             trim: true,
+            unique: true
         },
         identityNum: {
             // Type:
-            type: Number, // JavaScript Number
+            type: String, // JavaScript Number
             // Validations:
             required: [true, "Missing identity number"],
-            min: [2, "Identity number too short"],
-            max: [100, "Identity number to long"],
+            minlength: [2, "Identity number too short"],
+            maxlength: [100, "Identity number to long"],
             // Options:
             trim: true,
             unique: true,
@@ -84,7 +85,7 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
             // Validations:
             required: [true, "Missing password"],
             minlength: [2, "Password too short"],
-            maxlength: [100, "Password to long"],
+            maxlength: [1000, "Password to long"],
             // Options:
             trim: true,
         },
@@ -102,12 +103,12 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
 );
 
 // For joined data
-UserSchema.virtual("role", {
-    ref: RoleModel,
-    localField: "roleId",
-    foreignField: "_id",
-    justOne: true,
-});
+// UserSchema.virtual("role", {
+//     ref: RoleModel,
+//     localField: "roleId",
+//     foreignField: "_id",
+//     justOne: true,
+// });
 
 // 3. Model Class - the final model class:
 export const UserModel = mongoose.model<IUserModel>(
