@@ -29,3 +29,9 @@ export class ValidationError extends ClientError {
         super(400, message);
     }
 }
+
+export class ForbiddenError extends ClientError {
+    public constructor(message: string) {
+        super(403, message);
+    }
+}

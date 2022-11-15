@@ -1,12 +1,21 @@
 import { IdNotFoundError, ValidationError } from "../4-models/client-errors";
+import { OrderModel } from "../4-models/order-model";
+import { IProductModel, ProductModel } from "../4-models/product-model";
 import { IRoleModel, RoleModel } from "../4-models/role-model";
 
-// Get all Items:
+// Get all roles:
 async function getAllItems(): Promise<IRoleModel[]> {
-    // Regular get
     return RoleModel.find().exec();
-    // Get with joined data
-    // return ItemModel.find().populate("").exec();
+}
+
+// Get products count:
+async function getProductsCount(): Promise<number> {
+    return ProductModel.countDocuments().exec();
+}
+
+// Get orders count:
+async function getOrdersCount(): Promise<number> {
+    return OrderModel.countDocuments().exec();
 }
 
 // // Get one Item:
@@ -42,6 +51,8 @@ async function getAllItems(): Promise<IRoleModel[]> {
 
 export default {
     getAllItems,
+    getProductsCount,
+    getOrdersCount,
     // getOneItem,
     // addItem,
     // updateItem,

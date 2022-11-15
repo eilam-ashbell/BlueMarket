@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
-import ItemsLogic from "../5-logic/Logic";
+import verifyLoggedIn from "../3-middleware/verify-logged-in";
+import ItemsLogic from "../5-logic/shop-logic";
 
 const router = express.Router();
 
@@ -7,10 +8,38 @@ const router = express.Router();
 // GET http://localhost:3001/api/roles
 router.get(
     "/roles",
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const roles = await ItemsLogic.getAllItems();
             response.json(roles);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
+// Get products count
+// GET http://localhost:3001/api/products/count
+router.get(
+    "/products/count",
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const productsCount = await ItemsLogic.getProductsCount();
+            response.json(productsCount);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+// Get orders count
+// GET http://localhost:3001/api/orders/count
+router.get(
+    "/orders/count",
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const productsCount = await ItemsLogic.getProductsCount();
+            response.json(productsCount);
         } catch (err: any) {
             next(err);
         }
