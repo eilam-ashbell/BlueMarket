@@ -21,6 +21,37 @@ router.get(
     }
 );
 
+// Get all categories
+// GET http://localhost:3001/api/products/categories
+router.get(
+    "/categories",
+    // verifyLoggedIn,
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const categories = await productLogic.getAllCategories();
+            response.json(categories);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
+// Get all products by category
+// GET http://localhost:3001/api/products/categories/:categoryId
+router.get(
+    "/categories/:categoryId",
+    // verifyLoggedIn,
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const categoryId = request.params.categoryId;
+            const products = await productLogic.getAllProductsByCategory(categoryId);
+            response.json(products);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
 // Add new product
 // POST http://localhost:3001/api/products
 router.post(

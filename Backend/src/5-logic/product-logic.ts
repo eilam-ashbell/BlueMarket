@@ -7,10 +7,23 @@ import {
 import { v4 as uuid } from "uuid";
 import config from "../2-utils/config";
 import safeDelete from "../2-utils/safe-delete";
+import { CategoryModel, ICategoryModel } from "../4-models/category-model";
 
 // Get all products:
 async function getAllProducts(): Promise<IProductModel[]> {
     return ProductModel.find().exec();
+}
+
+// Get all categories:
+async function getAllCategories(): Promise<ICategoryModel[]> {
+    return CategoryModel.find().exec();
+}
+
+// Get all products by category:
+async function getAllProductsByCategory(
+    categoryId: string
+): Promise<IProductModel[]> {
+    return ProductModel.find({ categoryId: categoryId }).exec();
 }
 
 // Add product:
@@ -69,7 +82,7 @@ async function updateProduct(product: IProductModel): Promise<IProductModel> {
 async function deleteProduct(_id: string): Promise<void> {
     const deletedProduct = await ProductModel.findByIdAndDelete(_id).exec();
     if (!deletedProduct) throw new IdNotFoundError(_id);
-    await safeDelete(config.imageFolderPath + deletedProduct.imageName); // Delete the previous image    
+    await safeDelete(config.imageFolderPath + deletedProduct.imageName); // Delete the previous image
 }
 
 export default {
@@ -77,4 +90,6 @@ export default {
     addProduct,
     updateProduct,
     deleteProduct,
+    getAllCategories,
+    getAllProductsByCategory,
 };
