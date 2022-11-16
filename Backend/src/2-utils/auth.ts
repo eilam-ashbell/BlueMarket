@@ -60,7 +60,7 @@ function getUserRoleIdFromToken(authHeader: string): string {
     const user = container.user;
     
     // get roleId of user
-    const role = user.roleId.toHexString()
+    const role = user.roleId.toString()
     
     return role;
 }

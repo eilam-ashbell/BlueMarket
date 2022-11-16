@@ -1,19 +1,21 @@
+import { UploadedFile } from "express-fileupload";
 import mongoose from "mongoose";
 import { CategoryModel } from "./category-model";
 
 // 1. Model interface - describing the data:
 export interface IProductModel extends mongoose.Document {
     _id: string;
-    productName: string;
-    productPrice: number;
-    productImage: string;
+    name: string;
+    price: number;
+    image: UploadedFile;
+    imageName: string;
     categoryId: mongoose.Schema.Types.ObjectId;
 }
 
 // 2. Model schema - describing validation, data, constraints...
 export const ProductSchema = new mongoose.Schema<IProductModel>(
     {
-        productName: {
+        name: {
             // Type:
             type: String, // JavaScript String
             // Validations:
@@ -24,7 +26,7 @@ export const ProductSchema = new mongoose.Schema<IProductModel>(
             trim: true,
             unique: true
         },
-    productPrice: {
+    price: {
         // Type:
         type: Number, // JavaScript String
         // Validations:
@@ -34,11 +36,13 @@ export const ProductSchema = new mongoose.Schema<IProductModel>(
         // Options:
         trim: true,
     },
-    productImage: {
+    image: {
+        // Type:
+        type: Object,
+    },
+    imageName: {
         // Type:
         type: String, // JavaScript String
-        // Validations:
-        required: [true, "Missing image path"],
         // Options:
         trim: true,
         unique: true
