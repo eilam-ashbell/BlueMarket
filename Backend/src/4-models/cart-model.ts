@@ -1,31 +1,40 @@
 import mongoose from "mongoose";
-import { ICartItemModel } from "./cart-item-model";
+import { CartProductModel } from "./cart-product-model";
+// import { ICartItemModel } from "./cart-item-model";
 import { UserModel } from "./user-model";
 
 // 1. Model interface - describing the data:
 export interface ICartModel extends mongoose.Document {
     _id: string;
     userId: mongoose.Schema.Types.ObjectId;
-    creationDate: string;
-    cartItems: ICartItemModel[];
+    creationDate: Date;
+    cartProducts: CartProductModel[];
+    isOrdered: boolean;
 }
 
 // 2. Model schema - describing validation, data, constraints...
 export const CartSchema = new mongoose.Schema<ICartModel>(
     {
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-        },
+        userId: mongoose.Schema.Types.ObjectId,
         creationDate: {
             // Type:
-            type: String, // JavaScript String
+            type: Date, // JavaScript String
             // Validations:
             required: [true, "Missing date"],
             minlength: [2, "date too short"],
             maxlength: [100, "date to long"],
             // Options:
             trim: true,
+            default: Date.now
         },
+        cartProducts: {
+            type: [],
+        },
+        isOrdered: {
+            type: Boolean,
+            required: [true, "Missing isOrdered"],
+            default: false
+        }
     },
     {
         // Options

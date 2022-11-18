@@ -12,18 +12,16 @@ async function register(user: IUserModel): Promise<string> {
     user.password = hash(user.password);
 
     // Assign roleId to user
-    // user.roleId = "6373d7725cf769dda9da3cb6";
-    user.roleId = new mongoose.Types.ObjectId("6373d7725cf769dda9da3cb6")
+    user.roleId = new mongoose.Types.ObjectId("637655df5cf769dda9da3ce6")
 
     // Validate user data
     const error = user.validateSync()
     if (error) throw new ValidationError(error.message);
-    const addedUser = await user.save()
+    const addedUser = await user.save({})
 
     // Delete user's password from user object
-    delete addedUser.password
-    delete addedUser._id
-    delete addedUser.identityNum
+    addedUser.password = undefined;
+    addedUser.identityNum = undefined;
 
     // Generate new token fo the user
     const token = auth.generateNewToken(user);

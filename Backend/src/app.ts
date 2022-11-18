@@ -11,6 +11,7 @@ import authController from "./6-controllers/auth-controller";
 import expressFileUpload from "express-fileupload";
 import productController from "./6-controllers/product-controller";
 import shopController from "./6-controllers/shop-controller";
+import cartController from "./6-controllers/cart-controller";
 
 const server = express();
 
@@ -26,10 +27,12 @@ server.use(sanitize)
 server.use("/api/auth", authController);
 // Handle files
 server.use(expressFileUpload())
-// All requests
-server.use("/api", shopController);
 // Products requests
 server.use("/api/products", productController);
+// Cart requests
+server.use("/api/carts", cartController);
+// All requests
+server.use("/api", shopController);
 // Route not found
 server.use("*", routeNotFound);
 // Catch all middleware

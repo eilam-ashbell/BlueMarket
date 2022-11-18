@@ -11,7 +11,7 @@ router.get(
     verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
-            const roles = await ItemsLogic.getAllItems();
+            const roles = await ItemsLogic.getAllRoles();
             response.json(roles);
         } catch (err: any) {
             next(err);
@@ -61,20 +61,7 @@ router.get(
 //     }
 // );
 
-// // Add new item
-// // POST http://localhost:3001/api/Items
-// router.post(
-//     "/Items",
-//     async (request: Request, response: Response, next: NextFunction) => {
-//         try {
-//             const Item = new ItemModel(request.body);
-//             const addedItem = await ItemsLogic.addItem(Item);
-//             response.status(201).json(addedItem);
-//         } catch (err: any) {
-//             next(err);
-//         }
-//     }
-// );
+
 
 // // Update item by _id
 // // PUT http://localhost:3001/api/Items/:_id

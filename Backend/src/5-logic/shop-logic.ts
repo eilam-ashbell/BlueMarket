@@ -1,10 +1,13 @@
+// import { ICartItemModel } from "../4-models/cart-item-model";
+import { CartProductModel } from "../4-models/cart-product-model";
+import { CartModel, ICartModel } from "../4-models/cart-model";
 import { IdNotFoundError, ValidationError } from "../4-models/client-errors";
 import { OrderModel } from "../4-models/order-model";
 import { IProductModel, ProductModel } from "../4-models/product-model";
 import { IRoleModel, RoleModel } from "../4-models/role-model";
 
 // Get all roles:
-async function getAllItems(): Promise<IRoleModel[]> {
+async function getAllRoles(): Promise<IRoleModel[]> {
     return RoleModel.find().exec();
 }
 
@@ -18,19 +21,7 @@ async function getOrdersCount(): Promise<number> {
     return OrderModel.countDocuments().exec();
 }
 
-// // Get one Item:
-// async function getOneItem(_id: string): Promise<IItemModel> {
-//     const Item = await ItemModel.findById(_id).exec();
-//     if (!Item) throw new IdNotFoundError(_id);
-//     return Item;
-// }
 
-// // Add Item:
-// async function addItem(Item: IItemModel): Promise<IItemModel> {
-//     const errors = Item.validateSync();
-//     if (errors) throw new ValidationError(errors.message);
-//     return Item.save();
-// }
 
 // // Update Item:
 // async function updateItem(Item: IItemModel): Promise<IItemModel> {
@@ -50,7 +41,7 @@ async function getOrdersCount(): Promise<number> {
 // }
 
 export default {
-    getAllItems,
+    getAllRoles,
     getProductsCount,
     getOrdersCount,
     // getOneItem,
