@@ -9,19 +9,15 @@ export interface IOrderModel extends mongoose.Document {
     totalPrice: number;
     city: string;
     street: string;
-    dateOfOrder: string;
-    dateOfDelivery: string;
-    creditCard: number;
+    dateOfOrder: Date;
+    dateOfDelivery: Date;
+    creditCard: string;
 }
 
 export const OrderSchema = new mongoose.Schema<IOrderModel>(
     {
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-        },
-        cartId: {
-            type: mongoose.Schema.Types.ObjectId,
-        },
+        userId: mongoose.Schema.Types.ObjectId,
+        cartId: mongoose.Schema.Types.ObjectId,
         totalPrice: {
             // Type:
             type: Number, // JavaScript Number
@@ -54,17 +50,18 @@ export const OrderSchema = new mongoose.Schema<IOrderModel>(
         },
         dateOfOrder: {
             // Type:
-            type: String, // JavaScript String
+            type: Date, // JavaScript String
             // Validations:
             required: [true, "Missing date of order"],
             minlength: [2, "date of order too short"],
             maxlength: [100, "date of order to long"],
             // Options:
             trim: true,
+            default: Date.now
         },
         dateOfDelivery: {
             // Type:
-            type: String, // JavaScript String
+            type: Date, // JavaScript String
             // Validations:
             required: [true, "Missing date of delivery"],
             minlength: [2, "date of delivery too short"],
@@ -74,11 +71,11 @@ export const OrderSchema = new mongoose.Schema<IOrderModel>(
         },
         creditCard: {
             // Type:
-            type: Number, // JavaScript Number
+            type: String, // JavaScript Number
             // Validations:
             required: [true, "Missing credit card"],
-            min: [4, "credit card too short"],
-            max: [4, "credit card to long"],
+            minlength: [4, "credit card too short"],
+            maxlength: [4, "credit card to long"],
             // Options:
             trim: true,
         },

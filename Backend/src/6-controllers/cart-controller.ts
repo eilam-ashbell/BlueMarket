@@ -1,8 +1,10 @@
 // Add new cart
 
 import express, { NextFunction, Request, Response } from "express";
+import mongoose from "mongoose";
 import { CartModel } from "../4-models/cart-model";
 import { CartProductModel } from "../4-models/cart-product-model";
+import { OrderModel } from "../4-models/order-model";
 import cartLogic from "../5-logic/cart-logic";
 
 const router = express.Router();
@@ -47,6 +49,29 @@ router.patch(
             const productId = request.params.productId;
             const updatedCart = await cartLogic.deleteProductFromCart(cartId, productId);
             response.status(200).json(updatedCart);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
+// Place order:
+// POST http://localhost:3001/api/carts/placeorder/:cartId
+router.post(
+    "/placeorder/:cartId",
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            // get cart id and insert to order object
+            const cartId = request.params.cartId;
+            request.body.cartId = cartId;
+            // get last 4 digits of credit card
+            request.body.creditCard = request.body.creditCard.slice(-4)
+            const order = new OrderModel(request.body)
+            // place order
+            const placedOrder = await cartLogic.placeOrder(order);
+            // close cart after placing order
+            await cartLogic.closeCart(cartId)
+            response.status(200).json(placedOrder);
         } catch (err: any) {
             next(err);
         }

@@ -1,6 +1,7 @@
 import { ICartModel, CartModel } from "../4-models/cart-model";
 import { CartProductModel } from "../4-models/cart-product-model";
 import { ValidationError } from "../4-models/client-errors";
+import { IOrderModel } from "../4-models/order-model";
 
 // Add new cart:
 async function addNewCart(cart: ICartModel): Promise<ICartModel> {
@@ -55,8 +56,15 @@ async function deleteProductFromCart(
     return cart.save();
 }
 
+// place order:
+async function placeOrder(order: IOrderModel): Promise<IOrderModel> {
+    const errors = order.validateSync();
+    if (errors) throw new ValidationError(errors.message);
+    return order.save();
+}
+
 // Close cart after ordering:
-async function closeCart(cartId): Promise<ICartModel> {
+async function closeCart(cartId: string): Promise<ICartModel> {
     // get cart
     const cart = await CartModel.findById(cartId).exec();
     cart.isOrdered = true;
@@ -70,5 +78,6 @@ export default {
     addNewCart,
     addNewProductToCart,
     deleteProductFromCart,
+    placeOrder,
     closeCart,
 };
