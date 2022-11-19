@@ -24,32 +24,31 @@ export const ProductSchema = new mongoose.Schema<IProductModel>(
             maxlength: [100, "name to long"],
             // Options:
             trim: true,
-            unique: true
         },
-    price: {
-        // Type:
-        type: Number, // JavaScript String
-        // Validations:
-        required: [true, "Missing price"],
-        min: [0, "price too low"],
-        max: [1000, "price to high"],
-        // Options:
-        trim: true,
-    },
-    image: {
-        // Type:
-        type: Object,
-    },
-    imageName: {
-        // Type:
-        type: String, // JavaScript String
-        // Options:
-        trim: true,
-        unique: true
-    },
-    categoryId: {
-        type: mongoose.Schema.Types.ObjectId
-    }
+        price: {
+            // Type:
+            type: Number, // JavaScript String
+            // Validations:
+            required: [true, "Missing price"],
+            min: [0, "price too low"],
+            max: [1000, "price to high"],
+            // Options:
+            trim: true,
+        },
+        image: {
+            // Type:
+            type: Object,
+        },
+        imageName: {
+            // Type:
+            type: String, // JavaScript String
+            // Options:
+            trim: true,
+            unique: true,
+        },
+        categoryId: {
+            type: mongoose.Schema.Types.ObjectId,
+        },
     },
     {
         // Options

@@ -26,6 +26,14 @@ async function getAllProductsByCategory(
     return ProductModel.find({ categoryId: categoryId }).exec();
 }
 
+// Get all products by search:
+async function getAllProductsBySearch(
+    searchValue: string
+): Promise<IProductModel[]> {
+    const regexTerm = new RegExp(searchValue, 'i')
+    return ProductModel.find({ name: {$regex: regexTerm} }).exec();
+}
+
 // Add product:
 async function addProduct(product: IProductModel): Promise<IProductModel> {
     // validate data
@@ -92,4 +100,5 @@ export default {
     deleteProduct,
     getAllCategories,
     getAllProductsByCategory,
+    getAllProductsBySearch,
 };

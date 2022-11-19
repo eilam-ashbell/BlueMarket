@@ -52,6 +52,22 @@ router.get(
     }
 );
 
+// Get all products by search
+// GET http://localhost:3001/api/products/search/:searchValue
+router.get(
+    "/search/:searchValue",
+    // verifyLoggedIn,
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const searchValue = request.params.searchValue;
+            const products = await productLogic.getAllProductsBySearch(searchValue);
+            response.json(products);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
 // Add new product
 // POST http://localhost:3001/api/products
 router.post(
