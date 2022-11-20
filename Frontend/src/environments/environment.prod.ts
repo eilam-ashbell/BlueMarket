@@ -1,4 +1,7 @@
 export const environment = {
     production: true,
-    itemsUrl: "http://localhost:3001/api/items/"
+    utils: "http://localhost:3001/api/",
+    auth: "http://localhost:3001/api/auth/",
+    products: "http://localhost:3001/api/products/",
+    carts: "http://localhost:3001/api/carts/",
 };
