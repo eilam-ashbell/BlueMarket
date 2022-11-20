@@ -21,31 +21,32 @@ async function getOrdersCount(): Promise<number> {
     return OrderModel.countDocuments().exec();
 }
 
-
-
-// // Update Item:
-// async function updateItem(Item: IItemModel): Promise<IItemModel> {
-//     const errors = Item.validateSync();
-//     if (errors) throw new ValidationError(errors.message);
-//     const updatedItem = await ItemModel.findByIdAndUpdate(Item._id, Item, {
-//         returnOriginal: false,
-//     }).exec(); // { returnOriginal: false } --> return back db Item and not argument Item.
-//     if (!updatedItem) throw new IdNotFoundError(Item._id);
-//     return updatedItem;
-// }
-
-// // Delete Item:
-// async function deleteItem(_id: string): Promise<void> {
-//     const deletedItem = await ItemModel.findByIdAndDelete(_id).exec();
-//     if (!deletedItem) throw new IdNotFoundError(_id);
-// }
+// get busy dates
+async function getBusyDates(): Promise<any> {
+    const dates = await OrderModel.aggregate([
+        {
+            // group orders by dates
+            $group: {
+                _id: {
+                    // format date to yyyy-mm-dd
+                    $dateToString: {
+                        format: "%Y-%m-%d",
+                        date: "$dateOfDelivery",
+                    },
+                },
+                // count how much orders in each date
+                count: { $sum: 1 },
+            },
+        },
+        // filter out dates with less then 3 orders
+        { $match: { _id: { $ne: null }, count: { $gte: 3 } } },
+    ]);
+    return dates;
+}
 
 export default {
     getAllRoles,
     getProductsCount,
     getOrdersCount,
-    // getOneItem,
-    // addItem,
-    // updateItem,
-    // deleteItem,
+    getBusyDates,
 };

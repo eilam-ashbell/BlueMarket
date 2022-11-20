@@ -55,6 +55,21 @@ router.patch(
     }
 );
 
+// Delete all products from cart:
+// PATCH http://localhost:3001/api/carts/clear/:cartId
+router.patch(
+    "/clear/:cartId",
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const cartId = request.params.cartId;
+            const updatedCart = await cartLogic.clearCart(cartId);
+            response.status(200).json(updatedCart);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
 // Place order:
 // POST http://localhost:3001/api/carts/placeorder/:cartId
 router.post(

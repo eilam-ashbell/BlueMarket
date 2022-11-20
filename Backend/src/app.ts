@@ -5,12 +5,12 @@ import express from "express";
 import cors from "cors";
 import catchAll from "./3-middleware/catch-all";
 import routeNotFound from "./3-middleware/route-not-found";
-import controller from "./6-controllers/shop-controller";
+import controller from "./6-controllers/utils-controller";
 import config from "./2-utils/config";
 import authController from "./6-controllers/auth-controller";
 import expressFileUpload from "express-fileupload";
 import productController from "./6-controllers/product-controller";
-import shopController from "./6-controllers/shop-controller";
+import shopController from "./6-controllers/utils-controller";
 import cartController from "./6-controllers/cart-controller";
 
 const server = express();

@@ -1,7 +1,7 @@
 import { ICartModel, CartModel } from "../4-models/cart-model";
 import { CartProductModel } from "../4-models/cart-product-model";
 import { ValidationError } from "../4-models/client-errors";
-import { IOrderModel } from "../4-models/order-model";
+import { IOrderModel, OrderModel } from "../4-models/order-model";
 
 // Add new cart:
 async function addNewCart(cart: ICartModel): Promise<ICartModel> {
@@ -16,7 +16,7 @@ async function addNewProductToCart(
     product: CartProductModel
 ): Promise<ICartModel> {
     // get user's cart
-    const cart = await CartModel.findById(cartId).exec();    
+    const cart = await CartModel.findById(cartId).exec();
     // Check if product already in cart
     const existIndex = cart.cartProducts.findIndex(
         (i) => i.productId === product.productId
@@ -48,8 +48,20 @@ async function deleteProductFromCart(
         (i) => i.productId === productId
     );
     // remove product from card
-    cart.cartProducts.splice(productIndex, 1)
+    cart.cartProducts.splice(productIndex, 1);
 
+    // save cart
+    const errors = cart.validateSync();
+    if (errors) throw new ValidationError(errors.message);
+    return cart.save();
+}
+
+// Delete all products from cart:
+async function clearCart(cartId: string): Promise<ICartModel> {
+    // get user's cart
+    const cart = await CartModel.findById(cartId).exec();
+    // remove product from card
+    cart.cartProducts = [];
     // save cart
     const errors = cart.validateSync();
     if (errors) throw new ValidationError(errors.message);
@@ -78,6 +90,7 @@ export default {
     addNewCart,
     addNewProductToCart,
     deleteProductFromCart,
+    clearCart,
     placeOrder,
     closeCart,
 };
