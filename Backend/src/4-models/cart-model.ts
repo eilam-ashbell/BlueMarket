@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
 import { CartProductModel } from "./cart-product-model";
-// import { ICartItemModel } from "./cart-item-model";
 import { UserModel } from "./user-model";
 
 // 1. Model interface - describing the data:
 export interface ICartModel extends mongoose.Document {
-    _id: string;
     userId: mongoose.Schema.Types.ObjectId;
     creationDate: Date;
     cartProducts: CartProductModel[];

@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 // 1. Model interface - describing the data:
 export interface IRoleModel extends mongoose.Document {
-    _id: string;
     role: string;
 }
 

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { RoleModel } from "./role-model";
 
 // 1. Model interface - describing the data:
 export interface ICredentialModel extends mongoose.Document {

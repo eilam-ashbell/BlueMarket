@@ -3,7 +3,6 @@ import { CartModel } from "./cart-model";
 import { UserModel } from "./user-model";
 
 export interface IOrderModel extends mongoose.Document {
-    _id: string;
     userId: mongoose.Schema.Types.ObjectId;
     cartId: mongoose.Schema.Types.ObjectId;
     totalPrice: number;

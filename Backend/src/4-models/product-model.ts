@@ -4,7 +4,6 @@ import { CategoryModel } from "./category-model";
 
 // 1. Model interface - describing the data:
 export interface IProductModel extends mongoose.Document {
-    _id: string;
     name: string;
     price: number;
     image: UploadedFile;
