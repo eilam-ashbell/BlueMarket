@@ -69,5 +69,5 @@ ProductSchema.virtual("category", {
 export const ProductModel = mongoose.model<IProductModel>(
     "ProductModel",
     ProductSchema,
-    "Products"
+    "products"
 ); // Model name, schema name, collection name

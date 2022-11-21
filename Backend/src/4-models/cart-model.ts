@@ -54,5 +54,5 @@ CartSchema.virtual("user", {
 export const CartModel = mongoose.model<ICartModel>(
     "CartModel",
     CartSchema,
-    "Carts"
+    "carts"
 ); // Model name, schema name, collection name

@@ -107,5 +107,5 @@ OrderSchema.virtual("cart", {
 export const OrderModel = mongoose.model<IOrderModel>(
     "OrderModel",
     OrderSchema,
-    "Orders"
+    "orders"
 ); // Model name, schema name, collection name

@@ -30,5 +30,5 @@ export const CategorySchema = new mongoose.Schema<ICategoryModel>(
 export const CategoryModel = mongoose.model<ICategoryModel>(
     "CategoryModel",
     CategorySchema,
-    "Categorys"
+    "categories"
 ); // Model name, schema name, collection name

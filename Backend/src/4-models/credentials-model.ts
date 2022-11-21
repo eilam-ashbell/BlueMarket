@@ -42,5 +42,5 @@ export const CredentialSchema = new mongoose.Schema<ICredentialModel>(
 export const CredentialsModel = mongoose.model<ICredentialModel>(
     "CredentialsModel",
     CredentialSchema,
-    "Credentials"
+    "credentials"
 ); // Model name, schema name, collection name

@@ -30,5 +30,5 @@ export const RoleSchema = new mongoose.Schema<IRoleModel>(
 export const RoleModel = mongoose.model<IRoleModel>(
     "RoleModel",
     RoleSchema,
-    "Roles"
+    "roles"
 ); // Model name, schema name, collection name

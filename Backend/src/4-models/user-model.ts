@@ -112,5 +112,5 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
 export const UserModel = mongoose.model<IUserModel>(
     "UserModel",
     UserSchema,
-    "Users"
+    "users"
 ); // Model name, schema name, collection name
