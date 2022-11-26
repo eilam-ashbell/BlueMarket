@@ -1,0 +1,61 @@
+img {
+    max-width: 200px;
+    max-height: 100px;
+    align-self: center;
+}
+h4 {
+    text-align: center;
+    margin: 16px;
+}
+
+.quantity-controller {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.quantity-controller > input {
+    width: 4ch;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+}
+
+.quantity-controller > button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: var(--primary-100);
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 18px;
+}
+.quantity-controller > button:hover {
+    background-color: var(--primary-200);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.add-product {
+    background-color: var(--primary-500);
+    border: none;
+    font-size: 18px;
+    padding: 8px 16px;
+    margin-top: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.add-product:hover {
+    background-color: var(--primary-600);
+}

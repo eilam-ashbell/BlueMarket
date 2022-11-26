@@ -22,6 +22,8 @@
     // copy files from dump folder
 // Delete unRelevant comments
 // Delete unRelevant css files
+// Delete empty ngOnInit
+// Delete empty constructors
 // Delete models examples - Back & Front
 // Delete service example
 // Delete Form example component
