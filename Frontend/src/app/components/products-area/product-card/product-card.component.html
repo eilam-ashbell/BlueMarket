@@ -1,15 +1,17 @@
-<!-- <div class="product-card"> -->
-<img src={{imagePath}} />
-<h4>{{product.name}}</h4>
-<div class="price-wrapper">
-    <label>price:</label>
-    <span>{{product.price}}</span>
-</div>
+<div class="product-card">
+    <img src={{imagePath}} />
+    <h4>{{product.name}}</h4>
+    <div class="price-wrapper">
+        <span>{{product.price | currency}}</span>
+    </div>
 
-<div class="quantity-controller">
-    <button class="decrease" (click)="decreaseQuantity()">-</button>
-    <input type="number" step="1" [(ngModel)]="quantity" />
-    <button class="increase" (click)="increaseQuantity()">+</button>
+    <div class="show-on-hover">
+        <div class="quantity-controller">
+            <button class="controller decrease" (click)="decreaseQuantity()">-</button>
+            <input type="number" step="1" [(ngModel)]="quantity" />
+            <button class="controller increase" (click)="increaseQuantity()">+</button>
+        </div>
+        <button class="add-product" (click)="addToCart()">add <span class="total-price">{{product.price * quantity |
+                currency}}</span></button>
+    </div>
 </div>
-<button class="add-product">add product</button>
-<!-- </div> -->

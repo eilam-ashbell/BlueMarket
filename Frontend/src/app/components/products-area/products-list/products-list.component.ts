@@ -24,8 +24,11 @@ export class ProductsListComponent implements OnInit {
     }
 
     public async filterByCategory(categoryId: string) {
-        this.productsToDisplay = await this.productsService.getProductsFromCategory(categoryId);
+        categoryId === "all"
+            ? (this.productsToDisplay = [...this.productList])
+            : (this.productsToDisplay =
+                  await this.productsService.getProductsFromCategory(
+                      categoryId
+                  ));
     }
-
-
 }

@@ -1,38 +1,76 @@
+.product-card {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 40px 16px 16px 16px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
 img {
-    max-width: 200px;
-    max-height: 100px;
+    max-width: 100px;
     align-self: center;
+    transition: all 200ms;
 }
 h4 {
-    text-align: center;
-    margin: 16px;
+    margin: 16px 0px 8px 0px;
 }
+.price-wrapper {
+    font-size: 16px;
+}
+
+.show-on-hover {
+    opacity: 0;
+}
+.product-card:hover .show-on-hover {
+    opacity: 100;
+    margin-top: auto;
+}
+.product-card:hover img {
+    transform: scale(1.1);
+}
+
 
 .quantity-controller {
     display: flex;
     flex-flow: row nowrap;
+    margin: 32px 0px 16px 0px;
+    align-items: center;
 }
 
-.quantity-controller > input {
-    width: 4ch;
-    font-size: 18px;
-    text-align: center;
-    border: none;
-}
-
-.quantity-controller > button {
+.controller {
     width: 32px;
     height: 32px;
     border: none;
-    background-color: var(--primary-100);
+    background-color: transparent;
+    border: 1px solid var(--primary-200);
     cursor: pointer;
     border-radius: 4px;
     font-size: 18px;
 }
-.quantity-controller > button:hover {
-    background-color: var(--primary-200);
+.controller:hover {
+    background-color: var(--primary-400);
+    border: 1px solid var(--primary-400);
+}
+.decrease {
+    border-radius: 4px 0px 0px 4px;
+    border-right: none;
+}
+.increase {
+    border-radius: 0px 4px 4px 0px;
+    border-left: none;
 }
 
+.quantity-controller > input {
+    width: 4ch;
+    height: 32px;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid var(--primary-200);
+}
+.quantity-controller > input:hover {
+    border: 1px solid var(--primary-500);
+    background-color: var(--neutral-100);
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -40,7 +78,6 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
 /* Firefox */
 input[type="number"] {
     appearance: none;
@@ -52,10 +89,17 @@ input[type="number"] {
     border: none;
     font-size: 18px;
     padding: 8px 16px;
-    margin-top: 16px;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: auto;
+    text-transform:capitalize;
+    width: 100%;
 }
 .add-product:hover {
     background-color: var(--primary-600);
+}
+.total-price {
+    text-transform: lowercase;
+    font-size: 12px;
+    margin-left: 4px;
 }

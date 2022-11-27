@@ -60,10 +60,12 @@ export class ProductsService {
         formData.append("price", product.price.toString());
         formData.append("categoryId", product.categoryId.toString());
         formData.append("image", product.image);
-        const addedProduct = await firstValueFrom(
-            this.http.post<ProductModel>(environment.productsRoute, formData)
-        );
-        console.log(addedProduct);
+        console.log(formData);
+        
+        // const addedProduct = await firstValueFrom(
+        //     this.http.post<ProductModel>(environment.productsRoute, formData)
+        // );
+        // console.log(addedProduct);
     }
 
     // Update product
