@@ -11,6 +11,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductCardComponent } from './components/products-area/product-card/product-card.component';
 import { ProductsListComponent } from './components/products-area/products-list/products-list.component';
+import { LoginComponent } from './components/auth-area/login/login.component';
+import { LogoutComponent } from './components/auth-area/logout/logout.component';
+import { RegisterComponent } from './components/auth-area/register/register.component';
+import { RequireAuthComponent } from './components/auth-area/require-auth/require-auth.component';
+import { PageNotFoundComponent } from './components/layout-area/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { ProductsListComponent } from './components/products-area/products-list/
     AddDataComponent,
     ListDataComponent,
     ProductCardComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    LoginComponent,
+    LogoutComponent,
+    RegisterComponent,
+    RequireAuthComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
