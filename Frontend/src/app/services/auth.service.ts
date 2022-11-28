@@ -1,16 +1,18 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, NgModule } from "@angular/core";
 import { firstValueFrom } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CredentialModel } from "../models/credentials.model";
 import { UserModel } from "../models/user-model";
 import { AuthAction, AuthActionType, authStore } from "../redux/auth-state";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { JwtModule } from "@auth0/angular-jwt";
 
 @Injectable({
     providedIn: "root",
 })
 export class AuthService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
 
     // Register
     public async register(user: UserModel): Promise<void> {
@@ -51,5 +53,12 @@ export class AuthService {
             type: AuthActionType.Logout,
         };
         authStore.dispatch(action);
+    }
+
+    // Check if there is any token and it expire 
+    public isAuthenticated(): boolean {
+        const token = authStore.getState().token;
+        // Return false if token is expired or not exist
+        return !this.jwtHelper.isTokenExpired(token);
     }
 }

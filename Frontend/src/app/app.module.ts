@@ -16,6 +16,12 @@ import { LogoutComponent } from './components/auth-area/logout/logout.component'
 import { RegisterComponent } from './components/auth-area/register/register.component';
 import { RequireAuthComponent } from './components/auth-area/require-auth/require-auth.component';
 import { PageNotFoundComponent } from './components/layout-area/page-not-found/page-not-found.component';
+import { JwtModule } from "@auth0/angular-jwt";
+import { environment } from 'src/environments/environment';
+
+export function tokenGetter() {
+    return localStorage.getItem("token");
+  }
 
 @NgModule({
   declarations: [
@@ -31,13 +37,20 @@ import { PageNotFoundComponent } from './components/layout-area/page-not-found/p
     LogoutComponent,
     RegisterComponent,
     RequireAuthComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+        config: {
+          tokenGetter: tokenGetter,
+          allowedDomains: [environment.utilsRoute],
+          disallowedRoutes: [],
+        },
+      }),
   ],
   providers: [],
   bootstrap: [LayoutComponent]

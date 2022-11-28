@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRouteSnapshot, Data } from "@angular/router";
 import { CategoryModel } from "src/app/models/category.model";
 import { ProductModel } from "src/app/models/product.model";
 import { ProductsService } from "src/app/services/products.service";
@@ -13,7 +14,7 @@ export class ProductsListComponent implements OnInit {
     public productsToDisplay: ProductModel[];
     public categories: CategoryModel[];
 
-    constructor(private productsService: ProductsService) {}
+    constructor(private productsService: ProductsService ) {}
 
     async ngOnInit(): Promise<void> {
         // get all products from server and save in local variable

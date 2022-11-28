@@ -7,6 +7,7 @@ export class AuthState {
     public user: UserModel = null;
 
     public constructor() {
+        // Get token from local storage 
         this.token = localStorage.getItem("token");
         // If there is token in local storage
         if (this.token) {

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { RoleModel } from "./role-model";
 
 // 1. Model interface - describing the data:
 export interface IUserModel extends mongoose.Document {
@@ -101,12 +102,12 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
 );
 
 // For joined data
-// UserSchema.virtual("role", {
-//     ref: RoleModel,
-//     localField: "roleId",
-//     foreignField: "_id",
-//     justOne: true,
-// });
+UserSchema.virtual("role", {
+    ref: RoleModel,
+    localField: "roleId",
+    foreignField: "_id",
+    justOne: true,
+});
 
 // 3. Model Class - the final model class:
 export const UserModel = mongoose.model<IUserModel>(

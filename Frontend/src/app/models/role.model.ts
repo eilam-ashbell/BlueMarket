@@ -1,5 +1,5 @@
 
-export class IRoleModel {
+export class RoleModel {
     _id: string;
     role: string;
 }
