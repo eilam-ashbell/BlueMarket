@@ -44,6 +44,7 @@ export class AuthService {
             payload: token,
         };
         authStore.dispatch(action);
+        // todo - add handling with adding cart / restore cart
     }
 
     // Logout

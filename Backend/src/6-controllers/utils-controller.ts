@@ -41,8 +41,8 @@ router.get(
     "/orders/count",
     async (request: Request, response: Response, next: NextFunction) => {
         try {
-            const productsCount = await ItemsLogic.getProductsCount();
-            response.json(productsCount);
+            const ordersCount = await ItemsLogic.getOrdersCount();
+            response.json(ordersCount);
         } catch (err: any) {
             next(err);
         }

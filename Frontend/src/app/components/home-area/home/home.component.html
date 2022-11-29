@@ -1,1 +1,42 @@
-<p>home works!</p>
+<div class="home-wrapper">
+    <div class="login-wrapper">
+        <form (ngSubmit)="login()" #loginForm="ngForm">
+            <h2>login</h2>
+            <label for="emailInput">email</label>
+            <input type="email" id="emailInput" name="email" [(ngModel)]="credentials.email" #emailModel="ngModel" required />
+            <!-- todo - add validations -->
+            <span class="hint" *ngIf="emailModel.errors?.['required'] && emailModel.touched">
+                Missing email
+            </span>
+            <label for="passwordInput">password</label>
+            <input type="password" id="passwordInput" name="password" [(ngModel)]="credentials.password" #passwordModel="ngModel" required/>
+            <!-- todo - add validations -->
+            <span class="hint" *ngIf="passwordModel.errors?.['required'] && passwordModel.touched">
+                Missing password
+            </span>
+            <button  [disabled]="loginForm.invalid">login</button>
+        </form>
+        <div class="register-wrapper">
+            <p>
+                first time on our shop?
+            </p>
+            <button>
+                register now
+            </button>
+        </div>
+    </div>
+    <div class="about-wrapper">
+        
+            <p>
+            Marketman is wonderful place to do all of your shopping
+        </p>
+        <div>
+            <h3>{{productsCount}}</h3>
+            <span>Products</span>
+        </div>
+        <div>
+            <h3>{{ordersCount}}</h3>
+            <span>Orders</span>
+        </div>
+    </div>
+</div>

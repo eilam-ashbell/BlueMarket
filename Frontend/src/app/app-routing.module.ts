@@ -24,7 +24,7 @@ const routes: Routes = [
         component: ProductsListComponent,
         canActivate: [RoleGuardService],
         data: {
-            roleAccess: "admin",
+            roleAccess: "user",
         },
     },
     // Page not found route
