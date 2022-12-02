@@ -17,14 +17,16 @@ async function register(user: IUserModel): Promise<string> {
     const error = user.validateSync();
     if (error) throw new ValidationError(error.message);
     const addedUser = await user.save({});
+    await addedUser.populate("role")
 
-    // Delete user's password from user object
+    // Delete user's password, id num and roleId from user object
+    // Todo - remove user id
     addedUser.password = undefined;
     addedUser.identityNum = undefined;
+    addedUser.roleId = undefined;
 
     // Generate new token fo the user
     const token = auth.generateNewToken(user);
-
     return token;
 }
 
@@ -43,7 +45,8 @@ async function login(credentials: ICredentialModel): Promise<string> {
     )
         .populate("role")
         .exec();
-
+        
+        
     if (user === null || undefined)
         throw new UnauthorizedError("Incorrect username or password");
     // Remove roleId from token (it exist in role key from populate)

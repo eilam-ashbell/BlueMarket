@@ -1,0 +1,5 @@
+<div class="cart-panel">
+    {{cart.userCartId}}
+    <p *ngFor="let p of cart.cartProducts">{{p.quantity}}</p>
+    <p *ngFor="let p of cart.cartProducts">{{p.totalPrice}}</p>
+</div>

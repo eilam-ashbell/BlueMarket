@@ -9,6 +9,7 @@ export class UserModel  {
     city: string;
     street: string;
     password: string;
+    cartId?: string;
     roleId?: string;
     role?: RoleModel;
 }

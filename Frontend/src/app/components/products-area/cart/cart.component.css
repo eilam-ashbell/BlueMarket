@@ -1,0 +1,9 @@
+.cart-panel {
+    height: calc(100% - 72px);
+    width: 350px;
+    position: absolute;
+    top: 72px;
+    right: 0;
+    background-color: var(--neutral-100);
+    border: 1px solid var(--neutral-200);
+}

@@ -62,4 +62,10 @@ export class AuthService {
         // Return false if token is expired or not exist
         return !this.jwtHelper.isTokenExpired(token);
     }
+
+    // Decode user token
+    public decodeUserToken(): UserModel {
+        const token = authStore.getState().token;
+        return this.jwtHelper.decodeToken(token)
+    }
 }

@@ -14,8 +14,9 @@ router.post(
     "/new",
     async (request: Request, response: Response, next: NextFunction) => {
         try {
-            const cart = new CartModel(request.body);
-            const addedCart = await cartLogic.addNewCart(cart);
+            // const cart = new CartModel(request.body);
+            const cartId = request.body.cartId;
+            const addedCart = await cartLogic.addNewCart(cartId);
             response.status(201).json(addedCart);
         } catch (err: any) {
             next(err);
@@ -24,9 +25,9 @@ router.post(
 );
 
 // Add new product to cart:
-// PATCH http://localhost:3001/api/carts/addproduct/:cartId
+// PATCH http://localhost:3001/api/carts/add-product/:cartId
 router.patch(
-    "/addproduct/:cartId",
+    "/add-product/:cartId",
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const cartId = request.params.cartId;
@@ -40,9 +41,9 @@ router.patch(
 );
 
 // Delete product from cart:
-// PATCH http://localhost:3001/api/carts/deleteproduct/:cartId/:productId
+// PATCH http://localhost:3001/api/carts/delete-product/:cartId/:productId
 router.patch(
-    "/deleteproduct/:cartId/:productId",
+    "/delete-product/:cartId/:productId",
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const cartId = request.params.cartId;
@@ -73,7 +74,7 @@ router.patch(
 // Place order:
 // POST http://localhost:3001/api/carts/placeorder/:cartId
 router.post(
-    "/placeorder/:cartId",
+    "/place-order/:cartId",
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             // get cart id and insert to order object
@@ -102,6 +103,20 @@ router.patch(
             const cartId = request.params.cartId;
             const updatedCart = await cartLogic.closeCart(cartId);
             response.status(200).json(updatedCart);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
+// GET http://localhost:3001/api/carts/current
+router.post(
+    "/current",
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const userCartId = request.body.userCartId;
+            const currentCart = await cartLogic.getCurrentCart(userCartId);
+            response.status(201).json(currentCart[0]);
         } catch (err: any) {
             next(err);
         }

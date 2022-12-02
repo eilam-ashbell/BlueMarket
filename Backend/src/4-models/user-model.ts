@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { RoleModel } from "./role-model";
+import { v4 as uuid } from "uuid";
 
 // 1. Model interface - describing the data:
 export interface IUserModel extends mongoose.Document {
@@ -10,6 +11,7 @@ export interface IUserModel extends mongoose.Document {
     city: string;
     street: string;
     password: string;
+    userCartId: string;
     roleId: mongoose.Types.ObjectId;
 }
 
@@ -88,6 +90,10 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
             // Options:
             trim: true,
         },
+        userCartId: {
+            type: String,
+            default: uuid(),
+        },
         roleId: {
             type: mongoose.Schema.Types.ObjectId,
         },
@@ -100,6 +106,13 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
         id: false,
     }
 );
+
+UserSchema.post('save', function() {
+    console.log(this);
+    this._id = undefined;
+    console.log(this);
+}
+)
 
 // For joined data
 UserSchema.virtual("role", {

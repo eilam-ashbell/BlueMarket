@@ -18,6 +18,9 @@ import { RequireAuthComponent } from './components/auth-area/require-auth/requir
 import { PageNotFoundComponent } from './components/layout-area/page-not-found/page-not-found.component';
 import { JwtModule } from "@auth0/angular-jwt";
 import { environment } from 'src/environments/environment';
+import { CartComponent } from './components/products-area/cart/cart.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -38,6 +41,7 @@ export function tokenGetter() {
     RegisterComponent,
     RequireAuthComponent,
     PageNotFoundComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +55,8 @@ export function tokenGetter() {
           disallowedRoutes: [],
         },
       }),
+      MatButtonModule,
+      MatIconModule,
   ],
   providers: [],
   bootstrap: [LayoutComponent]

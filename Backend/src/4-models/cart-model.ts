@@ -4,7 +4,7 @@ import { UserModel } from "./user-model";
 
 // 1. Model interface - describing the data:
 export interface ICartModel extends mongoose.Document {
-    userId: mongoose.Schema.Types.ObjectId;
+    userCartId: string;
     creationDate: Date;
     cartProducts: CartProductModel[];
     isOrdered: boolean;
@@ -13,7 +13,7 @@ export interface ICartModel extends mongoose.Document {
 // 2. Model schema - describing validation, data, constraints...
 export const CartSchema = new mongoose.Schema<ICartModel>(
     {
-        userId: mongoose.Schema.Types.ObjectId,
+        userCartId: {type: String},
         creationDate: {
             // Type:
             type: Date, // JavaScript String
@@ -27,6 +27,7 @@ export const CartSchema = new mongoose.Schema<ICartModel>(
         },
         cartProducts: {
             type: [],
+            default: []
         },
         isOrdered: {
             type: Boolean,

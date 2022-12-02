@@ -4,7 +4,9 @@ import { ValidationError } from "../4-models/client-errors";
 import { IOrderModel, OrderModel } from "../4-models/order-model";
 
 // Add new cart:
-async function addNewCart(cart: ICartModel): Promise<ICartModel> {
+async function addNewCart(userCartId:string): Promise<ICartModel> {
+    const cart = new CartModel;
+    cart.userCartId = userCartId;
     const errors = cart.validateSync();
     if (errors) throw new ValidationError(errors.message);
     return cart.save();
@@ -86,6 +88,10 @@ async function closeCart(cartId: string): Promise<ICartModel> {
     return cart.save();
 }
 
+async function getCurrentCart(userCartId: string): Promise<ICartModel[]> {
+    return CartModel.find({userCartId: userCartId, isOrdered: false}).exec();
+}
+
 export default {
     addNewCart,
     addNewProductToCart,
@@ -93,4 +99,5 @@ export default {
     clearCart,
     placeOrder,
     closeCart,
+    getCurrentCart,
 };

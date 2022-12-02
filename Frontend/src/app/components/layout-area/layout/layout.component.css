@@ -1,6 +1,17 @@
+div {
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+main {
+    position: relative;
+    height: calc(100% - 72px);
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: 350px;
     padding: 40px;
 }
