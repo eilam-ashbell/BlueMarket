@@ -17,6 +17,8 @@ export class CartService {
     // Get user's current cart
     public async getCurrentCart(): Promise<CartModel> {
         const userCartId = authStore.getState().user.userCartId;
+        console.log(userCartId);
+        
         if (!userCartId) {
             // todo - notify
             console.log("no cartId");

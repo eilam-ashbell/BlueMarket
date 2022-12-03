@@ -107,13 +107,6 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
     }
 );
 
-UserSchema.post('save', function() {
-    console.log(this);
-    this._id = undefined;
-    console.log(this);
-}
-)
-
 // For joined data
 UserSchema.virtual("role", {
     ref: RoleModel,
