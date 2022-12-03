@@ -4,6 +4,9 @@ import { CartModel } from "src/app/models/cart.model";
 import { ProductModel } from "src/app/models/product.model";
 import { CartService } from "src/app/services/cart.service";
 import { environment } from "src/environments/environment";
+import { Socket, io } from "socket.io-client";
+import { authStore } from "src/app/redux/auth-state";
+import { CartActionType, cartStore } from "src/app/redux/cart-state";
 
 @Component({
     selector: "app-product-card",
@@ -12,6 +15,9 @@ import { environment } from "src/environments/environment";
 })
 export class ProductCardComponent implements OnInit {
     @Input() product: ProductModel;
+
+    private socket: Socket;
+
     public imagePath: string;
     public quantity: number = 1;
 
@@ -31,19 +37,14 @@ export class ProductCardComponent implements OnInit {
         this.quantity === 1 ? (this.quantity = 1) : this.quantity--;
     }
 
-    public async addToCart(): Promise<CartModel> {
+    public async addToCart(): Promise<void> {
         // Create new CartProductModel to add
         const productToAdd = new CartProductModel({
             quantity: this.quantity,
             totalPrice: this.quantity * this.product.price,
             productId: this.product._id,
         });
-        // Add product to cart by cartId
-        const updatedCart = await this.cartService.addProductToCart(
-            productToAdd,
-            "6377efb54e6b610caa1ab9e0"
-        );
-        // Return updated cart
-        return updatedCart;
+        // Add product to cart on server
+        await this.cartService.addProductToCart(productToAdd);
     }
 }

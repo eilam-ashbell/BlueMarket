@@ -4,46 +4,85 @@ import { firstValueFrom } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CartProductModel } from "../models/cart-product.model";
 import { CartModel } from "../models/cart.model";
-import { UserModel } from "../models/user-model";
 import { authStore } from "../redux/auth-state";
-import { AuthService } from "./auth.service";
+import { Socket, io } from "socket.io-client";
+import { CartActionType, cartStore } from "../redux/cart-state";
+
 @Injectable({
     providedIn: "root",
 })
 export class CartService {
-    constructor(private http: HttpClient, private authService: AuthService) {}
+    constructor(private http: HttpClient) {}
 
-    // load user cart by cartId 
-    public async getCurrentCart() {
-        const userCartId = authStore.getState().user.cartId;
+    // Get user's current cart
+    public async getCurrentCart(): Promise<CartModel> {
+        const userCartId = authStore.getState().user.userCartId;
         if (!userCartId) {
             // todo - notify
-            console.log('no cartId');
+            console.log("no cartId");
         }
-        const currentCart = await firstValueFrom(this.http.post<CartModel>(environment.cartsRoute + 'current', {userCartId: userCartId}))
+        const currentCart = await firstValueFrom(
+            this.http.post<CartModel>(environment.cartsRoute + "current", {
+                userCartId: userCartId,
+            })
+        );
+
+        // Place current cart in global state
+        const action = {
+            type: CartActionType.FetchCart,
+            payload: currentCart,
+        };
+        cartStore.dispatch(action);
+
         return currentCart;
     }
 
     // Add new cart
     public async createNewCart(): Promise<CartModel> {
-        const cartId = authStore.getState().user.cartId;
-        const newCart = await firstValueFrom(this.http.post<CartModel>(environment.cartsRoute + "new", {cartId: cartId}))
-        console.log(newCart);
-        return newCart
-      }
-    
+        const cartId = authStore.getState().user.userCartId;
+        const newCart = await firstValueFrom(
+            this.http.post<CartModel>(environment.cartsRoute + "new", {
+                cartId: cartId,
+            })
+        );
+        return newCart;
+    }
+
     // Add product to cart
     public async addProductToCart(
-        cartProduct: CartProductModel,
-        cartId: string
-    ): Promise<CartModel> {
-        // Add product to cart. Returns updated cart model
+        productToAdd: CartProductModel
+    ): Promise<void> {
+        // Get cart id
+        const cartId = cartStore.getState().cart._id;
+        // Add product to cart. Returns updated cart
         const updatedCart = await firstValueFrom(
             this.http.patch<CartModel>(
-                environment.cartsRoute + "addproduct/" + cartId,
-                cartProduct
+                environment.cartsRoute + "add-product/" + cartId,
+                productToAdd
             )
         );
-        return updatedCart;
+        // Update products in global state
+        const action = {
+            type: CartActionType.UpdateCartProducts,
+            payload: updatedCart.cartProducts,
+        };
+        cartStore.dispatch(action);
+    }
+
+    // Delete product from cart
+    public async deleteProductFromCart(productId: string): Promise<void> {
+        // Get cart id
+        const cartId = cartStore.getState().cart._id;
+        // Add product to cart. Returns updated cart
+        const updatedCart = await firstValueFrom(
+            this.http.patch<CartModel>(
+                environment.cartsRoute + "delete-product/" + cartId + "/" + productId, null)
+        );
+        // Update products in global state
+        const action = {
+            type: CartActionType.UpdateCartProducts,
+            payload: updatedCart.cartProducts,
+        };
+        cartStore.dispatch(action);
     }
 }

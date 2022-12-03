@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { CartComponent } from './components/products-area/cart/cart.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { ProductCartCardComponent } from './components/products-area/product-cart-card/product-cart-card.component';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -42,6 +43,7 @@ export function tokenGetter() {
     RequireAuthComponent,
     PageNotFoundComponent,
     CartComponent,
+    ProductCartCardComponent,
   ],
   imports: [
     BrowserModule,

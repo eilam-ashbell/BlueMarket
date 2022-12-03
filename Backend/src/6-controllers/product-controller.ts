@@ -36,6 +36,22 @@ router.get(
     }
 );
 
+// Get  product by id
+// GET http://localhost:3001/api/products/:productId
+router.get(
+    "/:productId",
+    // verifyLoggedIn,
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const productId = request.params.productId;
+            const product = await productLogic.getProduct(productId);
+            response.json(product);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
 // Get all products by category
 // GET http://localhost:3001/api/products/categories/:categoryId
 router.get(

@@ -12,15 +12,16 @@ import { ProductsService } from "src/app/services/products.service";
     templateUrl: "./products-list.component.html",
     styleUrls: ["./products-list.component.css"],
 })
-
-
 export class ProductsListComponent implements OnInit {
+
     public productList: ProductModel[];
     public productsToDisplay: ProductModel[];
     public categories: CategoryModel[];
-    public cartId: string;
 
-    constructor(private productsService: ProductsService, private cartService: CartService) {}
+    constructor(
+        private productsService: ProductsService,
+        private cartService: CartService
+    ) {}
 
     async ngOnInit(): Promise<void> {
         // get all products from server and save in local variable
@@ -28,10 +29,6 @@ export class ProductsListComponent implements OnInit {
         this.productsToDisplay = [...this.productList];
         // get all categories from server and save in local variable
         this.categories = await this.productsService.getAllCategories();
-
-        this.cartId = authStore.getState().user.cartId;
-        
-        
     }
 
     public async filterByCategory(categoryId: string) {

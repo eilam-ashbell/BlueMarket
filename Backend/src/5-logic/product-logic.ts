@@ -14,6 +14,11 @@ async function getAllProducts(): Promise<IProductModel[]> {
     return ProductModel.find().populate("category").exec();
 }
 
+// Get product by id:
+async function getProduct(productId: string): Promise<IProductModel> {
+    return ProductModel.findById({_id: productId}).exec();
+}
+
 // Get all categories:
 async function getAllCategories(): Promise<ICategoryModel[]> {
     return CategoryModel.find().exec();
@@ -95,6 +100,7 @@ async function deleteProduct(_id: string): Promise<void> {
 
 export default {
     getAllProducts,
+    getProduct,
     addProduct,
     updateProduct,
     deleteProduct,

@@ -1,5 +1,7 @@
 <div class="cart-panel">
-    {{cart.userCartId}}
-    <p *ngFor="let p of cart.cartProducts">{{p.quantity}}</p>
-    <p *ngFor="let p of cart.cartProducts">{{p.totalPrice}}</p>
+    <h3>{{user.firstName}}</h3>
+    <h4>total in cart: {{cart.cartProducts.length}}</h4>
+    <div class="products-wrapper">
+        <app-product-cart-card *ngFor="let p of cart.cartProducts" [cartProduct]="p"></app-product-cart-card>
+    </div>
 </div>

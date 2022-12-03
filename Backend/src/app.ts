@@ -1,5 +1,6 @@
 import dal from "./2-utils/dal";
 dal.connect();
+import { Server as HttpServer} from "http";
 import sanitize from "./3-middleware/sanitize"
 import express from "express";
 import cors from "cors";
@@ -11,30 +12,35 @@ import expressFileUpload from "express-fileupload";
 import productController from "./6-controllers/product-controller";
 import cartController from "./6-controllers/cart-controller";
 import utilsController from "./6-controllers/utils-controller";
+import cartLogic from "./5-logic/cart-logic";
 
-const server = express();
+const expressServer = express();
 
 // Allow cors
-server.use(cors());
+expressServer.use(cors());
 // Read the body json object
-server.use(express.json());
+expressServer.use(express.json());
 // Serve static files
-server.use('/static',express.static(__dirname + '/1-assets'))
+expressServer.use('/static',express.static(__dirname + '/1-assets'))
 // Sanitize tags from requests
-server.use(sanitize)
+expressServer.use(sanitize)
 // Auth requests
-server.use("/api/auth", authController);
+expressServer.use("/api/auth", authController);
 // Handle files
-server.use(expressFileUpload())
+expressServer.use(expressFileUpload())
 // All requests
-server.use("/api", utilsController);
+expressServer.use("/api", utilsController);
 // Products requests
-server.use("/api/products", productController);
+expressServer.use("/api/products", productController);
 // Cart requests
-server.use("/api/carts", cartController);
+expressServer.use("/api/carts", cartController);
 // Route not found
-server.use("*", routeNotFound);
+expressServer.use("*", routeNotFound);
 // Catch all middleware
-server.use(catchAll);
+expressServer.use(catchAll);
 
-server.listen(config.port, () => console.log("Listening on http://localhost:" + config.port));
+
+// todo - remove socket if not in use
+const httpServer: HttpServer = expressServer.listen(config.port, () => console.log("Listening on http://localhost:" + config.port));
+
+cartLogic.cartSocket(httpServer)

@@ -19,6 +19,14 @@ export class ProductsService {
         return products;
     }
 
+    // Get product by id
+    public async getProduct(productId: string): Promise<ProductModel> {
+        const product = await firstValueFrom(
+            this.http.get<ProductModel>(environment.productsRoute + '/' + productId)
+        );
+        return product;
+    }
+
     // Get all categories
     public async getAllCategories(): Promise<CategoryModel[]> {
         const categories = await firstValueFrom(
