@@ -1,6 +1,6 @@
 <div class="products-wrapper">
-    <div class="categories-wrapper">
-        <button (click)="filterByCategory('all')">all</button>
+    <div class="categories-wrapper" (click)="onButtonGroupClick($event)">
+        <button (click)="filterByCategory('all')" class="active">all</button>
         <button *ngFor="let c of categories" (click)="filterByCategory(c._id)">
             {{c.category}}
         </button>

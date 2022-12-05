@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit } from "@angular/core";
+import { Component, EventEmitter, NgModule, OnInit } from "@angular/core";
 import { ActivatedRouteSnapshot, Data } from "@angular/router";
 import { CategoryModel } from "src/app/models/category.model";
 import { ProductModel } from "src/app/models/product.model";
@@ -17,7 +17,7 @@ export class ProductsListComponent implements OnInit {
     public productList: ProductModel[];
     public productsToDisplay: ProductModel[];
     public categories: CategoryModel[];
-
+    
     constructor(
         private productsService: ProductsService,
         private cartService: CartService
@@ -39,4 +39,16 @@ export class ProductsListComponent implements OnInit {
                       categoryId
                   ));
     }
+
+    public onButtonGroupClick($event: any): void{
+        let clickedElement = $event.target || $event.srcElement;
+        if( clickedElement.nodeName === "BUTTON" ) {
+          let isCertainButtonAlreadyActive = clickedElement.parentElement.querySelector(".active");
+          // if a Button already has Class: .active
+          if( isCertainButtonAlreadyActive ) {
+            isCertainButtonAlreadyActive.classList.remove("active");
+          }
+          clickedElement.className += " active";
+        }
+      }
 }

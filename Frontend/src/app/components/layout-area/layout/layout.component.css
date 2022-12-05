@@ -10,7 +10,8 @@ main {
 
 .container {
     width: 100%;
-    max-width: 1200px;
-    margin: auto;
+    max-width: 1400px;
+    margin-right: auto;
+    margin-left: auto;
     padding: 40px;
 }
