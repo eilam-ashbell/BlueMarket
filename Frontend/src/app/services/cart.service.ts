@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CartProductModel } from "../models/cart-product.model";
 import { CartModel } from "../models/cart.model";
@@ -16,9 +16,7 @@ export class CartService {
 
     // Get user's current cart
     public async getCurrentCart(): Promise<CartModel> {
-        const userCartId = authStore.getState().user.userCartId;
-        console.log(userCartId);
-        
+        const userCartId = authStore.getState().user.userCartId;        
         if (!userCartId) {
             // todo - notify
             console.log("no cartId");
@@ -80,6 +78,20 @@ export class CartService {
             this.http.patch<CartModel>(
                 environment.cartsRoute + "delete-product/" + cartId + "/" + productId, null)
         );
+        // Update products in global state
+        const action = {
+            type: CartActionType.UpdateCartProducts,
+            payload: updatedCart.cartProducts,
+        };
+        cartStore.dispatch(action);
+    }
+
+    // Clear all products in cart
+    public async clearCart(): Promise<void> {
+        // Get cart id
+        const cartId = cartStore.getState().cart._id;
+        // Clear cart in server
+        const updatedCart = await firstValueFrom(this.http.patch<CartModel>(environment.cartsRoute + 'clear/' + cartId, null))
         // Update products in global state
         const action = {
             type: CartActionType.UpdateCartProducts,

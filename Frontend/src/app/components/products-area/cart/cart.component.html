@@ -1,7 +1,10 @@
 <div class="cart-panel">
-    <h3>{{user.firstName}}</h3>
-    <h4>total in cart: {{cart.cartProducts.length}}</h4>
-    <div class="products-wrapper">
-        <app-product-cart-card *ngFor="let p of cart.cartProducts" [cartProduct]="p"></app-product-cart-card>
+    <div class="header">
+        <h3>your cart</h3>
+        <button class="clear-cart" (click)="clearCart()">clear cart</button>
     </div>
+    <div class="products-wrapper" >
+            <app-product-cart-card  *ngFor="let p of cart?.cartProducts" [cartProduct]="p"></app-product-cart-card>
+    </div>
+    <button class="place-order">place order {{calcTotalCartPrice() | currency}}</button>
 </div>

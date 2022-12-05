@@ -1,17 +1,26 @@
 .cart-panel {
-    height: calc(100% - 72px);
-    width: 350px;
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    top: 72px;
+    top: 0px;
     right: 0;
+    height: calc(100% );
+    width: 300px;
     background-color: var(--neutral-100);
     border: 1px solid var(--neutral-200);
 }
-
+.header {
+    margin: 8px 24px
+}
 .products-wrapper {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    height: 500px;
+    height: 100%;
     overflow-y: scroll;
+}
+
+.place-order {
+    padding: 8px 16px;
+    margin: auto 24px 16px 24px
 }

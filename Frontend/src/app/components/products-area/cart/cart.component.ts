@@ -29,7 +29,16 @@ export class CartComponent implements OnInit {
             console.log('New cart created!');
             this.cart = await this.cartService.createNewCart();
         }
-        console.log(cartStore.getState().cart);
+    }
+
+    public calcTotalCartPrice() {
+        if (this.cart?.cartProducts.length == 0) return 0
+        const prices = this.cart?.cartProducts.map( p => p.totalPrice)
+        return prices?.reduce((a,b) => a + b)
+    }
+
+    public clearCart(): void {
+        this.cartService.clearCart()
     }
 
 }
