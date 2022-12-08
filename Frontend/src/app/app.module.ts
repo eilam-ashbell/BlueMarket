@@ -22,6 +22,9 @@ import { CartComponent } from './components/products-area/cart/cart.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { ProductCartCardComponent } from './components/products-area/product-cart-card/product-cart-card.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AccountDetailsComponent } from './components/auth-area/multi-step-form/account-details/account-details.component';
+import { PersonalDetailsComponent } from './components/auth-area/multi-step-form/personal-details/personal-details.component';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -44,6 +47,8 @@ export function tokenGetter() {
     PageNotFoundComponent,
     CartComponent,
     ProductCartCardComponent,
+    AccountDetailsComponent,
+    PersonalDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +62,7 @@ export function tokenGetter() {
           disallowedRoutes: [],
         },
       }),
+    ReactiveFormsModule,
       MatButtonModule,
       MatIconModule,
   ],

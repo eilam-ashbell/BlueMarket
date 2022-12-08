@@ -1,0 +1,21 @@
+<ng-container [formGroup]="personalDetails">
+    <div class="form-step">
+        <h2>Personal details</h2>
+        <div class="input-wrapper">
+            <label>city</label>
+            <input type="text" name="city" autocomplete="address-level1" formControlName="city">
+        </div>
+        <div class="input-wrapper">
+            <label>street</label>
+            <input type="text" name="street" autocomplete="street-address" formControlName="street">
+        </div>
+        <div class="input-wrapper">
+            <label>name</label>
+            <input type="text" name="name" autocomplete="name" formControlName="firstName">
+        </div>
+        <div class="input-wrapper">
+            <label>lastName</label>
+            <input type="text" name="lastName" autocomplete="family-name" formControlName="lastName">
+        </div>
+    </div>
+</ng-container>

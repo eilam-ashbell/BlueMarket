@@ -1,0 +1,30 @@
+<ng-container [formGroup]="accountDetails">
+    <div class="form-step">
+        <h3>Account details</h3>
+        <div class="input-wrapper">
+            <label>user Id</label>
+            <input type="text" name="identityNum" autocomplete="" formControlName="identityNum">
+            <span class="hint" *ngIf="identityNum.errors?.['required'] && (identityNum.dirty || identityNum.touched)">required</span>
+            <span class="hint" *ngIf="identityNum.errors?.['minlength'] && (identityNum.dirty || identityNum.touched)">minLength</span>
+        </div>
+        <div class="input-wrapper">
+            <label>email</label>
+            <input type="email" name="email" autocomplete="email" formControlName="email">
+            <span class="hint" *ngIf="email.errors?.['required'] && (email.dirty || email.touched)">required</span>
+            <span class="hint" *ngIf="email.errors?.['email'] && (email.dirty || email.touched)">email</span>
+        </div>
+        <div class="input-wrapper">
+            <label>password</label>
+            <input type="password" name="password" autocomplete="current-password" formControlName="password">
+            <span class="hint" *ngIf="password.errors?.['required'] && (password.dirty || password.touched)">required</span>
+            <span class="hint" *ngIf="password.errors?.['minlength'] && (password.dirty || password.touched)">minlength</span>
+                </div>
+        <div class="input-wrapper">
+            <label>confirm password</label>
+            <input type="password" name="passwordConfirm" autocomplete="" formControlName="passwordConfirm">
+            <span class="hint" *ngIf="passwordConfirm.errors?.['required'] && (passwordConfirm.dirty || passwordConfirm.touched)">required</span>
+            <span class="hint" *ngIf="passwordConfirm.errors?.['minlength'] && (passwordConfirm.dirty || passwordConfirm.touched)">minlength</span>
+            <span class="hint" *ngIf="passwordConfirm.errors?.['mismatch'] && (passwordConfirm.dirty || passwordConfirm.touched)">passwordMatchValidator</span>
+        </div>
+    </div>
+</ng-container>

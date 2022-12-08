@@ -1,1 +1,23 @@
-<p>register works!</p>
+<form class="form" [formGroup]="form">
+    <h2>Register</h2>
+    <app-account-details 
+    *ngIf="currentStep === 0" 
+    [accountDetails]="currentGroup">
+    </app-account-details>
+    <app-personal-details
+     *ngIf="currentStep === 1" 
+     [personalDetails]="currentGroup">
+    </app-personal-details>
+
+    <div class="form-actions">
+        <button class="prev" *ngIf="currentStep !== 0" (click)="prev()">
+            Previous
+        </button>
+        <button class="next" (click)="next()" *ngIf="currentStep !== 1" [disabled]="!isValid(currentStep)">
+            Next
+        </button>
+        <button class="submit" (click)="submit()" *ngIf="currentStep === 1" [disabled]="!this.form.valid">
+            Submit
+        </button>
+    </div>
+</form>
