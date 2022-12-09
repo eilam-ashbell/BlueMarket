@@ -1,12 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, NgModule } from "@angular/core";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CredentialModel } from "../models/credentials.model";
 import { UserModel } from "../models/user-model";
 import { AuthAction, AuthActionType, authStore } from "../redux/auth-state";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { JwtModule } from "@auth0/angular-jwt";
+import { ValidationErrors } from "@angular/forms";
 
 @Injectable({
     providedIn: "root",
@@ -67,5 +68,12 @@ export class AuthService {
     public decodeUserToken(): UserModel {
         const token = authStore.getState().token;
         return this.jwtHelper.decodeToken(token)
+    }
+
+    public async checkIdNumber(idNumber: string): Promise<any> {
+        const payload = {
+            idNumber: idNumber
+        }
+        return firstValueFrom(this.http.post<any>(environment.authRoute + "check_id", payload))
     }
 }

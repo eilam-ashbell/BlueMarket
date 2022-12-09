@@ -1,7 +1,7 @@
 import hash from "../2-utils/cyber";
 import { v4 as uuid } from "uuid";
 import { IUserModel, UserModel } from "../4-models/user-model";
-import { UnauthorizedError, ValidationError } from "../4-models/client-errors";
+import { ClientError, UnauthorizedError, ValidationError } from "../4-models/client-errors";
 import auth from "../2-utils/auth";
 import { ICredentialModel } from "../4-models/credentials-model";
 import mongoose from "mongoose";
@@ -56,7 +56,14 @@ async function login(credentials: ICredentialModel): Promise<string> {
     return token;
 }
 
+async function checkId(idNumber: string): Promise<boolean> {
+    const user = await UserModel.findOne({identityNum: idNumber});
+    if (!user) return null
+    return true
+}
+
 export default {
     register,
     login,
+    checkId,
 };

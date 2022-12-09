@@ -1,14 +1,18 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import {
     AbstractControl,
     FormArray,
     FormControl,
     FormGroup,
+    ValidationErrors,
     Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
+import { map, Observable, of } from "rxjs";
 import { UserModel } from "src/app/models/user-model";
 import { AuthService } from "src/app/services/auth.service";
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-register",
@@ -16,7 +20,7 @@ import { AuthService } from "src/app/services/auth.service";
     styleUrls: ["./register.component.css"],
 })
 export class RegisterComponent {
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router, private http: HttpClient) {}
 
     // Define start step in the form
     public currentStep = 0;
@@ -26,17 +30,18 @@ export class RegisterComponent {
             identityNum: new FormControl("", [
                 Validators.required,
                 Validators.minLength(6),
-            ]),
-            email: new FormControl("", [
-                Validators.required, 
-                Validators.email]),
+                Validators.maxLength(20),
+            ], [this.idNumberNotExist.bind(this)]),
+            email: new FormControl("", [Validators.required, Validators.email]),
             password: new FormControl("", [
                 Validators.required,
                 Validators.minLength(6),
+                Validators.maxLength(100),
             ]),
             passwordConfirm: new FormControl("", [
                 Validators.required,
                 Validators.minLength(6),
+                Validators.maxLength(100),
                 this.passwordMatchValidator,
             ]),
         }),
@@ -44,28 +49,44 @@ export class RegisterComponent {
             city: new FormControl("", [
                 Validators.required,
                 Validators.minLength(2),
+                Validators.maxLength(100),
             ]),
             street: new FormControl("", [
                 Validators.required,
                 Validators.minLength(2),
+                Validators.maxLength(500),
             ]),
             firstName: new FormControl("", [
                 Validators.required,
                 Validators.minLength(2),
+                Validators.maxLength(50),
             ]),
             lastName: new FormControl("", [
                 Validators.required,
                 Validators.minLength(2),
+                Validators.maxLength(50),
             ]),
         }),
     });
 
-    // Set costume validator for password confirmation
+    // Costume validator for password confirmation
     private passwordMatchValidator(c: AbstractControl) {
         return c.value === c.parent?.get("password").value
             ? null
             : { mismatch: true };
     }
+    // Costume validator for user id number confirmation
+    private async idNumberNotExist(control: AbstractControl){
+        const response = await this.authService.checkIdNumber(control.value)
+        console.log(response);
+        
+        return response ? {'idExist': true } : null
+        
+        // (
+        //   map(isUsernameValid => (isUsernameValid === 'false' ? { usernameIsInvalid: true } : null),
+        // //   catchError(() => of(null))
+        // ))
+      }
 
     // continue to next step in the form
     public next(): void {

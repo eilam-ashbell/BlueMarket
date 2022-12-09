@@ -24,7 +24,7 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
             // Validations:
             required: [true, "Missing first name"],
             minlength: [2, "First name too short"],
-            maxlength: [100, "First name to long"],
+            maxlength: [50, "First name to long"],
             // Options:
             trim: true,
         },
@@ -34,7 +34,7 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
             // Validations:
             required: [true, "Missing last name"],
             minlength: [2, "Last name too short"],
-            maxlength: [100, "Last name to long"],
+            maxlength: [50, "Last name to long"],
             // Options:
             trim: true,
         },
@@ -55,7 +55,7 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
             // Validations:
             required: [true, "Missing identity number"],
             minlength: [2, "Identity number too short"],
-            maxlength: [100, "Identity number to long"],
+            maxlength: [20, "Identity number to long"],
             // Options:
             trim: true,
             unique: true,
@@ -76,7 +76,7 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
             // Validations:
             required: [true, "Missing street"],
             minlength: [2, "Street too short"],
-            maxlength: [100, "Street to long"],
+            maxlength: [500, "Street to long"],
             // Options:
             trim: true,
         },
@@ -85,7 +85,7 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
             type: String, // JavaScript String
             // Validations:
             required: [true, "Missing password"],
-            minlength: [2, "Password too short"],
+            minlength: [6, "Password too short"],
             maxlength: [1000, "Password to long"],
             // Options:
             trim: true,

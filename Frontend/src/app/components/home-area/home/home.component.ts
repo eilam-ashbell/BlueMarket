@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
     public productsCount: number;
     public ordersCount: number;
     public credentials = new CredentialModel();
+    public showRegister: boolean = false;
 
   constructor(private utilsService: UtilsService, private authService: AuthService, private router: Router) { }
 

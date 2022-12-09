@@ -33,4 +33,18 @@ router.post(
     }
 );
 
+router.post(
+    "/check_id/",
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const idNumber = request.body.idNumber;
+            const isExist = await authLogic.checkId(idNumber)
+            response.json(isExist)
+        } catch (err: any) {
+            next(err)
+        }
+
+    }
+)
+
 export default router;
