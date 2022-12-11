@@ -1,0 +1,54 @@
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background-color: var(--neutral-000);
+    border: 1px solid var(--neutral-100);
+    border-radius: 8px;
+}
+form > h2 {
+    margin: 16px 0 28px 0;
+}
+
+form > label {
+    margin-bottom: 4px;
+    padding-left: 4px;
+    font-size: 16px;
+    font-weight: 100;
+}
+
+form > input {
+    margin-bottom: 12px;
+    font-size: 16px;
+    padding: 8px 12px 8px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--neutral-100);
+}
+
+form > button {
+    font-size: 16px;
+    padding: 12px 20px 12px 20px;
+    width: fit-content;
+    margin-top: 20px;
+    margin-left: auto;
+    background-color: var(--primary-500);
+    border: none;
+    border-radius: 4px;
+}
+form > button:hover {
+    cursor: pointer;
+    background-color: var(--primary-600);
+}
+form > button:disabled {
+    cursor:not-allowed;
+    background-color: var(--neutral-400);
+}
+
+form > .hint {
+    color: red;
+    font-size: 12px;
+    font-weight: 100;
+    margin-top: -8px;
+    margin-left: 4px;
+    margin-bottom: 12px;
+}

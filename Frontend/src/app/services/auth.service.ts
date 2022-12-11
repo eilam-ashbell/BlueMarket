@@ -8,12 +8,13 @@ import { AuthAction, AuthActionType, authStore } from "../redux/auth-state";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { JwtModule } from "@auth0/angular-jwt";
 import { ValidationErrors } from "@angular/forms";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: "root",
 })
 export class AuthService {
-    constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
+    constructor(private http: HttpClient, public jwtHelper: JwtHelperService, private router: Router) {}
 
     // Register
     public async register(user: UserModel): Promise<void> {
@@ -55,6 +56,7 @@ export class AuthService {
             type: AuthActionType.Logout,
         };
         authStore.dispatch(action);
+        this.router.navigate(['/'])
     }
 
     // Check if there is any token and it expire 

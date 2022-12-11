@@ -4,7 +4,8 @@
         <div class="input-wrapper">
             <label>City</label>
             <select name="city" formControlName="city">
-                <option class="auto-complete-item" *ngFor="let city of cities">{{city}}</option>
+                <option class="select-item" [defaultSelected]="true" disabled>select a city...</option>
+                <option class="select-item" *ngFor="let city of cities">{{city}}</option>
             </select>
         <span class="hint" *ngIf="city.errors?.['required'] && (city.dirty || city.touched)">
             Required field

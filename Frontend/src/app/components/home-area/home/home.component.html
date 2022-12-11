@@ -1,33 +1,16 @@
 <div class="home-wrapper">
     <div class="login-wrapper">
         <ng-container *ngIf="!showRegister">
-        <form (ngSubmit)="login()" #loginForm="ngForm" >
-            <h2>login</h2>
-            <label for="emailInput">email</label>
-            <input type="email" id="emailInput" name="email" [(ngModel)]="credentials.email" #emailModel="ngModel"
-                required />
-            <!-- todo - add validations -->
-            <span class="hint" *ngIf="emailModel.errors?.['required'] && emailModel.touched">
-                Missing email
-            </span>
-            <label for="passwordInput">password</label>
-            <input type="password" id="passwordInput" name="password" [(ngModel)]="credentials.password"
-                #passwordModel="ngModel" required />
-            <!-- todo - add validations -->
-            <span class="hint" *ngIf="passwordModel.errors?.['required'] && passwordModel.touched">
-                Missing password
-            </span>
-            <button [disabled]="loginForm.invalid">login</button>
-        </form>
-        <div class="action-switch-wrapper">
-            <p>
-                first time on our shop?
-            </p>
-            <button (click)="showRegister = true">
-                register now
-            </button>
-        </div>
-    </ng-container>
+            <app-login></app-login>
+            <div class="action-switch-wrapper">
+                <p>
+                    first time on our shop?
+                </p>
+                <button (click)="showRegister = true">
+                    register now
+                </button>
+            </div>
+        </ng-container>
         <ng-container *ngIf="showRegister">
             <app-register></app-register>
             <div class="action-switch-wrapper">

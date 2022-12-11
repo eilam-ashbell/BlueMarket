@@ -12,11 +12,20 @@
         </svg>
         <span>MarketMan</span>
     </div>
-    <div>
+    <div class="actions-wrapper">
         <!-- todo - modify button if logged in -->
-        <button class="register">register</button>
-        <button mat-icon-button>
-            <mat-icon>shopping_cart</mat-icon>
-        </button>
+        <div class="auth-wrapper">
+            <div class="auth-user" *ngIf="userData">
+                <span>{{userData.firstName}} {{userData.lastName}}</span>
+                <button class="register" (click)="this.logout()">log out</button>
+                <button mat-icon-button>
+                    <mat-icon>shopping_cart</mat-icon>
+                </button>
+            </div>
+            <div class="auth-guest" *ngIf="!userData">
+                <button class="register">sign in</button>
+                <button class="register">register</button>
+            </div>
+        </div>
     </div>
 </div>
