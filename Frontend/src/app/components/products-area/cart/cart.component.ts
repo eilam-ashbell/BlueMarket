@@ -7,6 +7,7 @@ import { environment } from "src/environments/environment";
 import { authStore } from "src/app/redux/auth-state";
 import { cartStore } from "src/app/redux/cart-state";
 import { UserModel } from "src/app/models/user-model";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-cart",
@@ -18,7 +19,7 @@ export class CartComponent implements OnInit {
     public cart: CartModel = cartStore.getState().cart;
     public user: UserModel = authStore.getState().user;
 
-    constructor(private cartService: CartService) {}
+    constructor(private cartService: CartService, private router: Router) {}
 
     async ngOnInit(): Promise<void> {
         // Get current cart
@@ -39,6 +40,10 @@ export class CartComponent implements OnInit {
 
     public clearCart(): void {
         this.cartService.clearCart()
+    }
+
+    public order(): void {
+        this.router.navigate(['order', this.cart._id])
     }
 
 }

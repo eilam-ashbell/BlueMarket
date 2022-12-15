@@ -8,6 +8,7 @@ export const environment = {
     authRoute: "http://localhost:3001/api/auth/",
     productsRoute: "http://localhost:3001/api/products/",
     cartsRoute: "http://localhost:3001/api/carts/",
+    ordersRoute: "http://localhost:3001/api/orders/",
     staticsRoute: "http://localhost:3001/static/images/",
 };
 

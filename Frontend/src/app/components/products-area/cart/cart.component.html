@@ -6,5 +6,5 @@
     <div class="products-wrapper" >
             <app-product-cart-card  *ngFor="let p of cart?.cartProducts" [cartProduct]="p"></app-product-cart-card>
     </div>
-    <button class="place-order">place order {{calcTotalCartPrice() | currency}}</button>
+    <button class="place-order" (click)="order()">place order {{calcTotalCartPrice() | currency}}</button>
 </div>

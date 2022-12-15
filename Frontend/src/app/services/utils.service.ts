@@ -24,4 +24,11 @@ export class UtilsService {
         );
         return ordersCount;
     }
+
+    public async getBusyDates(): Promise<string[]> {
+        const busyDates = await firstValueFrom(
+            this.http.get<string[]>(environment.ordersRoute + "delivery/busy")
+        );
+        return busyDates;
+    }
 }

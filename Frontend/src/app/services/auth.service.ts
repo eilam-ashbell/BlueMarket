@@ -67,7 +67,7 @@ export class AuthService {
     }
 
     // Decode user token
-    public decodeUserToken(): UserModel {
+    public decodeUserToken(): any {
         const token = authStore.getState().token;
         return this.jwtHelper.decodeToken(token)
     }

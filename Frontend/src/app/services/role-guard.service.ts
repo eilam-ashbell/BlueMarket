@@ -23,7 +23,9 @@ export class RoleGuardService implements CanActivate {
 
         // return false if token is expired
         if (!this.authService.isAuthenticated()) {
+            // todo - notify
             console.log("token is expired");
+            this.router.navigate(["/"])
             return false;
         }
 

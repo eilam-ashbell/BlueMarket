@@ -20,13 +20,14 @@ export class CartService {
         if (!userCartId) {
             // todo - notify
             console.log("no cartId");
-        }
+        }        
         const currentCart = await firstValueFrom(
             this.http.post<CartModel>(environment.cartsRoute + "current", {
                 userCartId: userCartId,
             })
         );
-
+            console.log(currentCart);
+            
         // Place current cart in global state
         const action = {
             type: CartActionType.FetchCart,

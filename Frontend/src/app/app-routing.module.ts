@@ -5,6 +5,7 @@ import { LogoutComponent } from "./components/auth-area/logout/logout.component"
 import { RegisterComponent } from "./components/auth-area/register/register.component";
 import { HomeComponent } from "./components/home-area/home/home.component";
 import { PageNotFoundComponent } from "./components/layout-area/page-not-found/page-not-found.component";
+import { OrderPageComponent } from "./components/order-area/order-page/order-page.component";
 import { ProductsListComponent } from "./components/products-area/products-list/products-list.component";
 import { RoleGuardService } from "./services/role-guard.service";
 
@@ -13,6 +14,7 @@ const routes: Routes = [
     { path: "login", component: LoginComponent },
     { path: "register", component: RegisterComponent },
     { path: "logout", component: LogoutComponent },
+    { path: "order/:cartId", component: OrderPageComponent },
     // Main route
     { path: "", redirectTo: "/home", pathMatch: "full" },
     {
