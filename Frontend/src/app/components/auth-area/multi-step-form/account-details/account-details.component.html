@@ -1,6 +1,7 @@
 <ng-container [formGroup]="accountDetails">
     <div class="form-step">
         <h3>Account details</h3>
+
         <div class="input-wrapper">
             <label>ID number</label>
             <input type="text" name="identityNum" autocomplete="" formControlName="identityNum">
@@ -17,6 +18,7 @@
                 This ID number already been used to register our store
             </span>
         </div>
+        
         <div class="input-wrapper">
             <label>Email</label>
             <input type="email" name="email" autocomplete="email" formControlName="email">

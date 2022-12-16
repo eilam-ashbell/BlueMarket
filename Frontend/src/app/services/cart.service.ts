@@ -7,6 +7,7 @@ import { CartModel } from "../models/cart.model";
 import { authStore } from "../redux/auth-state";
 import { Socket, io } from "socket.io-client";
 import { CartActionType, cartStore } from "../redux/cart-state";
+import { OrderModel } from "../models/order.model";
 
 @Injectable({
     providedIn: "root",
@@ -25,9 +26,7 @@ export class CartService {
             this.http.post<CartModel>(environment.cartsRoute + "current", {
                 userCartId: userCartId,
             })
-        );
-            console.log(currentCart);
-            
+        );            
         // Place current cart in global state
         const action = {
             type: CartActionType.FetchCart,
@@ -99,5 +98,12 @@ export class CartService {
             payload: updatedCart.cartProducts,
         };
         cartStore.dispatch(action);
+    }
+
+    // Place order
+    public async placeOrder(order: OrderModel) {
+        const cartId = order.cartId
+        const placedOrder = firstValueFrom(this.http.post<OrderModel>(environment.cartsRoute + 'place-order/' + cartId, order))
+        return placedOrder
     }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { firstValueFrom } from "rxjs";
 import { environment } from "src/environments/environment";
+import { OrderModel } from "../models/order.model";
 
 @Injectable({
     providedIn: "root",
@@ -25,10 +26,11 @@ export class UtilsService {
         return ordersCount;
     }
 
-    public async getBusyDates(): Promise<string[]> {
+    // Get all dates that have 3 deliveries and more
+    public async getBusyDates(): Promise<OrderModel[]> {
         const busyDates = await firstValueFrom(
-            this.http.get<string[]>(environment.ordersRoute + "delivery/busy")
-        );
+            this.http.get<OrderModel[]>(environment.ordersRoute + "delivery/busy")
+        );        
         return busyDates;
     }
 }

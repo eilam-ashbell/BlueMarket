@@ -10,6 +10,16 @@ import { CartService } from "src/app/services/cart.service";
 import { ProductsService } from "src/app/services/products.service";
 import { UtilsService } from "src/app/services/utils.service";
 import { environment } from "src/environments/environment";
+import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
+import {
+    AbstractControl,
+    FormControl,
+    FormGroup,
+    ValidatorFn,
+    Validators,
+} from "@angular/forms";
+import * as luhn from "luhn";
+
 const MarkJs = require("mark.js");
 declare const require: any;
 
@@ -23,8 +33,30 @@ export class OrderPageComponent implements OnInit {
     public cart: CartModel;
     public cartProduct: CartProductModel;
     public userData: UserModel;
-    public shipping = new OrderModel();
-    public busyDates: string[];
+    public order = new OrderModel();
+    public minDate: Date;
+    public busyDates: OrderModel[];
+
+    public form = new FormGroup({
+        city: new FormControl("", [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(100),
+        ]),
+        street: new FormControl("", [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(100),
+        ]),
+        dateOfDelivery: new FormControl("", [Validators.required]),
+        ccNumber: new FormControl("", [
+            Validators.required,
+            Validators.pattern("^[0-9]*$"),
+            Validators.minLength(12),
+            Validators.maxLength(20),
+            this.luhnValidator,
+        ]),
+    });
 
     constructor(
         private productsService: ProductsService,
@@ -34,16 +66,18 @@ export class OrderPageComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         this.cart = await this.cartService.getCurrentCart();
-        this.shipping.cartId = this.cart._id;
+        this.order.cartId = this.cart._id;
         this.userData = authStore.getState().user;
         this.busyDates = await this.utilsService.getBusyDates();
+        this.minDate = new Date();
+        // this.busyDates = await this.utilsService.getBusyDates();
     }
 
     public calcTotalCartPrice() {
         if (this.cart?.cartProducts.length == 0) return 0;
         const prices = this.cart?.cartProducts.map((p) => p.totalPrice);
-        this.shipping.totalPrice = prices?.reduce((a, b) => a + b);
-        return this.shipping.totalPrice;
+        this.order.totalPrice = prices?.reduce((a, b) => a + b);
+        return this.order.totalPrice;
     }
 
     // Highlight term on selected text elements
@@ -65,21 +99,58 @@ export class OrderPageComponent implements OnInit {
     public setInputValue(event: any) {
         switch (event.target.name) {
             case "city":
-                this.shipping.city = event.target.placeholder;
+                this.form.controls.city.setValue(event.target.placeholder);
                 break;
             case "street":
-                this.shipping.street = event.target.placeholder;
+                this.form.controls.street.setValue(event.target.placeholder);
                 break;
         }
     }
 
-    myHolidayFilter = (d: Date): boolean => {
-        const dates = this.busyDates.map(d => new Date(d))
-        const time = d.getTime();
-        return !dates.find(x => x.getTime() == time);
+    filterBusyDates = (d: Date): boolean => {
+        const time = d?.getTime();
+        const filterDates = this.busyDates?.map((d) =>
+            new Date(d._id).setHours(0)
+        );
+        if (d?.getDay() === 6) return false;
+        return !filterDates?.find((x) => x == time);
+    };
+
+    //   todo - costume validator for date typing
+    //   todo - delete if not working
+    dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
+        // Only highligh dates inside the month view.
+        if (view === "month") {
+            const date = cellDate?.getDate();
+            // Highlight the 1st and 20th day of each month.
+            return date === 1 || date === 20 ? "custom-date-class" : "";
+        }
+
+        return "";
+    };
+
+    // Costume validator for credit card number
+    private luhnValidator(c: AbstractControl) {
+        const isValid = luhn.validate(c.value);
+        return isValid ? null : { luhnCheck: true };
     }
 
-    public placeOrder() {
-        console.log(this.shipping);
+    public async submit() {
+        // check if all form values are valid
+        if (!this.form.valid) {
+            this.form.markAllAsTouched();
+            return;
+        }
+        // Assign data to order model
+        this.order.city = this.form.controls.city.value;
+        this.order.street = this.form.controls.street.value;
+        this.order.dateOfDelivery = new Date(
+            this.form.controls.dateOfDelivery.value
+        );
+        this.order.creditCard = this.form.controls.ccNumber.value;
+        // Send order to server
+        const placedOrder = await this.cartService.placeOrder(this.order);
+        // todo - add notify and redirect
+        console.log(placedOrder);
     }
 }

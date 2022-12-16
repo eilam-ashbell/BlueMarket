@@ -81,11 +81,6 @@ export class RegisterComponent {
         console.log(response);
         
         return response ? {'idExist': true } : null
-        
-        // (
-        //   map(isUsernameValid => (isUsernameValid === 'false' ? { usernameIsInvalid: true } : null),
-        // //   catchError(() => of(null))
-        // ))
       }
 
     // continue to next step in the form
@@ -101,6 +96,7 @@ export class RegisterComponent {
         // check if all form values are valid
         if (!this.form.valid) {
             this.form.markAllAsTouched();
+            return
         }
         // build user model for submit
         const user = new UserModel(

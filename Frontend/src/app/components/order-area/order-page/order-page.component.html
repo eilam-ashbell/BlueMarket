@@ -8,59 +8,85 @@
         <h4>Total price {{calcTotalCartPrice() | currency}}</h4>
     </div>
     <div class="ordering-wrapper">
-        <form (ngSubmit)="placeOrder()" #placeOrderForm="ngForm">
-            <div class="input-wrapper">  
+        <form [formGroup]="form">
+
+            <div class="input-wrapper">
                 <label>City</label>
-                <input type="text" name="city" (dblclick)="setInputValue($event)" #cityModel="ngModel" [(ngModel)]="shipping.city" placeholder={{userData?.city}} required="true" minlength="2" maxlength="100">
-                <span class="hint" *ngIf="cityModel.errors?.['required'] && (cityModel.dirty || cityModel.touched)">
+                <input type="text" name="city" autocomplete="" formControlName="city" (dblclick)="setInputValue($event)"
+                    placeholder={{userData?.city}}>
+                <span class="hint"
+                    *ngIf="form.controls.city.errors?.['required'] && (form.controls.city.dirty || form.controls.city.touched)">
                     Required field
                 </span>
-                <span class="hint" *ngIf="cityModel.errors?.['minlength'] && (cityModel.dirty || cityModel.touched)">
+                <span class="hint"
+                    *ngIf="form.controls.city.errors?.['minlength'] && (form.controls.city.dirty || form.controls.city.touched)">
                     Must contain at least 2 characters
                 </span>
-                <span class="hint" *ngIf="cityModel.errors?.['maxlength'] && (cityModel.dirty || cityModel.touched)">
+                <span class="hint"
+                    *ngIf="form.controls.city.errors?.['maxlength'] && (form.controls.city.dirty || form.controls.city.touched)">
                     Maximum 100 characters
                 </span>
             </div>
+
             <div class="input-wrapper">
                 <label>Street</label>
-                <input type="text" name="street" (dblclick)="setInputValue($event)" autocomplete="street-address" #streetModel="ngModel" [(ngModel)]="shipping.street" placeholder={{userData?.street}} required="true" minlength="2" maxlength="100">
-                <span class="hint" *ngIf="streetModel.errors?.['required'] && (streetModel.dirty || streetModel.touched)">
+                <input type="text" name="street" autocomplete="street-address" formControlName="street"
+                    (dblclick)="setInputValue($event)" placeholder={{userData?.street}}>
+                <span class="hint"
+                    *ngIf="form.controls.street.errors?.['required'] && (form.controls.street.dirty || form.controls.street.touched)">
                     Required field
                 </span>
-                <span class="hint" *ngIf="streetModel.errors?.['minlength'] && (streetModel.dirty || streetModel.touched)">
+                <span class="hint"
+                    *ngIf="form.controls.street.errors?.['minlength'] && (form.controls.street.dirty || form.controls.street.touched)">
                     Must contain at least 2 characters
                 </span>
-                <span class="hint" *ngIf="streetModel.errors?.['maxlength'] && (streetModel.dirty || streetModel.touched)">
-                    Maximum 500 characters
+                <span class="hint"
+                    *ngIf="form.controls.street.errors?.['maxlength'] && (form.controls.street.dirty || form.controls.street.touched)">
+                    Maximum 100 characters
                 </span>
             </div>
+
             <div class="input-wrapper">
-                <!-- <label>Date for delivery</label>
-                <input type="date" name="deliveryDate" #deliveryDateModel="ngModel" [(ngModel)]="shipping.dateOfDelivery" required="true">
-                <span class="hint" *ngIf="deliveryDateModel.errors?.['required'] && (deliveryDateModel.dirty || deliveryDateModel.touched)">
+                <label>Date for delivery</label>
+                <input matInput name="dateOfDelivery" [matDatepickerFilter]="filterBusyDates" [matDatepicker]="picker"
+                    [min]="minDate" 
+                    (click)="picker.open()" 
+                    placeholder="mm/dd/yyyy"
+                    formControlName="dateOfDelivery">
+                <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
+                <span class="hint"
+                    *ngIf="form.controls.dateOfDelivery.errors?.['required'] && (form.controls.dateOfDelivery.dirty || form.controls.dateOfDelivery.touched)">
                     Required field
-                </span> -->
+                </span>
                 <!-- todo - add costume validation -->
-                <app-datepicker></app-datepicker>
             </div>
+
             <div class="input-wrapper">
                 <label>CC number</label>
-                <input type="text" name="creditCard" #creditCardModel="ngModel" [(ngModel)]="shipping.creditCard" required="true" minlength="4" maxlength="20">
-                <!-- todo - add regex validation -->
-                <!-- todo - add credit card field -->
-                <span class="hint" *ngIf="creditCardModel.errors?.['required'] && (creditCardModel.dirty || creditCardModel.touched)">
+                <input type="text" name="ccNumber" autocomplete="cc-number" formControlName="ccNumber"
+                    placeholder="XXXX-XXXX-XXXX-XXXX" inputmode="numeric">
+                <span class="hint"
+                    *ngIf="form.controls.ccNumber.errors?.['required'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched)">
                     Required field
                 </span>
-                <span class="hint" *ngIf="creditCardModel.errors?.['minlength'] && (creditCardModel.dirty || creditCardModel.touched)">
-                    Must contain at least 4 digits
+                <span class="hint"
+                    *ngIf="form.controls.ccNumber.errors?.['minlength'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched)">
+                    Must contain at least 12 characters
                 </span>
-                <span class="hint" *ngIf="creditCardModel.errors?.['maxlength'] && (creditCardModel.dirty || creditCardModel.touched)">
-                    Maximum 20 digits
+                <span class="hint"
+                    *ngIf="form.controls.ccNumber.errors?.['maxlength'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched)">
+                    Maximum 20 characters
+                </span>
+                <span class="hint"
+                    *ngIf="form.controls.ccNumber.errors?.['luhnCheck'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched) && (!form.controls.ccNumber.errors?.['minlength']) ">
+                    Card number is invalid
+                </span>
+                <span class="hint"
+                    *ngIf="form.controls.ccNumber.errors?.['pattern'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched)">
+                    Numbers only
                 </span>
             </div>
-            
-                <button>Place order</button>
+            <button (click)="submit()">Place order</button>
         </form>
     </div>
 </div>

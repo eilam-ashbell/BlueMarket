@@ -17,18 +17,18 @@ import { PageNotFoundComponent } from "./components/layout-area/page-not-found/p
 import { JwtModule } from "@auth0/angular-jwt";
 import { environment } from "src/environments/environment";
 import { CartComponent } from "./components/products-area/cart/cart.component";
-// import { MatButtonModule } from "@angular/material/button";
-// import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 import { ProductCartCardComponent } from "./components/products-area/product-cart-card/product-cart-card.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AccountDetailsComponent } from "./components/auth-area/multi-step-form/account-details/account-details.component";
 import { PersonalDetailsComponent } from "./components/auth-area/multi-step-form/personal-details/personal-details.component";
 import { OrderPageComponent } from "./components/order-area/order-page/order-page.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-// import { MatDatepickerModule } from "@angular/material/datepicker";
-// import { MatNativeDateModule } from "@angular/material/core";
-// import { MatFormFieldModule } from "@angular/material/form-field";
-// import { MatInputModule } from "@angular/material/input";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { DatepickerComponent } from './components/order-area/datepicker/datepicker.component';
 
 export function tokenGetter() {
@@ -68,13 +68,12 @@ export function tokenGetter() {
             },
         }),
         ReactiveFormsModule,
-        // MatButtonModule,
-        // MatIconModule,
+        MatButtonModule,
+        MatIconModule,
         BrowserAnimationsModule,
-        // MatDatepickerModule,
-        // MatNativeDateModule,
-        // MatFormFieldModule,
-        // MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
     ],
     providers: [],
     bootstrap: [LayoutComponent],

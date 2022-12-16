@@ -67,6 +67,7 @@ export class AuthService {
     }
 
     // Decode user token
+    // todo - handle type error
     public decodeUserToken(): any {
         const token = authStore.getState().token;
         return this.jwtHelper.decodeToken(token)
