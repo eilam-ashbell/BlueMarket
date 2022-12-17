@@ -29,6 +29,7 @@ export class UtilsService {
     }
 
     // Get all dates that have 3 deliveries and more
+    // todo - handle local time changes
     public async getBusyDates(): Promise<OrderModel[]> {
         const busyDates = await firstValueFrom(
             this.http.get<OrderModel[]>(environment.ordersRoute + "delivery/busy")

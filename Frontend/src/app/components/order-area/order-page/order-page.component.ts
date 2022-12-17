@@ -2,26 +2,20 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { CartProductModel } from "src/app/models/cart-product.model";
 import { CartModel } from "src/app/models/cart.model";
 import { OrderModel } from "src/app/models/order.model";
-import { ProductModel } from "src/app/models/product.model";
 import { UserModel } from "src/app/models/user-model";
 import { authStore } from "src/app/redux/auth-state";
-import { AuthService } from "src/app/services/auth.service";
 import { CartService } from "src/app/services/cart.service";
 import { ProductsService } from "src/app/services/products.service";
 import { UtilsService } from "src/app/services/utils.service";
-import { environment } from "src/environments/environment";
 import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
 import {
     AbstractControl,
     FormControl,
     FormGroup,
-    ValidatorFn,
     Validators,
 } from "@angular/forms";
 import * as luhn from "luhn";
-
 const MarkJs = require("mark.js");
-declare const require: any;
 
 @Component({
     selector: "app-order-page",
@@ -39,6 +33,7 @@ export class OrderPageComponent implements OnInit {
     public order = new OrderModel();
     public minDate: Date;
     public busyDates: OrderModel[];
+    public showModal: boolean = false;
 
     public form = new FormGroup({
         city: new FormControl("", [
@@ -70,10 +65,10 @@ export class OrderPageComponent implements OnInit {
     async ngOnInit(): Promise<void> {
         this.cart = await this.cartService.getCurrentCart();
         this.order.cartId = this.cart._id;
+        this.order.totalPrice = 0;
         this.userData = authStore.getState().user;
         this.busyDates = await this.utilsService.getBusyDates();
         this.minDate = new Date();
-        // this.busyDates = await this.utilsService.getBusyDates();
     }
 
     public calcTotalCartPrice() {
@@ -155,6 +150,8 @@ export class OrderPageComponent implements OnInit {
         const placedOrder = await this.cartService.placeOrder(this.order);
         // todo - add notify and redirect
         console.log(placedOrder);
+
+        this.showModal = true
     }
 
     public createPDF(){

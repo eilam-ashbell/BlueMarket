@@ -1,7 +1,11 @@
 {
     "cSpell.words": [
         "fileupload",
+        "luhn",
         "maxlength",
         "virtuals"
+    ],
+    "cSpell.ignoreWords": [
+        "unmark"
     ]
 }

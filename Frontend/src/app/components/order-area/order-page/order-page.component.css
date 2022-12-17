@@ -45,3 +45,21 @@ input, select {
     margin-top: -8px;
     margin-bottom: 16px;
 }
+
+.order-modal {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    z-index: 999999999;
+    width: 100vw;
+    height: 100vh;
+    top: -72px;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+}
+.modal-message-wrapper {
+    width: 500px;
+    height: 200px;
+    background-color: white;
+}
