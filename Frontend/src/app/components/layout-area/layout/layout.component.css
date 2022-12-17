@@ -1,17 +1,22 @@
 div {
     height: 100%;
-    width: 100%;
-    overflow-y: hidden;
-}
-main {
-    position: relative;
-    height: calc(100% - 72px);
+    display: grid;
+    grid-template-rows: 80px auto 30px;
+    overflow: hidden;
 }
 
-.container {
-    width: 100%;
-    max-width: 1400px;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 40px;
+/* app-header, footer {
+    z-index: 999;
+} */
+
+/* main {
+    overflow: auto;
+} */
+
+footer {
+    font-size: 12px;
+    padding: 8px;
+    text-align: center;
+    background-color: var(--grey-background-color);
+    border-top: 1px solid var(--layout-border-color);
 }

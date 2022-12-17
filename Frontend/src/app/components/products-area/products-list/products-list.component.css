@@ -1,45 +1,59 @@
-.categories-wrapper > button {
-    background-color: transparent;
-    padding: 8px 16px;
-    font-size: 16px;
-    border: none;
-    color: var(--primary-600);
-}
-/* .categories-wrapper > button:first-of-type {
-    border-left: 1px solid var(--primary-500);
-    border-radius: 8px 0px 0px 8px;
-} */
-.categories-wrapper > button:last-of-type {
-    border-radius: 0px 8px 8px 0px;
-}
-.categories-wrapper > button.active {
-    background-color: var(--primary-100);
-    border-radius: 20px
-}
-.categories-wrapper > button:hover {
-    background-color: var(--primary-500);
-    color: white;
-    cursor: pointer;
-    border-radius: 20px
-}
-.categories-wrapper > button.active:hover {
-    background-color: var(--primary-500);
-    color: white;
-    cursor: pointer;
-    border-radius: 20px
+.products-page {
+    height: 100%;
+    display: grid;
+    grid-template: "left main right" / 1fr 6.5fr 1.5fr;
+    position: relative;
 }
 
+/* Left column */
+.categories-wrapper {
+    grid-area: left;
+    display: flex;
+    flex-direction: column;
+    min-width: 240px;
+    border-right: 1px solid var(--layout-border-color);
+    padding-top: 16px;
+}
+.categories-wrapper > button {
+    background-color: transparent;
+    padding: 16px 24px;
+    font-size: 16px;
+    border: none;
+    border-right: 1px solid var(--layout-border-color);
+    text-align: start;
+    cursor: pointer;
+
+}
+.categories-wrapper > button.active {
+    background-color: var(--primary-selected-color);
+}
+.categories-wrapper > button:hover {
+    background-color: var(--primary-background-hover-color);
+}
+.categories-wrapper > button.active:hover {
+    background-color: var(--primary-selected-hover-color);
+}
+
+/* Main column */
 .products-wrapper {
-    height: 100%;
+    grid-area: main;
+    overflow: scroll;
+    padding: 24px;
 }
 .list-wrapper {
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-    overflow: scroll;
+    /* width: 100%; */
+    /* height: 100%; */
+    /* overflow: scroll; */
+}
+
+aside {
+    grid-area: right;
+    max-width: 350px;
+    min-width: 300px;
 }
 
 app-product-card {

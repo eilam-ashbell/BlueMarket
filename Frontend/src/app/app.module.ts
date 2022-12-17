@@ -3,8 +3,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { LayoutComponent } from "./components/layout-area/layout/layout.component";
 import { HeaderComponent } from "./components/layout-area/header/header.component";
-import { MenuComponent } from "./components/layout-area/menu/menu.component";
-import { HomeComponent } from "./components/home-area/home/home.component";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { ProductCardComponent } from "./components/products-area/product-card/product-card.component";
@@ -30,6 +28,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { DatepickerComponent } from './components/order-area/datepicker/datepicker.component';
+import { LandingComponent } from "./components/home-area/landing/landing.component";
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -39,8 +38,7 @@ export function tokenGetter() {
     declarations: [
         LayoutComponent,
         HeaderComponent,
-        MenuComponent,
-        HomeComponent,
+        LandingComponent,
         ProductCardComponent,
         ProductsListComponent,
         LoginComponent,

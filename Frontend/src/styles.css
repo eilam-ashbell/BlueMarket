@@ -2,14 +2,14 @@
     box-sizing: border-box;
 }
 
-html, body {
-    background-image: linear-gradient(var(--neutral-000), white);
+html,
+body {
     font-size: 18px;
-    height: 100%;
     overflow: scroll;
     padding: 0;
     margin: 0;
-
+    height: 100%;
+    color: var(--primary-text-color);
     /* ---------- COLORS ---------- */
 
     /* Neutral colors */
@@ -34,9 +34,72 @@ html, body {
     --primary-700: #3e8fca;
     --primary-800: #2b71a3;
     --primary-900: #1a4260;
+
+    --primary-color: #0073ea;
+    --primary-hover-color: #0060b9;
+    --primary-selected-color: #cce5ff;
+    --primary-selected-hover-color: #afd3fd;
+
+    --basic-blue: #0085ff;
+    --primary: #0085ff;
+    --primary-hover: #0071d9;
+    --link-color: #1f76c2;
+    --gainsboro: #e1e1e1;
+    --snow-white: #fff;
+    --dark-blue: #0071d9;
+    --success: #00ca72;
+    --purple: #a358df;
+    --error: #e44258;
+    --private: #f65f7c;
+    --share: #a358df;
+    --surface: #292f4c;
+    --wolf-gray: #c5c7d0;
+    --mud-black: #323338;
+    --dark: #323338;
+    --riverstone-gray: #f5f6f8;
+    --ui-grey: #e6e9ef;
+    --asphalt: #676879;
+    --higlight: #dff0ff;
+    --primary-color: var(--basic-blue);
+    --primary-text-on-primary: var(--snow-white);
+    --primary-hover-color: var(--dark-blue);
+    --primary-selected-color: var(--higlight);
+    --positive-color: var(--success);
+    --negative-color: var(--error);
+    --negative-color-hover: #b63546;
+    --negative-color-selected: #b63546;
+    --private-color: var(--private);
+    --positive-color-hover: #00a25b;
+    --primary-color-selected: #00a25b;
+    --shareable-color: var(--purple);
+    --ui-border-color: var(--ui-grey);
+    --layout-border-color: var(--ui-grey);
+    --placeholder-color: var(--asphalt);
+    --icon-color: var(--asphalt);
+    --disabled-background-color: var(--ui-grey);
+    --disabled-text-color: var(--asphalt);
+    --link-color: var(--link-color);
+    --primary-text-color: var(--mud-black);
+    --icon-color-hover: var(--wolf-gray);
+    --main-nav-background-color: var(--surface);
+    --primary-background-color: var(--snow-white);
+    --secondary-background-color: var(--snow-white);
+    --primary-background-hover-color: var(--wolf-gray);
+    --dark-color: var(--mud-black);
+    --dark-background-color: var(--riverstone-gray);
+    --secondary-text-color: var(--mud-black);
+    --text-color-on-primary: var(--snow-white);
+    --inverted-color-background: var(--mud-black);
+    --text-color-on-inverted: var(--snow-white);
+    --dark-background-on-secondary-color: var(--riverstone-gray);
+    --dialog-background-color: var(--snow-white);
+    --modal-background-color: var(--snow-white);
+    --box-shadow-xs: 0 4px 6px -4px rgb(0 0 0 / 10%);
+    --box-shadow-small: 0 4px 8px rgb(0 0 0 / 20%);
+    --box-shadow-medium: 0 6px 20px rgb(0 0 0 / 20%);
+    --box-shadow-large: 0 15px 50px rgb(0 0 0 / 30%);
 }
 
 a {
     color: blue;
 }
-

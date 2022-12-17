@@ -1,10 +1,8 @@
 import {
     Component,
     DoCheck,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
 } from "@angular/core";
+import { Route, Router } from "@angular/router";
 import { UserModel } from "src/app/models/user-model";
 import { authStore } from "src/app/redux/auth-state";
 import { AuthService } from "src/app/services/auth.service";
@@ -17,7 +15,7 @@ import { AuthService } from "src/app/services/auth.service";
 export class HeaderComponent implements DoCheck {
     public userData: UserModel = authStore.getState().user;
 
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService, private router: Router) {}
 
     ngDoCheck(): void {
         authStore.getState().token ?
@@ -26,7 +24,7 @@ export class HeaderComponent implements DoCheck {
     }
 
     public async logout(): Promise<void> {
-        console.log("logout");
         await this.authService.logout();
+        this.router.navigate(['guest'])        
     }
 }

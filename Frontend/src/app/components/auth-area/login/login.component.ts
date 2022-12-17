@@ -17,7 +17,7 @@ export class LoginComponent {
     public async login(): Promise<void> {
         try {
             await this.authService.login(this.credentials);
-            this.router.navigateByUrl("/products");
+            this.router.navigateByUrl("/home");
             // todo - toaster
             console.log("logged in");
         } catch (err: any) {

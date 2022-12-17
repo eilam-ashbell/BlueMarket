@@ -18,6 +18,7 @@ export class RoleGuardService implements CanActivate {
         // return false if there is no token
         if (!user) {
             console.log("you are not logged in");
+            this.router.navigate(['guest']);
             return false;
         }
 
@@ -25,14 +26,14 @@ export class RoleGuardService implements CanActivate {
         if (!this.authService.isAuthenticated()) {
             // todo - notify
             console.log("token is expired");
-            this.router.navigate(["/"])
+            this.router.navigate(["guest"])
             return false;
         }
 
         // Return false if user role is not authorized
         if (user.role.role !== role) {
             console.log("you are not authorized");
-            //   this.router.navigate(['login']);
+              this.router.navigate(['guest']);
             return false;
         }
         return true;

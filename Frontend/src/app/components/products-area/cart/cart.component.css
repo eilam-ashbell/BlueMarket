@@ -1,11 +1,12 @@
 .cart-panel {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 0px;
-    right: 0;
-    height: calc(100% );
-    width: 300px;
+    /* position: absolute; */
+    /* top: 0px; */
+    /* right: 0; */
+    /* height: calc(100% ); */
+    /* width: 300px; */
+    height: 100%;
     background-color: var(--neutral-100);
     border: 1px solid var(--neutral-200);
 }

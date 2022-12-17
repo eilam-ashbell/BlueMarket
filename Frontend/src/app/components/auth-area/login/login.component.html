@@ -1,7 +1,7 @@
 <form (ngSubmit)="login()" #loginForm="ngForm" >
     <h2>login</h2>
     <label for="emailInput">email</label>
-    <input type="email" id="emailInput" name="email" [(ngModel)]="credentials.email" #emailModel="ngModel"
+    <input type="email" id="emailInput" name="email" [(ngModel)]="credentials.email" #emailModel="ngModel" autocomplete="email"
         required email="true"/>
     <!-- todo - add costume validation with server -->
     <span class="hint" *ngIf="emailModel.errors?.['required'] && emailModel.touched">
@@ -11,7 +11,7 @@
         Not a valid email address
     </span>
     <label for="passwordInput">password</label>
-    <input type="password" id="passwordInput" name="password" [(ngModel)]="credentials.password"
+    <input type="password" id="passwordInput" name="password" [(ngModel)]="credentials.password" autocomplete="current-password"
         #passwordModel="ngModel" required minlength="6" maxlength="100"/>
     <!-- todo - add validations -->
     <span class="hint" *ngIf="passwordModel.errors?.['required'] && passwordModel.touched">

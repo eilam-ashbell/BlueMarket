@@ -1,9 +1,6 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { firstValueFrom } from "rxjs";
 import { CartModel } from "src/app/models/cart.model";
 import { CartService } from "src/app/services/cart.service";
-import { environment } from "src/environments/environment";
 import { authStore } from "src/app/redux/auth-state";
 import { cartStore } from "src/app/redux/cart-state";
 import { UserModel } from "src/app/models/user-model";
