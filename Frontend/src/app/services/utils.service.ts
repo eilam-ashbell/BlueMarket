@@ -3,7 +3,9 @@ import { Injectable } from "@angular/core";
 import { firstValueFrom } from "rxjs";
 import { environment } from "src/environments/environment";
 import { OrderModel } from "../models/order.model";
-
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+import { v4 as uuid } from 'uuid';
 @Injectable({
     providedIn: "root",
 })
@@ -33,4 +35,18 @@ export class UtilsService {
         );        
         return busyDates;
     }
+
+    exportCartToPDF(elements: HTMLElement) {
+        const doc = new jsPDF({
+          unit: 'px',
+          format: [595, 842]
+        });
+        doc.html(elements, {
+          callback: (doc: jsPDF) => {
+            doc.output('dataurlnewwindow');
+            const fileName = uuid() + '.pdf'
+            // doc.save(fileName)
+          }
+        });
+      }
 }

@@ -21,8 +21,10 @@
     "@angular/platform-browser-dynamic": "^15.0.4",
     "@angular/router": "^15.0.4",
     "@auth0/angular-jwt": "^5.1.1",
+    "@types/uuid": "^9.0.0",
     "angular-credit-cards": "^3.1.9",
     "creditcards": "^4.2.0",
+    "jspdf": "^2.5.1",
     "jwt-decode": "^3.1.2",
     "luhn": "^2.4.1",
     "mark.js": "^8.11.1",
@@ -31,6 +33,7 @@
     "rxjs": "~7.5.0",
     "socket.io-client": "^4.5.4",
     "tslib": "^2.3.0",
+    "uuid": "^9.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

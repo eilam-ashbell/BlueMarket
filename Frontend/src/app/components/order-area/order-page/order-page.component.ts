@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { CartProductModel } from "src/app/models/cart-product.model";
 import { CartModel } from "src/app/models/cart.model";
 import { OrderModel } from "src/app/models/order.model";
@@ -29,6 +29,9 @@ declare const require: any;
     styleUrls: ["./order-page.component.css"],
 })
 export class OrderPageComponent implements OnInit {
+
+    @ViewChild('pdfContent', {static:false}) PDFelement: ElementRef
+
     public searchTerm: string = "";
     public cart: CartModel;
     public cartProduct: CartProductModel;
@@ -152,5 +155,9 @@ export class OrderPageComponent implements OnInit {
         const placedOrder = await this.cartService.placeOrder(this.order);
         // todo - add notify and redirect
         console.log(placedOrder);
+    }
+
+    public createPDF(){
+        this.utilsService.exportCartToPDF(this.PDFelement.nativeElement)
     }
 }

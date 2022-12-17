@@ -1,9 +1,10 @@
+<!-- <button (click)="createPDF()">create</button> -->
 <div class="order-wrapper">
     <div class="tools-wrapper">
         <label>search</label>
         <input type="search" [(ngModel)]="searchTerm" (input)="highlightText(searchTerm)" />
     </div>
-    <div class="cart-details-wrapper">
+    <div class="cart-details-wrapper" #pdfContent>
         <app-product-cart-card *ngFor="let p of cart?.cartProducts" [cartProduct]="p"></app-product-cart-card>
         <h4>Total price {{calcTotalCartPrice() | currency}}</h4>
     </div>

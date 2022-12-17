@@ -39,8 +39,9 @@ expressServer.use("*", routeNotFound);
 // Catch all middleware
 expressServer.use(catchAll);
 
+expressServer.listen(config.port, () => console.log("Listening on http://localhost:" + config.port))
 
 // todo - remove socket if not in use
-const httpServer: HttpServer = expressServer.listen(config.port, () => console.log("Listening on http://localhost:" + config.port));
+// const httpServer: HttpServer = expressServer.listen(config.port, () => console.log("Listening on http://localhost:" + config.port));
 
-cartLogic.cartSocket(httpServer)
+// cartLogic.cartSocket(httpServer)
