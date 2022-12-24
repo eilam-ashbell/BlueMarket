@@ -13,11 +13,11 @@ import { ProductsService } from "src/app/services/products.service";
     styleUrls: ["./products-list.component.css"],
 })
 export class ProductsListComponent implements OnInit {
-
     public productList: ProductModel[];
     public productsToDisplay: ProductModel[];
     public categories: CategoryModel[];
-    
+    public searchTerm: string;
+
     constructor(
         private productsService: ProductsService,
         private cartService: CartService
@@ -31,6 +31,10 @@ export class ProductsListComponent implements OnInit {
         this.categories = await this.productsService.getAllCategories();
     }
 
+    public get isCartOpen() {
+        return this.cartService.isCartOpen;
+    }
+
     public async filterByCategory(categoryId: string) {
         categoryId === "all"
             ? (this.productsToDisplay = [...this.productList])
@@ -40,15 +44,27 @@ export class ProductsListComponent implements OnInit {
                   ));
     }
 
-    public onButtonGroupClick($event: any): void{
+    public filterBySearchTerm() {
+        this.searchTerm === ""
+            ? this.filterByCategory("all")
+            : (this.productsToDisplay = this.productList.filter((p) =>
+                  p.name.includes(this.searchTerm)
+              ));
+        const isCertainButtonAlreadyActive = document.querySelector(".active");
+        isCertainButtonAlreadyActive.classList.remove("active");
+        document.querySelector(".all").classList.add("active");
+    }
+
+    public onButtonGroupClick($event: any): void {
         let clickedElement = $event.target || $event.srcElement;
-        if( clickedElement.nodeName === "BUTTON" ) {
-          let isCertainButtonAlreadyActive = clickedElement.parentElement.querySelector(".active");
-          // if a Button already has Class: .active
-          if( isCertainButtonAlreadyActive ) {
-            isCertainButtonAlreadyActive.classList.remove("active");
-          }
-          clickedElement.className += " active";
+        if (clickedElement.nodeName === "BUTTON") {
+            let isCertainButtonAlreadyActive =
+                clickedElement.parentElement.querySelector(".active");
+            // if a Button already has Class: .active
+            if (isCertainButtonAlreadyActive) {
+                isCertainButtonAlreadyActive.classList.remove("active");
+            }
+            clickedElement.className += " active";
         }
-      }
+    }
 }

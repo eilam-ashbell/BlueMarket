@@ -4,7 +4,7 @@
 
         <div class="input-wrapper">
             <label>ID number</label>
-            <input type="text" name="identityNum" autocomplete="" formControlName="identityNum">
+            <input type="text" name="identityNum" autocomplete="" formControlName="identityNum" placeholder="1234567">
             <span class="hint" *ngIf="identityNum.errors?.['required'] && (identityNum.dirty || identityNum.touched)">
                 Required field
             </span>
@@ -21,7 +21,7 @@
         
         <div class="input-wrapper">
             <label>Email</label>
-            <input type="email" name="email" autocomplete="email" formControlName="email">
+            <input type="email" name="email" autocomplete="email" formControlName="email" placeholder="super@bluemarket.com">
             <span class="hint" *ngIf="email.errors?.['required'] && (email.dirty || email.touched)">
                 Required field
             </span>
@@ -32,7 +32,7 @@
         </div>
         <div class="input-wrapper">
             <label>Password</label>
-            <input type="password" name="password" autocomplete="current-password" formControlName="password">
+            <input type="password" name="password" autocomplete="current-password" formControlName="password" placeholder="blue*****">
             <span class="hint" *ngIf="password.errors?.['required'] && (password.dirty || password.touched)">
                 Required field
             </span>
@@ -45,7 +45,7 @@
         </div>
         <div class="input-wrapper">
             <label>Confirm password</label>
-            <input type="password" name="passwordConfirm" autocomplete="" formControlName="passwordConfirm">
+            <input type="password" name="passwordConfirm" autocomplete="" formControlName="passwordConfirm" placeholder="blue*****">
             <span class="hint"
                 *ngIf="passwordConfirm.errors?.['required'] && (passwordConfirm.dirty || passwordConfirm.touched)">
                 Required field

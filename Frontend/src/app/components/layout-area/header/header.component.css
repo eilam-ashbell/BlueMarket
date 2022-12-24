@@ -12,14 +12,10 @@
     align-items: center;
     column-gap: 16px;
 }
-.logo-wrapper > svg {
-    display: inline-flex;
-    width: 30px;
-}
 .logo-wrapper > span {
     font-size: 26px;
     font-weight: 800;
-    color: var(--primary-900);
+    color: var(--primary-color);
 }
 .cls-1 {
     fill: var(--primary-900);
@@ -34,4 +30,23 @@ button {
 }
 button:hover {
     background-color: var(--primary-background-hover-color);
+}
+
+.cart-button.open {
+    color: var(--primary-text-on-primary);
+    background-color: var(--primary-color);
+    position: relative;
+}
+.cart-button.open:hover {
+    background-color: var(--primary-hover-color);
+
+}
+.cart-button.open::after {
+    content:"\A";
+    border-style: solid;
+    border-width: 0px 10px 15px 10px;
+    border-color: transparent transparent var(--primary-color)  transparent;
+    position: absolute;
+    bottom: -19px;
+    right: 16px;
 }

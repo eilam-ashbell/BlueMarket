@@ -24,17 +24,22 @@
         </ng-container>
     </div>
     <div class="about-wrapper">
+        <h1>
+            Welcome to the <span>Blue Market</span>
+        </h1>
+        <p>the best digital market experience on the web</p>
+        <div class="counters">
 
-        <p>
-            Marketman is wonderful place to do all of your shopping
-        </p>
-        <div>
-            <h3>{{productsCount}}</h3>
-            <span>Products</span>
-        </div>
-        <div>
-            <h3>{{ordersCount}}</h3>
-            <span>Orders</span>
+            <div class="counter-wrapper">
+                <h3 [countUp]="productsCount">0</h3>
+                <span>Products</span>
+            </div>
+            <div class="counter-wrapper">
+                <h3 [countUp]="ordersCount">0</h3>
+                <span>Orders</span>
+            </div>
         </div>
     </div>
+    <!-- todo - change img colors -->
+    <img src="./../../../../assets/images/service_market_basket.svg">
 </div>

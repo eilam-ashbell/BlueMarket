@@ -2,7 +2,7 @@
     <h2>login</h2>
     <label for="emailInput">email</label>
     <input type="email" id="emailInput" name="email" [(ngModel)]="credentials.email" #emailModel="ngModel" autocomplete="email"
-        required email="true"/>
+        required email="true" placeholder="super@bluemarket.com"/>
     <!-- todo - add costume validation with server -->
     <span class="hint" *ngIf="emailModel.errors?.['required'] && emailModel.touched">
         Required field
@@ -12,7 +12,7 @@
     </span>
     <label for="passwordInput">password</label>
     <input type="password" id="passwordInput" name="password" [(ngModel)]="credentials.password" autocomplete="current-password"
-        #passwordModel="ngModel" required minlength="6" maxlength="100"/>
+        #passwordModel="ngModel" required minlength="6" maxlength="100" placeholder="blue*****"/>
     <!-- todo - add validations -->
     <span class="hint" *ngIf="passwordModel.errors?.['required'] && passwordModel.touched">
         Required field

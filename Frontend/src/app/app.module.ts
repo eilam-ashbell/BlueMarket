@@ -29,6 +29,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { DatepickerComponent } from './components/order-area/datepicker/datepicker.component';
 import { LandingComponent } from "./components/home-area/landing/landing.component";
+import { CountUpModule } from 'ngx-countup'
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -72,6 +73,7 @@ export function tokenGetter() {
         MatDatepickerModule,
         MatNativeDateModule,
         MatFormFieldModule,
+        CountUpModule,
     ],
     providers: [],
     bootstrap: [LayoutComponent],

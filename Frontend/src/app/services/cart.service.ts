@@ -13,6 +13,9 @@ import { OrderModel } from "../models/order.model";
     providedIn: "root",
 })
 export class CartService {
+
+    public isCartOpen: boolean = true;
+
     constructor(private http: HttpClient) {}
 
     // Get user's current cart

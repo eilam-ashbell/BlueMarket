@@ -1,10 +1,11 @@
 form {
     display: flex;
     flex-direction: column;
-    padding: 24px;
-    background-color: var(--neutral-000);
-    border: 1px solid var(--neutral-100);
-    border-radius: 8px;
+    padding: 40px 24px;
+    border: 1px solid var(--ui-border-color);
+    border-radius: 4px;
+    background-color: var(--primary-background-color);
+    box-shadow: var(--box-shadow-medium);
 }
 form > h2 {
     margin: 16px 0 28px 0;
@@ -17,35 +18,48 @@ form > label {
     font-weight: 100;
 }
 
-form > input {
+input {
     margin-bottom: 12px;
     font-size: 16px;
-    padding: 8px 12px 8px 12px;
+    padding: 12px 12px 12px 12px;
     border-radius: 4px;
-    border: 1px solid var(--neutral-100);
+    border: 1px solid var(--ui-border-color);
+}
+input::placeholder {
+    color: var(--placeholder-color);
+}
+input:focus-visible {
+    outline-color: var(--primary-color);
+}
+input:valid {
+    border-color: var(--positive-color);
+}
+input:not(:placeholder-shown):invalid {
+    border-color: var(--negative-color);
 }
 
-form > button {
+button {
     font-size: 16px;
-    padding: 12px 20px 12px 20px;
-    width: fit-content;
+    padding: 12px 24px 12px 24px;
     margin-top: 20px;
     margin-left: auto;
-    background-color: var(--primary-500);
+    color: var(--primary-text-on-primary);
+    background-color: var(--primary-color);
     border: none;
     border-radius: 4px;
-}
-form > button:hover {
     cursor: pointer;
-    background-color: var(--primary-600);
 }
-form > button:disabled {
+button:hover {
+    background-color: var(--primary-hover-color);
+}
+button:disabled {
     cursor:not-allowed;
-    background-color: var(--neutral-400);
+    background-color: var(--disabled-background-color);
+    color: var(--disabled-text-color);
 }
 
-form > .hint {
-    color: red;
+.hint {
+    color: var(--negative-color);
     font-size: 12px;
     font-weight: 100;
     margin-top: -8px;

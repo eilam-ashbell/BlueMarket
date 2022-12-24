@@ -5,18 +5,14 @@ div {
     overflow: hidden;
 }
 
-/* app-header, footer {
-    z-index: 999;
-} */
-
-/* main {
-    overflow: auto;
-} */
+main {
+    overflow: hidden;
+}
 
 footer {
     font-size: 12px;
     padding: 8px;
     text-align: center;
-    background-color: var(--grey-background-color);
+    background-color: var(--primary-background-color);
     border-top: 1px solid var(--layout-border-color);
 }

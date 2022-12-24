@@ -1,6 +1,7 @@
 <div class="products-page">
     <nav class="categories-wrapper" (click)="onButtonGroupClick($event)">
-        <button (click)="filterByCategory('all')" class="active">all</button>
+        <input type="search" [(ngModel)]="searchTerm" (input)="filterBySearchTerm()" placeholder="search...">
+        <button (click)="filterByCategory('all')" class="active all">all</button>
         <button *ngFor="let c of categories" (click)="filterByCategory(c._id)">
             {{c.category}}
         </button>
@@ -11,7 +12,7 @@
             </app-product-card>
         </div>
     </div>
-    <aside>
+    <aside [ngClass]="isCartOpen ? null : 'hide'">
         <app-cart></app-cart>
     </aside>
 </div>

@@ -29,12 +29,16 @@ export class ProductCardComponent implements OnInit {
 
     // increase quantity field by 1
     public increaseQuantity() {
-        this.quantity++;
-    }
+        this.quantity < 9999 ? this.quantity++ : this.quantity = 9999
+        } 
     // decrease quantity field by 1
     // can't be less then 1
     public decreaseQuantity() {
-        this.quantity === 1 ? (this.quantity = 1) : this.quantity--;
+        this.quantity <= 1 ? (this.quantity = 1) : this.quantity--;
+    }
+    public validation() {
+        this.quantity > 9999 ? this.quantity = 9999 : null;
+        this.quantity < 1 ? this.quantity = 1 : null;
     }
 
     public async addToCart(): Promise<void> {
