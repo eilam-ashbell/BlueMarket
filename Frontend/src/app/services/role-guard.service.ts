@@ -2,12 +2,13 @@ import { Injectable } from "@angular/core";
 import { Router, CanActivate, ActivatedRouteSnapshot } from "@angular/router";
 import { AuthService } from "./auth.service";
 import { authStore } from "../redux/auth-state";
+import { NotifyService } from "./notify.service";
 
 @Injectable({
     providedIn: "root",
 })
 export class RoleGuardService implements CanActivate {
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router, private notyf: NotifyService) {}
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
         // TODO - figure out roleAccess error
@@ -17,6 +18,7 @@ export class RoleGuardService implements CanActivate {
 
         // return false if there is no token
         if (!user) {
+            this.notyf.error("you are not logged in")
             console.log("you are not logged in");
             this.router.navigate(['guest']);
             return false;
@@ -24,7 +26,7 @@ export class RoleGuardService implements CanActivate {
 
         // return false if token is expired
         if (!this.authService.isAuthenticated()) {
-            // todo - notify
+            this.notyf.error("token is expired")
             console.log("token is expired");
             this.router.navigate(["guest"])
             return false;
@@ -32,6 +34,7 @@ export class RoleGuardService implements CanActivate {
 
         // Return false if user role is not authorized
         if (user.role.role !== role) {
+            this.notyf.error("you are not authorized")
             console.log("you are not authorized");
               this.router.navigate(['guest']);
             return false;

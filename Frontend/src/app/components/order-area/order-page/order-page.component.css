@@ -1,22 +1,58 @@
 .order-wrapper {
     width: 100%;
     height: 100%;
+    max-width: 1200px;
+    margin: auto;
     display: grid;
     grid-template: 
-    'tools tools' 60px
+    'search ordering' 100px
     'details ordering' auto
     / auto auto;
 }
 
 .tools-wrapper {
-    grid-area: tools;
+    grid-area: search;
+    max-width: 500px;
+    padding: 24px 24px 16px 24px;
 }
+
 .cart-details-wrapper{
     grid-area: details;
     max-width: 500px;
+    overflow: scroll;
+    position: relative;
 }
 .ordering-wrapper{
     grid-area: ordering;
+    margin-top: 40px;
+}
+.total-price {
+    display: block;
+    width: 100%;
+    background-color: var(--primary-background-color);
+    color: var(--primary-color);
+    text-align: end;
+    padding: 24px;
+    font-weight: 700;
+    font-size: 18px;
+    position: sticky;
+    bottom: 0;
+    right: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 24px;
+    border: 1px solid var(--ui-border-color);
+    border-radius: 4px;
+    background-color: var(--primary-background-color);
+    box-shadow: var(--box-shadow-medium);
+    max-width: 450px;
+}
+
+form > h2 {
+    margin: 16px 0 28px 0;
 }
 
 .input-wrapper {
@@ -27,23 +63,68 @@ label {
     margin-bottom: 4px;
     padding-left: 4px;
     font-size: 16px;
-    font-weight: 100
+    font-weight: 100;
 }
 input, select {
     margin-bottom: 12px;
     font-size: 16px;
-    padding: 8px 12px 8px 12px;
+    padding: 12px 12px 12px 12px;
     border-radius: 4px;
-    border: 1px solid var(--neutral-100);
-    width: 100%;
+    border: 1px solid var(--ui-border-color);
 }
+input::placeholder {
+    color: var(--placeholder-color);
+}
+input:focus-visible {
+    outline-color: var(--primary-color);
+}
+input.ng-touched.ng-valid {
+    border-color: var(--positive-color);
+}
+input.ng-touched.ng-invalid {
+    border-color: var(--negative-color);
+}
+
+.buttons-wrapper {
+    display: flex;
+}
+button {
+    font-size: 16px;
+    padding: 12px 24px 12px 24px;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+button.primary {
+    margin-left: auto;
+    color: var(--primary-text-on-primary);
+    background-color: var(--primary-color);
+    border: none;
+}
+button.primary:hover {
+    background-color: var(--primary-hover-color);
+}
+button.primary:disabled {
+    cursor:default;
+    background-color: var(--disabled-background-color);
+    color: var(--disabled-text-color);
+}
+button.secondary {
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+    border: 1px solid var(--ui-border-color);
+}
+button.secondary:hover {
+    background-color: var(--primary-background-hover-color);
+}
+
 .hint {
+    color: var(--negative-color);
     font-size: 12px;
-    /* todo - change color to global color */
-    color: red;
-    padding-left: 4px;
+    font-weight: 100;
     margin-top: -8px;
-    margin-bottom: 16px;
+    margin-left: 4px;
+    margin-bottom: 12px;
 }
 
 .order-modal {
@@ -53,7 +134,7 @@ input, select {
     z-index: 999999999;
     width: 100vw;
     height: 100vh;
-    top: -72px;
+    top: 0;
     left: 0;
     justify-content: center;
     align-items: center;
@@ -62,4 +143,17 @@ input, select {
     width: 500px;
     height: 200px;
     background-color: white;
+    border-radius: 4px;
+    border: 1px solid var(--ui-border-color);
+    text-align: center;
+}
+
+.outlined {
+    background-color: transparent;
+    border: 1px solid var(--ui-border-color);
+    color: var(--primary-text-color);
+    margin-right: 40px;
+}
+.outlined:hover {
+    background-color: var(--primary-background-hover-color);
 }

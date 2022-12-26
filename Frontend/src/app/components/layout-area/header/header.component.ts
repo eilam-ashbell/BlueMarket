@@ -16,7 +16,7 @@ import { CartService } from "src/app/services/cart.service";
 export class HeaderComponent implements DoCheck {
     public userData: UserModel = authStore.getState().user;
 
-    constructor(private authService: AuthService, private router: Router, private cartService: CartService) {}
+    constructor(private authService: AuthService, public router: Router, private cartService: CartService) {}
 
     ngDoCheck(): void {
         authStore.getState().token ?

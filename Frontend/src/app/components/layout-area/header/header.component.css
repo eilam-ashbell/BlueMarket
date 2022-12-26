@@ -21,6 +21,20 @@
     fill: var(--primary-900);
 }
 
+.actions-wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 40px;
+}
+
+.auth-user {
+    display: flex;
+    align-items: center;
+}
+.auth-user > span {
+    margin-right: 16px;
+}
+
 button {
     padding: 8px 16px;
     border: 1px solid var(--ui-border-color);

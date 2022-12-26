@@ -4,6 +4,7 @@
     padding: 40px 16px 16px 16px;
     border-radius: 4px;
     border: 1px solid transparent;
+    height: 100%;
 }
 
 img {
@@ -20,6 +21,7 @@ h4 {
 
 .show-on-hover {
     opacity: 0;
+    margin-top: auto;
 }
 .product-card:hover .show-on-hover {
     opacity: 100;

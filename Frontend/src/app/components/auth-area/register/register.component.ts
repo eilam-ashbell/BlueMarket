@@ -111,7 +111,7 @@ export class RegisterComponent {
         // submit registration
         try {
             await this.authService.register(user);
-            this.router.navigate(["products"]);
+            this.router.navigate(["/home"]);
         } catch (err: any) {
             // todo - handle error message
             console.log(err);

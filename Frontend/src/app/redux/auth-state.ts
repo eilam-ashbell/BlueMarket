@@ -52,6 +52,7 @@ export function authReducer(
             newState.user = null;
             // Delete token from local storage
             localStorage.removeItem("token");
+            localStorage.removeItem("continueShopping")
             break;
     }
 

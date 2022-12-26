@@ -1,4 +1,4 @@
-<div class="products-page">
+<div class="products-page" [ngClass]="isCartOpen ? null : 'width'">
     <nav class="categories-wrapper" (click)="onButtonGroupClick($event)">
         <input type="search" [(ngModel)]="searchTerm" (input)="filterBySearchTerm()" placeholder="search...">
         <button (click)="filterByCategory('all')" class="active all">all</button>

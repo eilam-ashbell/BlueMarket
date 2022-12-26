@@ -26,7 +26,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
 import { DatepickerComponent } from './components/order-area/datepicker/datepicker.component';
 import { LandingComponent } from "./components/home-area/landing/landing.component";
 import { CountUpModule } from 'ngx-countup'

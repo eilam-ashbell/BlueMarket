@@ -1,11 +1,23 @@
 <div class="cart-panel">
     <div class="line"></div>
     <div class="header">
-        <h3>Your cart</h3>
-        <button class="clear-cart" (click)="clearCart()">clear cart</button>
+        <h3>cart</h3>
+        <button class="clear-cart" (click)="clearCart()" *ngIf="cart?.cartProducts?.length > 0">clear cart</button>
     </div>
     <div class="products-wrapper" >
             <app-product-cart-card  *ngFor="let p of cart?.cartProducts" [cartProduct]="p"></app-product-cart-card>
+            <div class="cart-empty-state" *ngIf="cart?.cartProducts?.length === 0">
+                <!-- todo design empty state -->
+                your cart is empty
+            </div>
     </div>
-    <button class="place-order" (click)="order()">place order {{calcTotalCartPrice() | currency}}</button>
+    
+    <button class="place-order" (click)="order()" [disabled]="cart?.cartProducts.length === 0">place order {{calcTotalCartPrice() | currency}}</button>
+    <div class="cart-status" *ngIf="thereOlderCart">
+        <p>you left your cart on the last visit with {{cart.cartProducts.length}} products and total of {{calcTotalCartPrice() | currency}}</p>
+        <h3>Do you want to continue from where you left?</h3>
+        <button class="secondary" (click)="clearCart()">reset cart</button>
+        <button class="primary" (click)="continueShopping()">continue shopping</button>
+    </div>
+    
 </div>

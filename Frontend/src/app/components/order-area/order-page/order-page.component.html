@@ -1,16 +1,17 @@
-<!-- <button >create</button> -->
 <div class="order-wrapper">
     <div class="tools-wrapper">
-        <label>search</label>
-        <input type="search" [(ngModel)]="searchTerm" (input)="highlightText(searchTerm)" />
+        <div class="input-wrapper">
+            <label>search</label>
+            <input type="search" [(ngModel)]="searchTerm" (input)="highlightText(searchTerm)" />
+        </div>
     </div>
     <div class="cart-details-wrapper" #pdfContent>
         <app-product-cart-card *ngFor="let p of cart?.cartProducts" [cartProduct]="p"></app-product-cart-card>
-        <h4>Total price {{calcTotalCartPrice() | currency}}</h4>
+        <span class="total-price">Total price {{calcTotalCartPrice() | currency}}</span>
     </div>
     <div class="ordering-wrapper">
         <form [formGroup]="form">
-
+            <h2>Checkout</h2>
             <div class="input-wrapper">
                 <label>City</label>
                 <input type="text" name="city" autocomplete="" formControlName="city" (dblclick)="setInputValue($event)"
@@ -50,10 +51,7 @@
             <div class="input-wrapper">
                 <label>Date for delivery</label>
                 <input matInput name="dateOfDelivery" [matDatepickerFilter]="filterBusyDates" [matDatepicker]="picker"
-                    [min]="minDate" 
-                    (click)="picker.open()" 
-                    placeholder="mm/dd/yyyy"
-                    formControlName="dateOfDelivery">
+                    [min]="minDate" (click)="picker.open()" placeholder="mm/dd/yyyy" formControlName="dateOfDelivery">
                 <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
                 <span class="hint"
                     *ngIf="form.controls.dateOfDelivery.errors?.['required'] && (form.controls.dateOfDelivery.dirty || form.controls.dateOfDelivery.touched)">
@@ -87,17 +85,20 @@
                     Numbers only
                 </span>
             </div>
-            <button (click)="submit()">Place order</button>
-        </form>
+            <div class="buttons-wrapper">
+                <button [routerLink]="['/']" class="secondary">Cancel</button>
+                <button class="primary" (click)="submit()" [disabled]="!this.form.valid">Place order</button>
+            </div>
+            </form>
     </div>
 </div>
 <div class="order-modal" *ngIf="showModal">
     <div class="modal-message-wrapper">
-        <h3>        Your order has been successfully ordered
+        <h3> Your order has been successfully ordered
         </h3>
         <p>Do you want to download your bill?</p>
-        <button (click)="createPDF()" [routerLink]="['/']">Download bill</button>
-        <button [routerLink]="['/']">no</button>
+        <button [routerLink]="['/']" class="outlined">skip</button>
+        <button (click)="createPDF()" [routerLink]="['/']">download</button>
     </div>
 
 </div>

@@ -6,7 +6,7 @@ import { CartProductModel } from "../models/cart-product.model";
 import { CartModel } from "../models/cart.model";
 import { authStore } from "../redux/auth-state";
 import { Socket, io } from "socket.io-client";
-import { CartActionType, cartStore } from "../redux/cart-state";
+import { CartAction, CartActionType, cartStore } from "../redux/cart-state";
 import { OrderModel } from "../models/order.model";
 
 @Injectable({
@@ -48,6 +48,13 @@ export class CartService {
                 cartId: cartId,
             })
         );
+        // Assign new cart to global state
+        const action: CartAction = {
+            type: CartActionType.FetchCart,
+            payload: newCart
+        }
+        cartStore.dispatch(action);
+        
         return newCart;
     }
 

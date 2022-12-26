@@ -4,18 +4,18 @@
     </div>
     <div class="actions-wrapper">
         <!-- todo - modify button if logged in -->
-        <div class="auth-wrapper">
+        <div class="auth-wrapper" *ngIf="this.router.url === '/home'">
             <div class="auth-user" *ngIf="userData">
                 <span>{{userData.firstName}} {{userData.lastName}}</span>
                 <button class="register" (click)="this.logout()">log out</button>
-                    <button (click)="cartClickHandler()" class="cart-button" [ngClass]="isCartOpen ? 'open' : null">
-                    <mat-icon>shopping_cart</mat-icon>
-                </button>
             </div>
-            <div class="auth-guest" *ngIf="!userData">
+            <!-- <div class="auth-guest" *ngIf="!userData">
                 <button class="register">sign in</button>
                 <button class="register">register</button>
-            </div>
+            </div> -->
         </div>
+        <button (click)="cartClickHandler()" class="cart-button" [ngClass]="isCartOpen ? 'open' : null" *ngIf="this.router.url === '/home'">
+            <mat-icon>shopping_cart</mat-icon>
+        </button>
     </div>
 </header>

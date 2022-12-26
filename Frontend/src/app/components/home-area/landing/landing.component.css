@@ -7,6 +7,7 @@
     column-gap: 80px;
     padding-top: 80px;
     justify-content: center;
+    position: relative;
 }
 
 .login-wrapper {
@@ -85,12 +86,11 @@
 .counter-wrapper > span {
     font-size: 20px;
 }
-
 img {
     position: absolute;
     transform: rotateY(180deg);
     bottom: -30px;
-    right: -180px;
+    right: -35%;
     height: 80%;
     z-index: -1;
 }
