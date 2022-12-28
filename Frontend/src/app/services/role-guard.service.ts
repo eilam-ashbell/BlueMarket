@@ -26,8 +26,8 @@ export class RoleGuardService implements CanActivate {
 
         // return false if token is expired
         if (!this.authService.isAuthenticated()) {
-            this.notyf.error("token is expired")
-            console.log("token is expired");
+            this.notyf.error("you are not logged in")
+            console.log("session token is expired");
             this.router.navigate(["guest"])
             return false;
         }
