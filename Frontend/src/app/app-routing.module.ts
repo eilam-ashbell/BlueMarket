@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AdminPageComponent } from "./components/admin-area/admin-page/admin-page.component";
 import { LoginComponent } from "./components/auth-area/login/login.component";
 import { LogoutComponent } from "./components/auth-area/logout/logout.component";
 import { RegisterComponent } from "./components/auth-area/register/register.component";
@@ -25,14 +26,14 @@ const routes: Routes = [
             roleAccess: "user",
         },
     },
-    // {
-    //     path: "products",
-    //     component: ProductsListComponent,
-    //     canActivate: [RoleGuardService],
-    //     data: {
-    //         roleAccess: "user",
-    //     },
-    // },
+    {
+        path: "admin",
+        component: AdminPageComponent,
+        canActivate: [RoleGuardService],
+        data: {
+            roleAccess: "admin",
+        },
+    },
     // Page not found route
     { path: "**", component: PageNotFoundComponent },
 ];

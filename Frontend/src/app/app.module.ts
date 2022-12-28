@@ -28,7 +28,10 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { DatepickerComponent } from './components/order-area/datepicker/datepicker.component';
 import { LandingComponent } from "./components/home-area/landing/landing.component";
-import { CountUpModule } from 'ngx-countup'
+import { CountUpModule } from 'ngx-countup';
+import { AdminPageComponent } from './components/admin-area/admin-page/admin-page.component';
+import { AdminProductCardComponent } from './components/admin-area/admin-product-card/admin-product-card.component';
+import { EditProductComponent } from './components/admin-area/edit-product/edit-product.component'
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -52,6 +55,9 @@ export function tokenGetter() {
         PersonalDetailsComponent,
         OrderPageComponent,
         DatepickerComponent,
+        AdminPageComponent,
+        AdminProductCardComponent,
+        EditProductComponent,
     ],
     imports: [
         BrowserModule,

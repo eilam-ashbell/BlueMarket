@@ -56,7 +56,7 @@ export class AuthService {
             type: AuthActionType.Logout,
         };
         authStore.dispatch(action);
-        this.router.navigate(['/'])
+        // this.router.navigate(['/'])
     }
 
     // Check if there is any token and it expire 

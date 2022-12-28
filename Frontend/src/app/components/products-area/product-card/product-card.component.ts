@@ -14,9 +14,8 @@ import { CartActionType, cartStore } from "src/app/redux/cart-state";
     styleUrls: ["./product-card.component.css"],
 })
 export class ProductCardComponent implements OnInit {
+    
     @Input() product: ProductModel;
-
-    private socket: Socket;
 
     public imagePath: string;
     public quantity: number = 1;

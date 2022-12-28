@@ -1,0 +1,11 @@
+<div class="admin-product-card">
+    <img src={{imagePath}} />
+    <h4>{{product.name}}</h4>
+    <div class="price-wrapper">
+        <span>{{product.price | currency}}</span>
+    </div>
+
+    <div ngClass="{{editedProduct?._id === product._id ? null : 'show-on-hover'}}">
+        <button class="edit-product" (click)="editProduct()">edit</button>
+    </div>
+</div>

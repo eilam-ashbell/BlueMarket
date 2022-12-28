@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { firstValueFrom } from "rxjs";
+import { BehaviorSubject, firstValueFrom } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CategoryModel } from "../models/category.model";
 import { ProductModel } from "../models/product.model";
@@ -9,7 +9,21 @@ import { ProductModel } from "../models/product.model";
     providedIn: "root",
 })
 export class ProductsService {
+
+    private productToEdit = new BehaviorSubject<ProductModel>(undefined);
+    public productToWatch = this.productToEdit.asObservable()
+
     constructor(private http: HttpClient) {}
+
+    public setProductToEdit(product: ProductModel) {
+        this.productToEdit.next(product)    
+    }
+    public getProductToEdit() {
+        return this.productToEdit.getValue();
+    }
+    public clearProductToEdit() {
+        this.productToEdit = undefined
+    }
 
     // Get all products
     public async getAllProducts(): Promise<ProductModel[]> {

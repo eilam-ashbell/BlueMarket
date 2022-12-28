@@ -98,6 +98,7 @@ export class RegisterComponent {
             this.form.markAllAsTouched();
             return
         }
+        // todo - change form to object
         // build user model for submit
         const user = new UserModel(
             this.form.value.personalDetails.firstName,

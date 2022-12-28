@@ -139,6 +139,7 @@ export class OrderPageComponent implements OnInit {
             this.form.markAllAsTouched();
             return;
         }
+        // todo - change form to object
         // Assign data to order model
         this.order.city = this.form.controls.city.value;
         this.order.street = this.form.controls.street.value;

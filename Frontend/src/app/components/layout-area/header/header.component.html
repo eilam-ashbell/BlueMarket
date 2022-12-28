@@ -4,10 +4,10 @@
     </div>
     <div class="actions-wrapper">
         <!-- todo - modify button if logged in -->
-        <div class="auth-wrapper" *ngIf="this.router.url === '/home'">
+        <div class="auth-wrapper" *ngIf="this.router.url === '/home' || '/admin'">
             <div class="auth-user" *ngIf="userData">
                 <span>{{userData.firstName}} {{userData.lastName}}</span>
-                <button class="register" (click)="this.logout()">log out</button>
+                <button class="logout" (click)="this.logout()">log out</button>
             </div>
             <!-- <div class="auth-guest" *ngIf="!userData">
                 <button class="register">sign in</button>

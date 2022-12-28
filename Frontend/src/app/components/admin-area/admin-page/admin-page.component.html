@@ -1,0 +1,20 @@
+<div class="admin-page">
+    <nav class="categories-wrapper" (click)="onButtonGroupClick($event)">
+        <input type="search" [(ngModel)]="searchTerm" (input)="filterBySearchTerm()" placeholder="search...">
+        <button (click)="filterByCategory('all')" class="active all">all</button>
+        <button *ngFor="let c of categories" (click)="filterByCategory(c._id)">
+            {{c.category}}
+        </button>
+    </nav>
+    <div class="products-wrapper">
+        <div class="list-wrapper">
+            <app-admin-product-card *ngFor="let p of productsToDisplay" [product]="p" ngClass='{{editedProduct?._id === p._id ? "active" : null}}'>
+            </app-admin-product-card>
+        </div>
+    </div>
+    <aside>
+        <app-edit-product [categories]="categories">
+
+        </app-edit-product>
+    </aside>
+</div>
