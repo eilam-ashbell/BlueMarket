@@ -1,10 +1,11 @@
-import { Component, Input } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
+import { FormGroup, FormControl, Validators, NgForm } from "@angular/forms";
+import { Router } from "@angular/router";
 import { CategoryModel } from "src/app/models/category.model";
 import { ProductModel } from "src/app/models/product.model";
+import { NotifyService } from "src/app/services/notify.service";
 import { ProductsService } from "src/app/services/products.service";
 import { environment } from "src/environments/environment";
-
 @Component({
     selector: "app-edit-product",
     templateUrl: "./edit-product.component.html",
@@ -12,52 +13,66 @@ import { environment } from "src/environments/environment";
 })
 export class EditProductComponent {
     @Input() categories: CategoryModel[];
-
-    public product: ProductModel;
-    // todo - add placeholder image
+    
+    public product = new ProductModel();
     public imgPath: string;
 
-    constructor(private productService: ProductsService) {}
+    @ViewChild("productImage")
+    public productImage: ElementRef<HTMLInputElement>;
+    @ViewChild("productForm")
+    public productForm: ElementRef<HTMLFormElement>;
+
+    constructor(
+        private productService: ProductsService,
+        private notifyService: NotifyService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.productService.productToWatch.subscribe((data) => {
-            this.form.markAsUntouched()
-            this.form.controls._id.setValue(data?._id);
-            this.form.controls.name.setValue(data?.name);
-            this.form.controls.price.setValue(data?.price.toString());
-            this.form.controls.categoryId.setValue(data?.categoryId);
-            this.form.controls.imageName.setValue(data?.imageName);
-            this.imgPath = environment.staticsRoute + data?.imageName;
-            // this.form.controls.image.setValue(this.imgPath);
+            this.product._id = data?._id;
+            this.product.name = data?.name;
+            this.product.price = data?.price;
+            this.product.categoryId = data?.categoryId;
+            this.product.imageName = data?.imageName;
+            this.imgPath = data?.imageName
+                ? environment.staticsRoute + data?.imageName
+                : "./../../../../assets/images/imagePlaceholder.svg";
         });
     }
 
-    public form = new FormGroup({
-        _id: new FormControl("", [Validators.required]),
-        name: new FormControl("", [Validators.required]),
-        price: new FormControl("", [Validators.required]),
-        categoryId: new FormControl("", [Validators.required]),
-        imageName: new FormControl("", [Validators.required]),
-        image: new FormControl("", []),
-    });
-
     public onImageChange() {
-        console.log('change');
-        
-        // const files = this.form.controls.image.value
-        const file = this.form.controls.image.value
-        console.log(file);
-        
-        // setImage(URL.createObjectURL(file))
+        const file = this.productImage.nativeElement.files.item(0);
+        this.imgPath = URL.createObjectURL(file);
+        this.productForm.nativeElement;
     }
 
-    public async saveProduct() {
-        // check if all form values are valid
-        if (!this.form.valid) {
-            this.form.markAllAsTouched();
-            return;
+    public cancelEdit() {
+        this.productService.clearProductToEdit();
+    }
+
+    public resetForm(form: NgForm) {
+        form.resetForm();
+        this.productImage.nativeElement.value = null;
+        this.imgPath = "./../../../../assets/images/imagePlaceholder.svg";
+    }
+
+    public saveProduct(form: NgForm) {
+        this.product.image = this.productImage.nativeElement.files.item(0);
+        if (this.product._id) {
+            // edit mode
+            this.productService.updateProduct(this.product);
+            this.notifyService.success("changes ha been saved");
+        } else {
+            // new product mode
+            this.productService.addProduct(this.product);
+            this.notifyService.success("product has been added");
         }
-        console.log(this.form.value);
-        // todo - remove value from productToWatch
+        // todo - handle page reload
+        window.location.reload()
+        // remove value from productToWatch
+        this.productService.clearProductToEdit();
+        // reset form state
+        form.resetForm();
     }
 }

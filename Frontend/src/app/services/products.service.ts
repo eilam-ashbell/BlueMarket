@@ -22,7 +22,7 @@ export class ProductsService {
         return this.productToEdit.getValue();
     }
     public clearProductToEdit() {
-        this.productToEdit = undefined
+        this.productToEdit.next(undefined)
     }
 
     // Get all products
@@ -81,29 +81,25 @@ export class ProductsService {
         formData.append("name", product.name);
         formData.append("price", product.price.toString());
         formData.append("categoryId", product.categoryId.toString());
-        formData.append("image", product.image);
-        console.log(formData);
-        
-        // const addedProduct = await firstValueFrom(
-        //     this.http.post<ProductModel>(environment.productsRoute, formData)
-        // );
-        // console.log(addedProduct);
+        formData.append("image", product.image);        
+        const addedProduct = await firstValueFrom(
+            this.http.post<ProductModel>(environment.productsRoute, formData)
+        );
+        console.log(addedProduct);
     }
 
     // Update product
     public async updateProduct(product: ProductModel): Promise<void> {
+        console.log(product);
         const formData = new FormData();
         formData.append("name", product.name);
         formData.append("price", product.price.toString());
-        formData.append("categoryId", product.categoryId.toString());
+        formData.append("categoryId", product.categoryId);
         formData.append("image", product.image);
         formData.append("imageName", product.imageName);
         const updatedProduct = await firstValueFrom(
-            this.http.post<ProductModel>(
-                environment.productsRoute + product._id,
-                formData
-            )
-        );
+            this.http.put<ProductModel>(environment.productsRoute + product._id, formData)
+        )
         console.log(updatedProduct);
     }
 

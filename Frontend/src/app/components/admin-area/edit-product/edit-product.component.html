@@ -1,63 +1,71 @@
-<form class="form" [formGroup]="form">
+<form class="form" #productForm="ngForm">
+    <h4 *ngIf="product._id">Edit product</h4>
+    <h4 *ngIf="!product._id">Add new product</h4>
     <div class="input-wrapper hidden">
         <label>_id</label>
-        <input type="text" name="_id" formControlName="_id" placeholder="product _id" hidden>
-        <span class="hint"
-            *ngIf="form.controls._id.errors?.['required'] && (form.controls._id.dirty || form.controls._id.touched)">
-            Required field
-        </span>
+        <input type="hidden" name="_id" [(ngModel)]="product._id"  #idModel="ngModel" placeholder="product _id">
     </div>
-    <div class="input-wrapper">
+    <div class="input-wrapper image">
         <label for="imageInput">
             <div class="image-preview" [ngStyle]="{'background-image': 'url(' + imgPath + ')'}">
-                <span>Change Image</span>
+                <span *ngIf="product._id">Change Image</span>
+                <span *ngIf="!product._id">Add Image</span>
             </div>
         </label>
-        <input id="imageInput" type="file" name="image" formControlName="image" placeholder="image"
-            value="{{product?.image}}" accept="image/*" (change)="onImageChange()">
-        <span class="hint"
-            *ngIf="form.controls.image.errors?.['required'] && (form.controls.image.dirty || form.controls.image.touched)">
-            Required field
-        </span>
+        <input id="imageInput" type="file" name="image" #productImage accept="image/*" (change)="onImageChange()">
     </div>
     <div class="input-wrapper">
         <label>name</label>
-        <input type="text" name="name" formControlName="name" placeholder="product name">
+        <input type="text" name="name" [(ngModel)]="product.name" #nameModel="ngModel" placeholder="product name" minlength="2" maxlength="100" required="true">
         <span class="hint"
-            *ngIf="form.controls.name.errors?.['required'] && (form.controls.name.dirty || form.controls.name.touched)">
-            Required field
+            *ngIf="nameModel.errors?.['required'] && (nameModel.dirty || nameModel.touched)">
+            product name is required
+        </span>
+        <span class="hint"
+            *ngIf="nameModel.errors?.['minlength'] && (nameModel.dirty || nameModel.touched)">
+            product name must be at least 2 characters
+        </span>
+        <span class="hint"
+            *ngIf="nameModel.errors?.['maxlength'] && (nameModel.dirty || nameModel.touched)">
+            product name can't be over 100 characters
         </span>
     </div>
     <div class="input-wrapper">
         <label>price</label>
-        <input type="number" name="price" formControlName="price" placeholder="product price" step="0.1">
+        <input type="number" name="price" [(ngModel)]="product.price" #priceModel="ngModel" placeholder="product price" step="0.1" min="0.1" max="1000" required="true">
         <span class="hint"
-            *ngIf="form.controls.price.errors?.['required'] && (form.controls.price.dirty || form.controls.price.touched)">
-            Required field
+            *ngIf="priceModel.errors?.['required'] && (priceModel.dirty || priceModel.touched)">
+            price is required field
+        </span>
+        <span class="hint"
+            *ngIf="priceModel.errors?.['min'] && (priceModel.dirty || priceModel.touched)">
+            price must be higher then 0
+        </span>
+        <span class="hint"
+            *ngIf="priceModel.errors?.['max'] && (priceModel.dirty || priceModel.touched)">
+            price can't be over $1,000
         </span>
     </div>
     <div class="input-wrapper">
         <label>category</label>
-        <select name="category" formControlName="categoryId">
-            <option class="select-item" [defaultSelected]="true">select a category</option>
-            <option class="select-item" *ngFor="let c of categories" [value]="c._id">{{c.category}}</option>
+        <select name="category" [(ngModel)]="product.categoryId" #categoryModel="ngModel" required="true">
+            <option class="select-item" [disabled]="true" [defaultSelected]="true">select a category</option>
+            <option class="select-item" *ngFor="let c of categories" [ngValue]="c._id">{{c.category}}</option>
         </select>
         <span class="hint"
-            *ngIf="form.controls.categoryId.errors?.['required'] && (form.controls.categoryId.dirty || form.controls.categoryId.touched)">
-            Required field
+            *ngIf="categoryModel.errors?.['required'] && (categoryModel.dirty || categoryModel.touched)">
+            you should select a product category
         </span>
     </div>
     <div class="input-wrapper hidden">
         <label>
             imageName
         </label>
-        <input type="text" name="imageName" formControlName="imageName" placeholder="image"
-            value="{{product?.imageName}}" hidden>
-        <span class="hint"
-            *ngIf="form.controls.imageName.errors?.['required'] && (form.controls.imageName.dirty || form.controls.imageName.touched)">
-            Required field
-        </span>
+        <input type="hidden" name="imageName" [(ngModel)]="product.imageName" #imageNameModel="ngModel" placeholder="image"
+            value="{{product?.imageName}}">
     </div>
-
-    <button (click)="saveProduct()">save</button>
+    <button *ngIf="product._id" class="secondary" (click)="cancelEdit()">cancel</button>
+    <button *ngIf="product._id" class="primary" [disabled]="productForm.invalid" (click)="saveProduct(productForm)">save</button>
+    <button *ngIf="!product._id && productForm.touched && productForm.dirty" class="secondary" (click)="resetForm(productForm)">reset form</button>
+    <button *ngIf="!product._id" class="primary" [disabled]="productForm.invalid" (click)="saveProduct(productForm)">add new product</button>
 </form>

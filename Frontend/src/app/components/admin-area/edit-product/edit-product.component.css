@@ -5,11 +5,17 @@ form {
     height: 100%;
     padding-top: 24px;
 }
+h4 {
+    margin: 8px 24px;
+}
 .input-wrapper {
     display: flex;
     flex-direction: column;
-    margin: 8px 24px;
+    margin: 4px 24px;
     position: relative;
+}
+.input-wrapper.image {
+    margin: 24px 24px;
 }
 .hidden {
     display: none;
@@ -35,10 +41,10 @@ input::placeholder {
 input:focus-visible {
     outline-color: var(--primary-color);
 }
-input.ng-touched.ng-valid {
+input.ng-touched.ng-valid , select.ng-touched.ng-valid {
     border-color: var(--positive-color);
 }
-input.ng-touched.ng-invalid {
+input.ng-touched.ng-invalid , select.ng-touched.ng-invalid  {
     border-color: var(--negative-color);
 }
 
@@ -80,18 +86,48 @@ input[type=file] {
     border: 1px solid var(--primary-color);
     background-color: var(--primary-background-color);
 }
+
 button {
     padding: 12px 24px;
-    margin: auto 24px 16px 24px;
-    background-color: var(--primary-color);
-    color: var(--primary-text-on-primary);
-    border: none;
+    margin: 4px 24px 16px 24px;
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
+}
+button.primary {
+    background-color: var(--primary-color);
+    color: var(--primary-text-on-primary);
+    border: none;
+}
+button.primary:hover {
+    background-color: var(--primary-hover-color);
+}
+button.secondary {
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+    border: 1px solid var(--ui-border-color);
+    margin-bottom: 4px;
+}
+button.secondary:hover {
+    background-color: var(--primary-background-hover-color);
+}
+button:first-of-type {
+    margin-top: auto;
 }
 button:disabled {
     background-color: var(--disabled-background-color);
     color: var(--disabled-text-color);
     cursor:default;
+}
+button:disabled:hover {
+    background-color: var(--disabled-background-color);
+}
+
+.hint {
+    color: var(--negative-color);
+    font-size: 12px;
+    font-weight: 100;
+    margin-top: -8px;
+    margin-left: 4px;
+    margin-bottom: 12px;
 }
