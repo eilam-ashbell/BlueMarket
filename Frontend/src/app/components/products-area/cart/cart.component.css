@@ -6,6 +6,15 @@
     position: relative;
     box-shadow: var(--box-shadow-small);
 }
+.cart-empty-state {
+    opacity: 0.3;
+    text-align: center;
+}
+.image-empty {
+    max-width: 100%;
+    padding: 32px;
+    filter: grayscale()
+}
 .line {
     background-color: var(--primary-color);
     height: 4px;
