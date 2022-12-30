@@ -11,6 +11,7 @@
     display: flex;
     align-items: center;
     column-gap: 16px;
+    cursor: pointer;
 }
 .logo-wrapper > span {
     font-size: 26px;

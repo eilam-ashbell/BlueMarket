@@ -1,18 +1,13 @@
 <header class="header-wrapper">
-    <div class="logo-wrapper">
+    <div class="logo-wrapper" [routerLink]="userData?.role?.role === 'user' ? ['/'] : ['/admin']">
         <span>Blue Market</span>
     </div>
     <div class="actions-wrapper">
-        <!-- todo - modify button if logged in -->
         <div class="auth-wrapper" *ngIf="this.router.url === '/home' || '/admin'">
             <div class="auth-user" *ngIf="userData">
                 <span>{{userData.firstName}} {{userData.lastName}}</span>
                 <button class="logout" (click)="this.logout()">log out</button>
             </div>
-            <!-- <div class="auth-guest" *ngIf="!userData">
-                <button class="register">sign in</button>
-                <button class="register">register</button>
-            </div> -->
         </div>
         <button (click)="cartClickHandler()" class="cart-button" [ngClass]="isCartOpen ? 'open' : null" *ngIf="this.router.url === '/home'">
             <mat-icon>shopping_cart</mat-icon>

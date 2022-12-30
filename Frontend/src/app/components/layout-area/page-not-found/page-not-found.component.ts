@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { authStore } from 'src/app/redux/auth-state';
 
 @Component({
   selector: 'app-page-not-found',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-not-found.component.css']
 })
 export class PageNotFoundComponent implements OnInit {
+    
+    public role = authStore.getState().user.role.role;
 
   constructor() { }
 

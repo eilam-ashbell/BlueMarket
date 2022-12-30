@@ -22,9 +22,8 @@ export class CartComponent implements OnInit {
     async ngOnInit(): Promise<void> {
         // Get current cart
         this.cart = await this.cartService.getCurrentCart();
-        console.log(this.cart.cartProducts.length);
         const continueShopping = localStorage.getItem('continueShopping');
-        if (this.cart.cartProducts.length > 0 && !continueShopping) {
+        if (this.cart?.cartProducts?.length > 0 && !continueShopping) {
             this.thereOlderCart = true;
         }
         // Create new cart if there is no cart

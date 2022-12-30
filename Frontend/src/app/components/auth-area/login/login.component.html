@@ -12,7 +12,7 @@
     </span>
     <label for="passwordInput">password</label>
     <input type="password" id="passwordInput" name="password" [(ngModel)]="credentials.password" autocomplete="current-password"
-        #passwordModel="ngModel" required minlength="6" maxlength="100" placeholder="blue*****"/>
+        #passwordModel="ngModel" required minlength="6" maxlength="100" pattern="" placeholder="blue*****"/>
     <!-- todo - add validations -->
     <span class="hint" *ngIf="passwordModel.errors?.['required'] && passwordModel.touched">
         Required field
