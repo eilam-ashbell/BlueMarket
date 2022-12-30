@@ -1,56 +1,46 @@
-export class ICredentialModel {
+import mongoose from "mongoose";
+
+// 1. Model interface - describing the data:
+export interface ICredentialModel extends mongoose.Document {
     email: string;
     password: string;
-
-    constructor ( credential: ICredentialModel ) {
-        this.email = credential.email;
-        this.password = credential.password;
-    }
 }
 
-// import mongoose from "mongoose";
-
-// // 1. Model interface - describing the data:
-// export interface ICredentialModel extends mongoose.Document {
-//     email: string;
-//     password: string;
-// }
-
-// // 2. Model schema - describing validation, data, constraints...
-// export const CredentialSchema = new mongoose.Schema<ICredentialModel>(
-//     {
+// 2. Model schema - describing validation, data, constraints...
+export const CredentialSchema = new mongoose.Schema<ICredentialModel>(
+    {
         
-//         email: {
-//             // Type:
-//             type: String, // JavaScript String
-//             // Validations:
-//             required: [true, "Missing email"],
-//             minlength: [2, "Email too short"],
-//             maxlength: [100, "Email to long"],
-//             // Options:
-//             trim: true,
-//             unique: true
-//         },
-//         password: {
-//             // Type:
-//             type: String, // JavaScript String
-//             // Validations:
-//             required: [true, "Missing password"],
-//             minlength: [2, "Password too short"],
-//             maxlength: [1000, "Password to long"],
-//             // Options:
-//             trim: true,
-//         },
-//     },
-//     {
-//         // Options
-//         versionKey: false, // Don't add __v for new documents.
-//     }
-// );
+        email: {
+            // Type:
+            type: String, // JavaScript String
+            // Validations:
+            required: [true, "Missing email"],
+            minlength: [2, "Email too short"],
+            maxlength: [100, "Email to long"],
+            // Options:
+            trim: true,
+            unique: true
+        },
+        password: {
+            // Type:
+            type: String, // JavaScript String
+            // Validations:
+            required: [true, "Missing password"],
+            minlength: [2, "Password too short"],
+            maxlength: [1000, "Password to long"],
+            // Options:
+            trim: true,
+        },
+    },
+    {
+        // Options
+        versionKey: false, // Don't add __v for new documents.
+    }
+);
 
-// // 3. Model Class - the final model class:
-// export const CredentialsModel = mongoose.model<ICredentialModel>(
-//     "CredentialsModel",
-//     CredentialSchema,
-//     "credentials"
-// ); // Model name, schema name, collection name
+// 3. Model Class - the final model class:
+export const CredentialsModel = mongoose.model<ICredentialModel>(
+    "CredentialsModel",
+    CredentialSchema,
+    "credentials"
+); // Model name, schema name, collection name
