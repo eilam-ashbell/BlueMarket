@@ -6,13 +6,13 @@
             <label>ID number</label>
             <input type="text" name="identityNum" autocomplete="" formControlName="identityNum" placeholder="1234567">
             <span class="hint" *ngIf="identityNum.errors?.['required'] && (identityNum.dirty || identityNum.touched)">
-                Required field
+                You must enter an ID number to create your account
             </span>
             <span class="hint" *ngIf="identityNum.errors?.['minlength'] && (identityNum.dirty || identityNum.touched)">
-                Must contain at least 6 characters
+                ID number must have at least 6 character
             </span>
             <span class="hint" *ngIf="identityNum.errors?.['maxlength'] && (identityNum.dirty || identityNum.touched)">
-                Maximum 20 characters
+                ID number must be less than 20 characters Long
             </span>
             <span class="hint" *ngIf="identityNum.errors?.['idExist'] && (identityNum.dirty || identityNum.touched)">
                 This ID number already been used to register our store
@@ -23,9 +23,8 @@
             <label>Email</label>
             <input type="email" name="email" autocomplete="email" formControlName="email" placeholder="super@bluemarket.com">
             <span class="hint" *ngIf="email.errors?.['required'] && (email.dirty || email.touched)">
-                Required field
+                You must enter an email address to create your account
             </span>
-            <!-- todo - check email validation -->
             <span class="hint" *ngIf="email.errors?.['email'] && (email.dirty || email.touched)">
                 Not a valid email address
             </span>
@@ -34,13 +33,12 @@
             <label>Password</label>
             <input type="password" name="password" autocomplete="current-password" formControlName="password" placeholder="blue*****">
             <span class="hint" *ngIf="password.errors?.['required'] && (password.dirty || password.touched)">
-                Required field
+                You must create a password for your account
             </span>
-            <span class="hint" *ngIf="password.errors?.['minlength'] && (password.dirty || password.touched)">
-                Must contain at least 6 characters
-            </span>
-            <span class="hint" *ngIf="password.errors?.['maxlength'] && (password.dirty || password.touched)">
-                Maximum 100 characters
+            <span class="hint" *ngIf="password.errors?.['pattern'] && (password.dirty || password.touched)" >
+                <ng-container *ngFor="let m of password.errors?.['pattern']">
+                    {{m}}<br>
+                </ng-container>
             </span>
         </div>
         <div class="input-wrapper">
@@ -48,18 +46,11 @@
             <input type="password" name="passwordConfirm" autocomplete="" formControlName="passwordConfirm" placeholder="blue*****">
             <span class="hint"
                 *ngIf="passwordConfirm.errors?.['required'] && (passwordConfirm.dirty || passwordConfirm.touched)">
-                Required field
-            </span>
-            <span class="hint"
-                *ngIf="passwordConfirm.errors?.['minlength'] && (passwordConfirm.dirty || passwordConfirm.touched)">
-                Must contain at least 6 characters
-            </span>
-            <span class="hint" *ngIf="password.errors?.['maxlength'] && (password.dirty || password.touched)">
-                Maximum 100 characters
+                You must confirm your password
             </span>
             <span class="hint"
                 *ngIf="passwordConfirm.errors?.['mismatch'] && (passwordConfirm.dirty || passwordConfirm.touched)">
-                Not match password
+                Password are not match, please try again
             </span>
         </div>
     </div>

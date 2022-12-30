@@ -35,21 +35,15 @@ export class RegisterComponent {
             email: new FormControl("", [Validators.required, Validators.email]),
             password: new FormControl("", [
                 Validators.required,
-                Validators.minLength(6),
-                Validators.maxLength(100),
-            ]),
+            ], [this.validatePasswordPattern.bind(this)]),
             passwordConfirm: new FormControl("", [
                 Validators.required,
-                Validators.minLength(6),
-                Validators.maxLength(100),
                 this.passwordMatchValidator,
             ]),
         }),
         personalDetails: new FormGroup({
             city: new FormControl("", [
                 Validators.required,
-                Validators.minLength(2),
-                Validators.maxLength(100),
             ]),
             street: new FormControl("", [
                 Validators.required,
@@ -74,6 +68,10 @@ export class RegisterComponent {
         return c.value === c.parent?.get("password").value
             ? null
             : { mismatch: true };
+    }
+    private async validatePasswordPattern(c: AbstractControl) {
+        const validation = await this.checkPasswordValidation(c.value)
+        return this.checkPasswordValidation(c.value).length === 0 ? null : {pattern: validation}
     }
     // Costume validator for user id number confirmation
     private async idNumberNotExist(control: AbstractControl){
@@ -138,4 +136,34 @@ export class RegisterComponent {
         ) as FormGroup[];
         return groups[index];
     }
+
+    public checkPasswordValidation(value: string): string[] {
+        const messages: string[] = []
+        const isWhitespace = /^(?=.*\s)/;
+        if (isWhitespace.test(value)) {
+            messages.push("Password must not contain white-spaces.")
+        }
+        const isContainsUppercase = /^(?=.*[A-Z])/;
+        if (!isContainsUppercase.test(value)) {
+            messages.push("Password must have at least one uppercase character")
+        }
+        const isContainsLowercase = /^(?=.*[a-z])/;
+        if (!isContainsLowercase.test(value)) {
+            messages.push("Password must have at least one lowercase character")
+        }
+        const isContainsNumber = /^(?=.*[0-9])/;
+        if (!isContainsNumber.test(value)) {
+            messages.push("Password must contain at least one digit")
+        }
+        const isContainsSymbol =
+          /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])/;
+        if (!isContainsSymbol.test(value)) {
+            messages.push("Password must contain at least one special symbol")
+        }
+        const isValidLength = /^.{6,32}$/;
+        if (!isValidLength.test(value)) {
+            messages.push("Password must be 6-32 characters Long")
+        }
+        return messages;
+      }
 }

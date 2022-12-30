@@ -31,10 +31,10 @@ input::placeholder {
 input:focus-visible {
     outline-color: var(--primary-color);
 }
-input:valid {
+input.ng-touched.ng-valid {
     border-color: var(--positive-color);
 }
-input:not(:placeholder-shown):invalid {
+input.ng-touched.ng-invalid {
     border-color: var(--negative-color);
 }
 

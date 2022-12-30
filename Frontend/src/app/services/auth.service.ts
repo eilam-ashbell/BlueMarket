@@ -16,6 +16,8 @@ import { Router } from "@angular/router";
 export class AuthService {
     constructor(private http: HttpClient, public jwtHelper: JwtHelperService, private router: Router) {}
 
+    public passwordRegex: RegExp = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{6,32}$/;
+
     // Register
     public async register(user: UserModel): Promise<void> {
         // Send user object to server, get back token
@@ -46,7 +48,6 @@ export class AuthService {
             payload: token,
         };
         authStore.dispatch(action);
-        // todo - add handling with adding cart / restore cart
     }
 
     // Logout
@@ -67,7 +68,6 @@ export class AuthService {
     }
 
     // Decode user token
-    // todo - handle type error
     public decodeUserToken(): any {
         const token = authStore.getState().token;
         return this.jwtHelper.decodeToken(token)
@@ -79,4 +79,34 @@ export class AuthService {
         }
         return firstValueFrom(this.http.post<any>(environment.authRoute + "check_id", payload))
     }
+
+    public checkPasswordValidation(value: string): string[] {
+        const messages: string[] = []
+        const isWhitespace = /^(?=.*\s)/;
+        if (isWhitespace.test(value)) {
+            messages.push("Password must not contain white-spaces.")
+        }
+        const isContainsUppercase = /^(?=.*[A-Z])/;
+        if (!isContainsUppercase.test(value)) {
+            messages.push("Password must have at least one uppercase character")
+        }
+        const isContainsLowercase = /^(?=.*[a-z])/;
+        if (!isContainsLowercase.test(value)) {
+            messages.push("Password must have at least one lowercase character")
+        }
+        const isContainsNumber = /^(?=.*[0-9])/;
+        if (!isContainsNumber.test(value)) {
+            messages.push("Password must contain at least one digit")
+        }
+        const isContainsSymbol =
+          /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])/;
+        if (!isContainsSymbol.test(value)) {
+            messages.push("Password must contain at least one special symbol")
+        }
+        const isValidLength = /^.{6,32}$/;
+        if (!isValidLength.test(value)) {
+            messages.push("Password must be 6-32 characters Long")
+        }
+        return messages;
+      }
 }

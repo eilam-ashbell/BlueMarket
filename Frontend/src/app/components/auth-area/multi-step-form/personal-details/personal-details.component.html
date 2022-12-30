@@ -5,26 +5,26 @@
             <label>First name</label>
             <input type="text" name="name" autocomplete="name" formControlName="firstName" placeholder="Blue">
             <span class="hint" *ngIf="firstName.errors?.['required'] && (firstName.dirty || firstName.touched)">
-                Required field
+                You must enter 'first name' to create your account
             </span>
             <span class="hint" *ngIf="firstName.errors?.['minlength'] && (firstName.dirty || firstName.touched)">
-                Must contain at least 2 characters
+                First name must have at least 2 character
             </span>
             <span class="hint" *ngIf="firstName.errors?.['maxlength'] && (firstName.dirty || firstName.touched)">
-                Maximum 50 characters
+                First name must be less than 50 characters Long
             </span>
         </div>
         <div class="input-wrapper">
             <label>Last name</label>
             <input type="text" name="lastName" autocomplete="family-name" formControlName="lastName" placeholder="Market">
             <span class="hint" *ngIf="lastName.errors?.['required'] && (lastName.dirty || lastName.touched)">
-                Required field
+                You must enter 'last name' to create your account
             </span>
             <span class="hint" *ngIf="lastName.errors?.['minlength'] && (lastName.dirty || lastName.touched)">
-                Must contain at least 2 characters
+                Last name must have at least 2 character
             </span>
             <span class="hint" *ngIf="lastName.errors?.['maxlength'] && (lastName.dirty || lastName.touched)">
-                Maximum 50 characters
+                Last name must be less than 50 characters Long
             </span>
         </div>
         <div class="input-wrapper">
@@ -34,26 +34,20 @@
                 <option class="select-item" *ngFor="let city of cities">{{city}}</option>
             </select>
             <span class="hint" *ngIf="city.errors?.['required'] && (city.dirty || city.touched)">
-                Required field
-            </span>
-            <span class="hint" *ngIf="city.errors?.['minlength'] && (city.dirty || city.touched)">
-                Must contain at least 2 characters
-            </span>
-            <span class="hint" *ngIf="city.errors?.['maxlength'] && (city.dirty || city.touched)">
-                Maximum 100 characters
+                You must select a city to create your account
             </span>
         </div>
         <div class="input-wrapper">
             <label>Street</label>
             <input type="text" name="street" autocomplete="street-address" formControlName="street" placeholder="Milky way 11th">
             <span class="hint" *ngIf="street.errors?.['required'] && (street.dirty || street.touched)">
-                Required field
+                You must enter 'street' to create your account
             </span>
             <span class="hint" *ngIf="street.errors?.['minlength'] && (street.dirty || street.touched)">
-                Must contain at least 2 characters
+                Street must have at least 2 character
             </span>
             <span class="hint" *ngIf="street.errors?.['maxlength'] && (street.dirty || street.touched)">
-                Maximum 500 characters
+                Street be less than 500 characters Long
             </span>
         </div>
 

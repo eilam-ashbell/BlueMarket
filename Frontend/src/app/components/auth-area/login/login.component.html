@@ -3,25 +3,25 @@
     <label for="emailInput">email</label>
     <input type="email" id="emailInput" name="email" [(ngModel)]="credentials.email" #emailModel="ngModel" autocomplete="email"
         required email="true" placeholder="super@bluemarket.com"/>
-    <!-- todo - add costume validation with server -->
     <span class="hint" *ngIf="emailModel.errors?.['required'] && emailModel.touched">
-        Required field
+        You must enter an email address to login your account
     </span>
     <span class="hint" *ngIf="emailModel.errors?.['email'] && emailModel.touched">
         Not a valid email address
     </span>
     <label for="passwordInput">password</label>
     <input type="password" id="passwordInput" name="password" [(ngModel)]="credentials.password" autocomplete="current-password"
-        #passwordModel="ngModel" required minlength="6" maxlength="100" pattern="" placeholder="blue*****"/>
+        #passwordModel="ngModel" required 
+        
+        [pattern]="passwordRegex" placeholder="blue*****"/>
     <!-- todo - add validations -->
     <span class="hint" *ngIf="passwordModel.errors?.['required'] && passwordModel.touched">
-        Required field
+        You must enter a password to login your account
     </span>
-    <span class="hint" *ngIf="passwordModel.errors?.['minlength'] && (passwordModel.dirty || passwordModel.touched)">
-        Must contain at least 6 characters
-    </span>
-    <span class="hint" *ngIf="passwordModel.errors?.['maxlength'] && (passwordModel.dirty || passwordModel.touched)">
-        Maximum 100 characters
+    <span class="hint" *ngIf="passwordModel.errors?.['pattern'] && (passwordModel.dirty || passwordModel.touched)" >
+        <ng-container *ngFor="let m of validatePasswordPattern()">
+            {{m}}<br>
+        </ng-container>
     </span>
     <button [disabled]="loginForm.invalid">login</button>
 </form>

@@ -18,15 +18,15 @@
                     placeholder={{userData?.city}}>
                 <span class="hint"
                     *ngIf="form.controls.city.errors?.['required'] && (form.controls.city.dirty || form.controls.city.touched)">
-                    Required field
+                    You must enter a city name to delivery
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.city.errors?.['minlength'] && (form.controls.city.dirty || form.controls.city.touched)">
-                    Must contain at least 2 characters
+                    City must have at least 2 character
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.city.errors?.['maxlength'] && (form.controls.city.dirty || form.controls.city.touched)">
-                    Maximum 100 characters
+                    City must be less than 100 characters Long
                 </span>
             </div>
 
@@ -36,15 +36,15 @@
                     (dblclick)="setInputValue($event)" placeholder={{userData?.street}}>
                 <span class="hint"
                     *ngIf="form.controls.street.errors?.['required'] && (form.controls.street.dirty || form.controls.street.touched)">
-                    Required field
+                    You must enter a street address to delivery
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.street.errors?.['minlength'] && (form.controls.street.dirty || form.controls.street.touched)">
-                    Must contain at least 2 characters
+                    Street must have at least 2 character
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.street.errors?.['maxlength'] && (form.controls.street.dirty || form.controls.street.touched)">
-                    Maximum 100 characters
+                    Street must be less than 100 characters Long
                 </span>
             </div>
 
@@ -55,7 +55,7 @@
                 <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
                 <span class="hint"
                     *ngIf="form.controls.dateOfDelivery.errors?.['required'] && (form.controls.dateOfDelivery.dirty || form.controls.dateOfDelivery.touched)">
-                    Required field
+                    You must select a date for delivery
                 </span>
                 <!-- todo - add costume validation -->
             </div>
@@ -66,30 +66,30 @@
                     placeholder="XXXX-XXXX-XXXX-XXXX" inputmode="numeric">
                 <span class="hint"
                     *ngIf="form.controls.ccNumber.errors?.['required'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched)">
-                    Required field
+                    You must enter a credit card number to pay with
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.ccNumber.errors?.['minlength'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched)">
-                    Must contain at least 12 characters
+                    CC number must contain at least 6 characters
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.ccNumber.errors?.['maxlength'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched)">
-                    Maximum 20 characters
+                    CC number must be less than 50 characters Long
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.ccNumber.errors?.['luhnCheck'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched) && (!form.controls.ccNumber.errors?.['minlength']) ">
-                    Card number is invalid
+                    CC number is invalid
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.ccNumber.errors?.['pattern'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched)">
-                    Numbers only
+                    Please fill in numbers only
                 </span>
             </div>
             <div class="buttons-wrapper">
                 <button [routerLink]="['/']" class="secondary">Cancel</button>
                 <button class="primary" (click)="submit()" [disabled]="!this.form.valid">Place order</button>
             </div>
-            </form>
+        </form>
     </div>
 </div>
 <div class="order-modal" *ngIf="showModal">
