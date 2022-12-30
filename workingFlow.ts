@@ -6,8 +6,6 @@
 // 5. Create controllers for logics
 // 6. Test API with postman
 
-// TODO - assign auth middleware > verify logged in & verify admin
-
 // ! Frontend
 // 1. Update environment files with API routes
 // 2. Create Models for Frontend data structure

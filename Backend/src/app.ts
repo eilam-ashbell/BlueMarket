@@ -1,6 +1,5 @@
 import dal from "./2-utils/dal";
 dal.connect();
-import { Server as HttpServer} from "http";
 import sanitize from "./3-middleware/sanitize"
 import express from "express";
 import cors from "cors";
@@ -12,7 +11,6 @@ import expressFileUpload from "express-fileupload";
 import productController from "./6-controllers/product-controller";
 import cartController from "./6-controllers/cart-controller";
 import utilsController from "./6-controllers/utils-controller";
-import cartLogic from "./5-logic/cart-logic";
 
 const expressServer = express();
 
@@ -40,8 +38,3 @@ expressServer.use("*", routeNotFound);
 expressServer.use(catchAll);
 
 expressServer.listen(config.port, () => console.log("Listening on http://localhost:" + config.port))
-
-// todo - remove socket if not in use
-// const httpServer: HttpServer = expressServer.listen(config.port, () => console.log("Listening on http://localhost:" + config.port));
-
-// cartLogic.cartSocket(httpServer)
