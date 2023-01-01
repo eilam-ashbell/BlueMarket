@@ -14,7 +14,7 @@
             <h2>Checkout</h2>
             <div class="input-wrapper">
                 <label>City</label>
-                <input type="text" name="city" autocomplete="" formControlName="city" (dblclick)="setInputValue($event)"
+                <input type="text" name="city" formControlName="city" (dblclick)="setInputValue($event)"
                     placeholder={{userData?.city}}>
                 <span class="hint"
                     *ngIf="form.controls.city.errors?.['required'] && (form.controls.city.dirty || form.controls.city.touched)">
@@ -50,14 +50,13 @@
 
             <div class="input-wrapper">
                 <label>Date for delivery</label>
-                <input matInput name="dateOfDelivery" [matDatepickerFilter]="filterBusyDates" [matDatepicker]="picker"
+                <input matInput name="dateOfDelivery" readonly [matDatepickerFilter]="filterBusyDates" [matDatepicker]="picker"
                     [min]="minDate" (click)="picker.open()" placeholder="mm/dd/yyyy" formControlName="dateOfDelivery">
-                <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
+                <mat-datepicker #picker></mat-datepicker>
                 <span class="hint"
                     *ngIf="form.controls.dateOfDelivery.errors?.['required'] && (form.controls.dateOfDelivery.dirty || form.controls.dateOfDelivery.touched)">
                     You must select a date for delivery
                 </span>
-                <!-- todo - add costume validation -->
             </div>
 
             <div class="input-wrapper">
@@ -78,7 +77,7 @@
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.ccNumber.errors?.['luhnCheck'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched) && (!form.controls.ccNumber.errors?.['minlength']) ">
-                    CC number is invalid
+                    CC number is not in a valid format
                 </span>
                 <span class="hint"
                     *ngIf="form.controls.ccNumber.errors?.['pattern'] && (form.controls.ccNumber.dirty || form.controls.ccNumber.touched)">
@@ -97,8 +96,8 @@
         <h3> Your order has been successfully ordered
         </h3>
         <p>Do you want to download your bill?</p>
-        <button [routerLink]="['/']" class="outlined">skip</button>
-        <button (click)="createPDF()" [routerLink]="['/']">download</button>
+        <button (click)="createPDF()" class="secondary">download</button>
+        <button [routerLink]="['/']" class="primary">skip</button>
     </div>
 
 </div>

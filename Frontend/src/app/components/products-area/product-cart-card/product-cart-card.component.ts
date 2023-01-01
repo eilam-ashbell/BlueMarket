@@ -21,7 +21,7 @@ export class ProductCartCardComponent implements OnInit {
     async ngOnInit(): Promise<void> {
         this.productData = await this.productsService.getProduct(
             this.cartProduct.productId
-        );
+        );        
         this.imgPath = environment.staticsRoute + this.productData.imageName;
     }
 

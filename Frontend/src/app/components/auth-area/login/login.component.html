@@ -14,7 +14,6 @@
         #passwordModel="ngModel" required 
         
         [pattern]="passwordRegex" placeholder="blue*****"/>
-    <!-- todo - add validations -->
     <span class="hint" *ngIf="passwordModel.errors?.['required'] && passwordModel.touched">
         You must enter a password to login your account
     </span>

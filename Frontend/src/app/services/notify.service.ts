@@ -39,15 +39,15 @@ public error(err: any): void {
 }
 
 public extractErrorMessage(err: any): string {
-
+    
     // 1. If the err is the string message:
     if(typeof err === "string" ) return err;
 
     // 2. If server response with error message to axios:
-    if(typeof err.response?.data === "string" ) return err.response.data
+    if(typeof err?.error === "string" ) return err.error
 
     // 3. If server response with array of error messages to axios:
-    if(Array.isArray(err.response?.data)) return err.response.data[0]
+    if(Array.isArray(err?.error)) return err.error[0]
 
     // 4. If frontend throw new Error("..."):
     if(typeof err.message === "string" ) return err.message;

@@ -6,6 +6,7 @@ import { OrderModel } from "../models/order.model";
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { v4 as uuid } from 'uuid';
+import { BusyDate } from "../models/busy-date.model";
 @Injectable({
     providedIn: "root",
 })
@@ -29,11 +30,10 @@ export class UtilsService {
     }
 
     // Get all dates that have 3 deliveries and more
-    // todo - handle local time changes
-    public async getBusyDates(): Promise<OrderModel[]> {
+    public async getBusyDates(): Promise<BusyDate[]> {
         const busyDates = await firstValueFrom(
-            this.http.get<OrderModel[]>(environment.ordersRoute + "delivery/busy")
-        );        
+            this.http.get<BusyDate[]>(environment.ordersRoute + "delivery/busy")
+        );
         return busyDates;
     }
 
@@ -46,7 +46,6 @@ export class UtilsService {
           callback: (doc: jsPDF) => {
             doc.output('dataurlnewwindow');
             const fileName = uuid() + '.pdf'
-            // doc.save(fileName)
           }
         });
       }

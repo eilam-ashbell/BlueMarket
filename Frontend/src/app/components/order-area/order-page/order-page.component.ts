@@ -15,6 +15,9 @@ import {
     Validators,
 } from "@angular/forms";
 import * as luhn from "luhn";
+import { BusyDate } from "src/app/models/busy-date.model";
+import { NotifyService } from "src/app/services/notify.service";
+import { Router } from "@angular/router";
 const MarkJs = require("mark.js");
 
 @Component({
@@ -23,8 +26,7 @@ const MarkJs = require("mark.js");
     styleUrls: ["./order-page.component.css"],
 })
 export class OrderPageComponent implements OnInit {
-
-    @ViewChild('pdfContent', {static:false}) PDFelement: ElementRef
+    @ViewChild("pdfContent", { static: false }) PDFelement: ElementRef;
 
     public searchTerm: string = "";
     public cart: CartModel;
@@ -32,7 +34,7 @@ export class OrderPageComponent implements OnInit {
     public userData: UserModel;
     public order = new OrderModel();
     public minDate: Date;
-    public busyDates: OrderModel[];
+    public busyDates: BusyDate[];
     public showModal: boolean = false;
 
     public form = new FormGroup({
@@ -57,9 +59,10 @@ export class OrderPageComponent implements OnInit {
     });
 
     constructor(
-        private productsService: ProductsService,
         private cartService: CartService,
-        private utilsService: UtilsService
+        private utilsService: UtilsService,
+        private notifyService: NotifyService,
+        private router: Router
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -105,26 +108,13 @@ export class OrderPageComponent implements OnInit {
         }
     }
 
-    filterBusyDates = (d: Date): boolean => {
+    public filterBusyDates = (d: Date): boolean => {
         const time = d?.getTime();
         const filterDates = this.busyDates?.map((d) =>
             new Date(d._id).setHours(0)
         );
         if (d?.getDay() === 6) return false;
         return !filterDates?.find((x) => x == time);
-    };
-
-    //   todo - costume validator for date typing
-    //   todo - delete if not working
-    dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-        // Only highligh dates inside the month view.
-        if (view === "month") {
-            const date = cellDate?.getDate();
-            // Highlight the 1st and 20th day of each month.
-            return date === 1 || date === 20 ? "custom-date-class" : "";
-        }
-
-        return "";
     };
 
     // Costume validator for credit card number
@@ -134,28 +124,36 @@ export class OrderPageComponent implements OnInit {
     }
 
     public async submit() {
-        // check if all form values are valid
-        if (!this.form.valid) {
-            this.form.markAllAsTouched();
-            return;
+        try {
+            // check if all form values are valid
+            if (!this.form.valid) {
+                this.form.markAllAsTouched();
+                return;
+            }
+            // Assign data to order model
+            this.order.city = this.form.controls.city.value;
+            this.order.street = this.form.controls.street.value;
+            this.order.dateOfDelivery = new Date(
+                this.form.controls.dateOfDelivery.value
+            );
+            this.order.creditCard = this.form.controls.ccNumber.value;
+            // Send order to server
+            const placedOrder = await this.cartService.placeOrder(this.order);
+            this.showModal = true;
+            this.notifyService.success("Your order has been approved");
+        } catch (err: any) {
+            this.notifyService.error(err);
+            console.log(err);
         }
-        // todo - change form to object
-        // Assign data to order model
-        this.order.city = this.form.controls.city.value;
-        this.order.street = this.form.controls.street.value;
-        this.order.dateOfDelivery = new Date(
-            this.form.controls.dateOfDelivery.value
-        );
-        this.order.creditCard = this.form.controls.ccNumber.value;
-        // Send order to server
-        const placedOrder = await this.cartService.placeOrder(this.order);
-        // todo - add notify and redirect
-        console.log(placedOrder);
-
-        this.showModal = true
     }
 
-    public createPDF(){
-        this.utilsService.exportCartToPDF(this.PDFelement.nativeElement)
+    public createPDF() {
+        try {
+           this.utilsService.exportCartToPDF(this.PDFelement.nativeElement);
+           this.router.navigate(["/"]);
+        }
+        catch(err: any) {
+            this.notifyService.error(err)
+        }
     }
 }

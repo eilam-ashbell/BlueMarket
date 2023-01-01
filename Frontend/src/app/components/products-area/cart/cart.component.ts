@@ -28,8 +28,6 @@ export class CartComponent implements OnInit {
         }
         // Create new cart if there is no cart
         if (!this.cart) {
-            console.log(this.cart);
-            console.log("New cart created!");
             this.cart = await this.cartService.createNewCart();
         }
     }

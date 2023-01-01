@@ -1,7 +1,7 @@
 import { RoleModel } from "./role.model";
 
 export class UserModel  {
-    _id: string;
+    _id?: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -13,13 +13,13 @@ export class UserModel  {
     roleId?: string;
     role?: RoleModel;
 
-    constructor( firstName: string, lastName: string, email: string, identityNum: string, city: string, street: string, password: string ) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.identityNum = identityNum;
-        this.city = city;
-        this.street = street;
-        this.password = password;
+    constructor( user: UserModel ) {
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.email = user.email;
+        this.identityNum = user.identityNum;
+        this.city = user.city;
+        this.street = user.street;
+        this.password = user.password;
     }
 }

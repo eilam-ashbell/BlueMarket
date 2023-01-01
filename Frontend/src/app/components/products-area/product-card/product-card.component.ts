@@ -23,7 +23,7 @@ export class ProductCardComponent implements OnInit {
     constructor(private cartService: CartService) {}
 
     ngOnInit(): void {
-        this.imagePath = environment.staticsRoute + this.product.imageName;
+        this.imagePath = this.product.imageName ? (environment.staticsRoute + this.product.imageName) : null;
     }
 
     // increase quantity field by 1

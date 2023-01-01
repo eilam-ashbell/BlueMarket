@@ -30,9 +30,11 @@
     display: block;
     width: 100%;
     background-color: var(--primary-background-color);
+    border-top:1px solid var(--ui-border-color);
     color: var(--primary-color);
     text-align: end;
-    padding: 24px;
+    padding: 16px;
+    margin-top: 16px;
     font-weight: 700;
     font-size: 18px;
     position: sticky;
@@ -148,12 +150,12 @@ button.secondary:hover {
     text-align: center;
 }
 
-.outlined {
+.secondary {
     background-color: transparent;
     border: 1px solid var(--ui-border-color);
     color: var(--primary-text-color);
     margin-right: 40px;
 }
-.outlined:hover {
+.secondary:hover {
     background-color: var(--primary-background-hover-color);
 }

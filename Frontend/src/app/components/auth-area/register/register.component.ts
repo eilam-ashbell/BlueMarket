@@ -12,6 +12,7 @@ import { Router } from "@angular/router";
 import { map, Observable, of } from "rxjs";
 import { UserModel } from "src/app/models/user-model";
 import { AuthService } from "src/app/services/auth.service";
+import { NotifyService } from "src/app/services/notify.service";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -20,7 +21,7 @@ import { environment } from "src/environments/environment";
     styleUrls: ["./register.component.css"],
 })
 export class RegisterComponent {
-    constructor(private authService: AuthService, private router: Router, private http: HttpClient) {}
+    constructor(private authService: AuthService, private router: Router, private http: HttpClient, private notifyService: NotifyService) {}
 
     // Define start step in the form
     public currentStep = 0;
@@ -65,19 +66,18 @@ export class RegisterComponent {
 
     // Costume validator for password confirmation
     private passwordMatchValidator(c: AbstractControl) {
-        return c.value === c.parent?.get("password").value
+        return c.parent?.get("passwordConfirm").value === c.parent?.get("password").value
             ? null
             : { mismatch: true };
     }
     private async validatePasswordPattern(c: AbstractControl) {
         const validation = await this.checkPasswordValidation(c.value)
+        c.parent?.get("passwordConfirm").reset()
         return this.checkPasswordValidation(c.value).length === 0 ? null : {pattern: validation}
     }
     // Costume validator for user id number confirmation
     private async idNumberNotExist(control: AbstractControl){
-        const response = await this.authService.checkIdNumber(control.value)
-        console.log(response);
-        
+        const response = await this.authService.checkIdNumber(control.value)        
         return response ? {'idExist': true } : null
       }
 
@@ -96,23 +96,15 @@ export class RegisterComponent {
             this.form.markAllAsTouched();
             return
         }
-        // todo - change form to object
         // build user model for submit
-        const user = new UserModel(
-            this.form.value.personalDetails.firstName,
-            this.form.value.personalDetails.lastName,
-            this.form.value.accountDetails.email,
-            this.form.value.accountDetails.identityNum,
-            this.form.value.personalDetails.city,
-            this.form.value.personalDetails.street,
-            this.form.value.accountDetails.password
-        );
+        const user = new UserModel(Object.assign(this.form.value.accountDetails, this.form.value.personalDetails) as UserModel)
         // submit registration
         try {
             await this.authService.register(user);
+            this.notifyService.success(user.firstName + ', you are officially one of us!')
             this.router.navigate(["/home"]);
         } catch (err: any) {
-            // todo - handle error message
+            this.notifyService.error(err)
             console.log(err);
             this.currentStep = 0;
         }

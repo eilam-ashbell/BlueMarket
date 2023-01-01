@@ -4,6 +4,7 @@ import { async } from "rxjs";
 import { CredentialModel } from "src/app/models/credentials.model";
 import { authStore } from "src/app/redux/auth-state";
 import { AuthService } from "src/app/services/auth.service";
+import { NotifyService } from "src/app/services/notify.service";
 
 @Component({
     selector: "app-login",
@@ -15,7 +16,7 @@ export class LoginComponent {
     public credentials = new CredentialModel();
     public passwordRegex: RegExp = this.authService.passwordRegex;
 
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router, private notifyService: NotifyService) {}
 
     public async login(): Promise<void> {
         try {
@@ -23,11 +24,9 @@ export class LoginComponent {
             authStore.getState().user.role.role === 'admin' ?
             this.router.navigateByUrl("/admin") :
             this.router.navigateByUrl("/home");
-            // todo - toaster
-            console.log("logged in");
+            this.notifyService.success('Welcome back ' + authStore.getState().user.firstName)
         } catch (err: any) {
-            // todo - toaster
-            console.log(err);
+            this.notifyService.error(err)
         }
     }
 

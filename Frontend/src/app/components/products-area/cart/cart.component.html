@@ -8,7 +8,6 @@
             <app-product-cart-card  *ngFor="let p of cart?.cartProducts" [cartProduct]="p"></app-product-cart-card>
             <div class="cart-empty-state" *ngIf="cart?.cartProducts?.length === 0">
                 <img class="image-empty" src="./../../../../assets/images/undraw_empty_cart_co35.svg">
-                <!-- todo design empty state -->
                 <p>your cart is currently empty</p>
             </div>
     </div>

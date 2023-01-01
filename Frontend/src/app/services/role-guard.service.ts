@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router, CanActivate, ActivatedRouteSnapshot } from "@angular/router";
 import { AuthService } from "./auth.service";
-import { authStore } from "../redux/auth-state";
+import { AuthAction, AuthActionType, authStore } from "../redux/auth-state";
 import { NotifyService } from "./notify.service";
 
 @Injectable({
@@ -15,22 +15,24 @@ export class RoleGuardService implements CanActivate {
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        // TODO - figure out roleAccess error
-        // @ts-ignore: Unreachable code error
-        const role = route.data.roleAccess;
+        const role = route.data?.['roleAccess'];
         const user = authStore.getState().user;
 
         // return false if there is no token
         if (!user) {
-            this.notyf.error("you are not logged in");
-            console.log("you are not logged in");
+            // this.notyf.error("you are not logged in");
+            // console.log("you are not logged in");
             this.router.navigate(["guest"]);
             return false;
         }
 
         // return false if token is expired
         if (!this.authService.isAuthenticated()) {
-            this.notyf.error("you are not logged in");
+            const action: AuthAction = {
+                type: AuthActionType.Logout
+            }
+            authStore.dispatch(action)
+            // this.notyf.error("you are not logged in");
             console.log("session token is expired");
             this.router.navigate(["guest"]);
             return false;

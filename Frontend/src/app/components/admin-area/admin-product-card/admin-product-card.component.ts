@@ -24,7 +24,7 @@ export class AdminProductCardComponent {
     constructor(private productService: ProductsService) {}
 
     ngOnInit(): void {
-        this.imagePath = environment.staticsRoute + this.product.imageName;
+        this.imagePath = this.product.imageName ? (environment.staticsRoute + this.product.imageName) : null;
     }
 
     public editProduct(): void {

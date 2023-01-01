@@ -30,7 +30,7 @@ async function getBusyDates(): Promise<any> {
                 _id: {
                     // format date to yyyy-mm-dd
                     $dateToString: {
-                        format: "%Y-%m-%d",
+                        format: Date,
                         date: "$dateOfDelivery",
                     },
                 },

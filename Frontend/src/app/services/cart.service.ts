@@ -1,11 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { firstValueFrom, observable } from "rxjs";
+import { firstValueFrom } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CartProductModel } from "../models/cart-product.model";
 import { CartModel } from "../models/cart.model";
 import { authStore } from "../redux/auth-state";
-import { Socket, io } from "socket.io-client";
 import { CartAction, CartActionType, cartStore } from "../redux/cart-state";
 import { OrderModel } from "../models/order.model";
 
@@ -20,11 +19,7 @@ export class CartService {
 
     // Get user's current cart
     public async getCurrentCart(): Promise<CartModel> {
-        const userCartId = authStore.getState().user.userCartId;        
-        if (!userCartId) {
-            // todo - notify
-            console.log("no cartId");
-        }        
+        const userCartId = authStore.getState().user.userCartId;
         const currentCart = await firstValueFrom(
             this.http.post<CartModel>(environment.cartsRoute + "current", {
                 userCartId: userCartId,

@@ -8,8 +8,7 @@
     <div class="show-on-hover">
         <div class="quantity-controller">
             <button class="controller decrease" (click)="decreaseQuantity()">-</button>
-            <input type="number" step="1" [(ngModel)]="quantity" max="9999" min="1" (blur)="validation()"/>
-            <!-- todo - add hint -->
+            <input type="number" step="1" [(ngModel)]="quantity" max="9999" min="1" required="" (blur)="validation()" />
             <button class="controller increase" (click)="increaseQuantity()">+</button>
         </div>
         <button class="add-product" (click)="addToCart()">add <span class="total-price">{{product.price * quantity |

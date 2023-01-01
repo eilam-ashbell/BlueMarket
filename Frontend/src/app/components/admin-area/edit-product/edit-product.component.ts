@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
-import { FormGroup, FormControl, Validators, NgForm } from "@angular/forms";
+import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CategoryModel } from "src/app/models/category.model";
 import { ProductModel } from "src/app/models/product.model";

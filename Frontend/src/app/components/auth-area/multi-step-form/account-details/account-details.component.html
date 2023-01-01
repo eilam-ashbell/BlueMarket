@@ -31,7 +31,7 @@
         </div>
         <div class="input-wrapper">
             <label>Password</label>
-            <input type="password" name="password" autocomplete="current-password" formControlName="password" placeholder="blue*****">
+            <input type="password" name="password" autocomplete="new-password" formControlName="password" placeholder="blue*****">
             <span class="hint" *ngIf="password.errors?.['required'] && (password.dirty || password.touched)">
                 You must create a password for your account
             </span>
@@ -43,7 +43,7 @@
         </div>
         <div class="input-wrapper">
             <label>Confirm password</label>
-            <input type="password" name="passwordConfirm" autocomplete="" formControlName="passwordConfirm" placeholder="blue*****">
+            <input type="password" name="passwordConfirm" autocomplete="new-password" formControlName="passwordConfirm" placeholder="blue*****">
             <span class="hint"
                 *ngIf="passwordConfirm.errors?.['required'] && (passwordConfirm.dirty || passwordConfirm.touched)">
                 You must confirm your password
