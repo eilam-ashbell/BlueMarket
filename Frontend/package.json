@@ -31,6 +31,7 @@
     "mark.js": "^8.11.1",
     "moment": "^2.29.4",
     "ngx-countup": "^13.1.0",
+    "ngx-skeleton-loader": "^6.0.0",
     "notyf": "^3.10.0",
     "redux": "^4.2.0",
     "rxjs": "~7.5.0",

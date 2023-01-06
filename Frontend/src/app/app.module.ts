@@ -30,7 +30,7 @@ import { LandingComponent } from "./components/home-area/landing/landing.compone
 import { CountUpModule } from 'ngx-countup';
 import { AdminPageComponent } from './components/admin-area/admin-page/admin-page.component';
 import { AdminProductCardComponent } from './components/admin-area/admin-product-card/admin-product-card.component';
-import { EditProductComponent } from './components/admin-area/edit-product/edit-product.component'
+import { EditProductComponent } from './components/admin-area/edit-product/edit-product.component';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
