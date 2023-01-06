@@ -28,7 +28,8 @@ label {
     font-weight: 100;
 }
 
-input, select {
+input,
+select {
     margin-bottom: 12px;
     font-size: 16px;
     padding: 12px 12px 12px 12px;
@@ -41,14 +42,16 @@ input::placeholder {
 input:focus-visible {
     outline-color: var(--primary-color);
 }
-input.ng-touched.ng-valid , select.ng-touched.ng-valid {
+input.ng-touched.ng-valid,
+select.ng-touched.ng-valid {
     border-color: var(--positive-color);
 }
-input.ng-touched.ng-invalid , select.ng-touched.ng-invalid  {
+input.ng-touched.ng-invalid,
+select.ng-touched.ng-invalid {
     border-color: var(--negative-color);
 }
 
-input[type=file] {
+input[type="file"] {
     position: absolute;
     top: 0;
     left: 0;
@@ -117,7 +120,7 @@ button:first-of-type {
 button:disabled {
     background-color: var(--disabled-background-color);
     color: var(--disabled-text-color);
-    cursor:default;
+    cursor: default;
 }
 button:disabled:hover {
     background-color: var(--disabled-background-color);

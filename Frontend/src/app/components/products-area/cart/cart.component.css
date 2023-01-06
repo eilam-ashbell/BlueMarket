@@ -13,7 +13,7 @@
 .image-empty {
     max-width: 100%;
     padding: 32px;
-    filter: grayscale()
+    filter: grayscale();
 }
 .line {
     background-color: var(--primary-color);
@@ -29,7 +29,6 @@
     color: var(--secondary-text-color);
     background-color: transparent;
     border: none;
-    /* text-decoration: underline; */
     cursor: pointer;
 }
 .products-wrapper {
@@ -53,7 +52,7 @@
 .place-order:disabled {
     background-color: var(--disabled-background-color);
     color: var(--disabled-text-color);
-    cursor:default;
+    cursor: default;
 }
 
 .cart-status {

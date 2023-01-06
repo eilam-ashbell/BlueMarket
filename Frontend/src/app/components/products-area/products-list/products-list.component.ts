@@ -1,10 +1,8 @@
-import { Component, EventEmitter, NgModule, OnInit } from "@angular/core";
-import { ActivatedRouteSnapshot, Data } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
 import { CategoryModel } from "src/app/models/category.model";
 import { ProductModel } from "src/app/models/product.model";
-import { AuthState, authStore } from "src/app/redux/auth-state";
-import { AuthService } from "src/app/services/auth.service";
 import { CartService } from "src/app/services/cart.service";
+import { NotifyService } from "src/app/services/notify.service";
 import { ProductsService } from "src/app/services/products.service";
 
 @Component({
@@ -20,28 +18,37 @@ export class ProductsListComponent implements OnInit {
 
     constructor(
         private productsService: ProductsService,
-        private cartService: CartService
+        private cartService: CartService,
+        private notifyService: NotifyService
     ) {}
 
     async ngOnInit(): Promise<void> {
-        // get all products from server and save in local variable
-        this.productList = await this.productsService.getAllProducts();
-        this.productsToDisplay = [...this.productList];
-        // get all categories from server and save in local variable
-        this.categories = await this.productsService.getAllCategories();
+        try {
+            // get all products from server and save in local variable
+            this.productList = await this.productsService.getAllProducts();
+            this.productsToDisplay = [...this.productList];
+            // get all categories from server and save in local variable
+            this.categories = await this.productsService.getAllCategories();
+        } catch (err: any) {
+            this.notifyService.error(err);
+        }
     }
 
     public get isCartOpen() {
         return this.cartService.isCartOpen;
     }
 
-    public async filterByCategory(categoryId: string) {
-        categoryId === "all"
-            ? (this.productsToDisplay = [...this.productList])
-            : (this.productsToDisplay =
-                  await this.productsService.getProductsFromCategory(
-                      categoryId
-                  ));
+    public async filterByCategory(categoryId: string): Promise<void> {
+        try {
+            categoryId === "all"
+                ? (this.productsToDisplay = [...this.productList])
+                : (this.productsToDisplay =
+                      await this.productsService.getProductsFromCategory(
+                          categoryId
+                      ));
+        } catch (err: any) {
+            this.notifyService.error(err);
+        }
     }
 
     public filterBySearchTerm() {

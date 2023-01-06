@@ -9,20 +9,19 @@ import { ProductModel } from "../models/product.model";
     providedIn: "root",
 })
 export class ProductsService {
-
     private productToEdit = new BehaviorSubject<ProductModel>(undefined);
-    public productToWatch = this.productToEdit.asObservable()
+    public productToWatch = this.productToEdit.asObservable();
 
     constructor(private http: HttpClient) {}
 
     public setProductToEdit(product: ProductModel) {
-        this.productToEdit.next(product)    
+        this.productToEdit.next(product);
     }
     public getProductToEdit() {
         return this.productToEdit.getValue();
     }
     public clearProductToEdit() {
-        this.productToEdit.next(undefined)
+        this.productToEdit.next(undefined);
     }
 
     // Get all products
@@ -36,7 +35,9 @@ export class ProductsService {
     // Get product by id
     public async getProduct(productId: string): Promise<ProductModel> {
         const product = await firstValueFrom(
-            this.http.get<ProductModel>(environment.productsRoute + '/' + productId)
+            this.http.get<ProductModel>(
+                environment.productsRoute + "/" + productId
+            )
         );
         return product;
     }
@@ -81,26 +82,26 @@ export class ProductsService {
         formData.append("name", product.name);
         formData.append("price", product.price.toString());
         formData.append("categoryId", product.categoryId.toString());
-        formData.append("image", product.image);        
+        formData.append("image", product.image);
         const addedProduct = await firstValueFrom(
             this.http.post<ProductModel>(environment.productsRoute, formData)
         );
-        console.log(addedProduct);
     }
 
     // Update product
     public async updateProduct(product: ProductModel): Promise<void> {
-        console.log(product);
         const formData = new FormData();
         formData.append("name", product.name);
         formData.append("price", product.price.toString());
         formData.append("categoryId", product.categoryId);
         formData.append("image", product.image);
         formData.append("imageName", product.imageName);
-        const updatedProduct = await firstValueFrom(
-            this.http.put<ProductModel>(environment.productsRoute + product._id, formData)
-        )
-        console.log(updatedProduct);
+        await firstValueFrom(
+            this.http.put<ProductModel>(
+                environment.productsRoute + product._id,
+                formData
+            )
+        );
     }
 
     // Delete product by _id

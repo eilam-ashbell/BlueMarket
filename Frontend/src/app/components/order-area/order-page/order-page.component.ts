@@ -1,13 +1,11 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { CartProductModel } from "src/app/models/cart-product.model";
 import { CartModel } from "src/app/models/cart.model";
 import { OrderModel } from "src/app/models/order.model";
 import { UserModel } from "src/app/models/user-model";
 import { authStore } from "src/app/redux/auth-state";
 import { CartService } from "src/app/services/cart.service";
-import { ProductsService } from "src/app/services/products.service";
 import { UtilsService } from "src/app/services/utils.service";
-import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
 import {
     AbstractControl,
     FormControl,
@@ -66,12 +64,16 @@ export class OrderPageComponent implements OnInit {
     ) {}
 
     async ngOnInit(): Promise<void> {
-        this.cart = await this.cartService.getCurrentCart();
-        this.order.cartId = this.cart._id;
-        this.order.totalPrice = 0;
-        this.userData = authStore.getState().user;
-        this.busyDates = await this.utilsService.getBusyDates();
-        this.minDate = new Date();
+        try {
+            this.cart = await this.cartService.getCurrentCart();
+            this.order.cartId = this.cart._id;
+            this.order.totalPrice = 0;
+            this.userData = authStore.getState().user;
+            this.busyDates = await this.utilsService.getBusyDates();
+            this.minDate = new Date();
+        } catch (err: any) {
+            this.notifyService.error(err);
+        }
     }
 
     public calcTotalCartPrice() {
@@ -149,11 +151,10 @@ export class OrderPageComponent implements OnInit {
 
     public createPDF() {
         try {
-           this.utilsService.exportCartToPDF(this.PDFelement.nativeElement);
-           this.router.navigate(["/"]);
-        }
-        catch(err: any) {
-            this.notifyService.error(err)
+            this.utilsService.exportCartToPDF(this.PDFelement.nativeElement);
+            this.router.navigate(["/"]);
+        } catch (err: any) {
+            this.notifyService.error(err);
         }
     }
 }

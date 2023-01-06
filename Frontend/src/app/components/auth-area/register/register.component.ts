@@ -1,51 +1,54 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import {
     AbstractControl,
-    FormArray,
     FormControl,
     FormGroup,
-    ValidationErrors,
     Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { map, Observable, of } from "rxjs";
 import { UserModel } from "src/app/models/user-model";
 import { AuthService } from "src/app/services/auth.service";
 import { NotifyService } from "src/app/services/notify.service";
-import { environment } from "src/environments/environment";
-
 @Component({
     selector: "app-register",
     templateUrl: "./register.component.html",
     styleUrls: ["./register.component.css"],
 })
 export class RegisterComponent {
-    constructor(private authService: AuthService, private router: Router, private http: HttpClient, private notifyService: NotifyService) {}
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        private notifyService: NotifyService
+    ) {}
 
     // Define start step in the form
     public currentStep = 0;
     // Define reactive form
     public form = new FormGroup({
         accountDetails: new FormGroup({
-            identityNum: new FormControl("", [
-                Validators.required,
-                Validators.minLength(6),
-                Validators.maxLength(20),
-            ], [this.idNumberNotExist.bind(this)]),
+            identityNum: new FormControl(
+                "",
+                [
+                    Validators.required,
+                    Validators.minLength(6),
+                    Validators.maxLength(20),
+                ],
+                [this.idNumberNotExist.bind(this)]
+            ),
             email: new FormControl("", [Validators.required, Validators.email]),
-            password: new FormControl("", [
-                Validators.required,
-            ], [this.validatePasswordPattern.bind(this)]),
+            password: new FormControl(
+                "",
+                [Validators.required],
+                [this.validatePasswordPattern.bind(this)]
+            ),
             passwordConfirm: new FormControl("", [
                 Validators.required,
                 this.passwordMatchValidator,
             ]),
         }),
         personalDetails: new FormGroup({
-            city: new FormControl("", [
-                Validators.required,
-            ]),
+            city: new FormControl("", [Validators.required]),
             street: new FormControl("", [
                 Validators.required,
                 Validators.minLength(2),
@@ -66,20 +69,24 @@ export class RegisterComponent {
 
     // Costume validator for password confirmation
     private passwordMatchValidator(c: AbstractControl) {
-        return c.parent?.get("passwordConfirm").value === c.parent?.get("password").value
+        return c.parent?.get("passwordConfirm").value ===
+            c.parent?.get("password").value
             ? null
             : { mismatch: true };
     }
+    // Costume validator for password pattern
     private async validatePasswordPattern(c: AbstractControl) {
-        const validation = await this.checkPasswordValidation(c.value)
-        c.parent?.get("passwordConfirm").reset()
-        return this.checkPasswordValidation(c.value).length === 0 ? null : {pattern: validation}
+        const validation = await this.checkPasswordValidation(c.value);
+        c.parent?.get("passwordConfirm").reset();
+        return this.checkPasswordValidation(c.value).length === 0
+            ? null
+            : { pattern: validation };
     }
     // Costume validator for user id number confirmation
-    private async idNumberNotExist(control: AbstractControl){
-        const response = await this.authService.checkIdNumber(control.value)        
-        return response ? {'idExist': true } : null
-      }
+    private async idNumberNotExist(control: AbstractControl) {
+        const response = await this.authService.checkIdNumber(control.value);
+        return response ? { idExist: true } : null;
+    }
 
     // continue to next step in the form
     public next(): void {
@@ -91,20 +98,27 @@ export class RegisterComponent {
     }
     // submit form data
     public async submit(): Promise<void> {
+        try {
         // check if all form values are valid
         if (!this.form.valid) {
             this.form.markAllAsTouched();
-            return
+            return;
         }
         // build user model for submit
-        const user = new UserModel(Object.assign(this.form.value.accountDetails, this.form.value.personalDetails) as UserModel)
+        const user = new UserModel(
+            Object.assign(
+                this.form.value.accountDetails,
+                this.form.value.personalDetails
+            ) as UserModel
+        );
         // submit registration
-        try {
             await this.authService.register(user);
-            this.notifyService.success(user.firstName + ', you are officially one of us!')
+            this.notifyService.success(
+                user.firstName + ", you are officially one of us!"
+            );
             this.router.navigate(["/home"]);
         } catch (err: any) {
-            this.notifyService.error(err)
+            this.notifyService.error(err);
             console.log(err);
             this.currentStep = 0;
         }
@@ -130,32 +144,36 @@ export class RegisterComponent {
     }
 
     public checkPasswordValidation(value: string): string[] {
-        const messages: string[] = []
+        const messages: string[] = [];
         const isWhitespace = /^(?=.*\s)/;
         if (isWhitespace.test(value)) {
-            messages.push("Password must not contain white-spaces.")
+            messages.push("Password must not contain white-spaces.");
         }
         const isContainsUppercase = /^(?=.*[A-Z])/;
         if (!isContainsUppercase.test(value)) {
-            messages.push("Password must have at least one uppercase character")
+            messages.push(
+                "Password must have at least one uppercase character"
+            );
         }
         const isContainsLowercase = /^(?=.*[a-z])/;
         if (!isContainsLowercase.test(value)) {
-            messages.push("Password must have at least one lowercase character")
+            messages.push(
+                "Password must have at least one lowercase character"
+            );
         }
         const isContainsNumber = /^(?=.*[0-9])/;
         if (!isContainsNumber.test(value)) {
-            messages.push("Password must contain at least one digit")
+            messages.push("Password must contain at least one digit");
         }
         const isContainsSymbol =
-          /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])/;
+            /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])/;
         if (!isContainsSymbol.test(value)) {
-            messages.push("Password must contain at least one special symbol")
+            messages.push("Password must contain at least one special symbol");
         }
         const isValidLength = /^.{6,32}$/;
         if (!isValidLength.test(value)) {
-            messages.push("Password must be 6-32 characters Long")
+            messages.push("Password must be 6-32 characters Long");
         }
         return messages;
-      }
+    }
 }

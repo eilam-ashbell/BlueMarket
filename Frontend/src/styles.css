@@ -10,31 +10,8 @@ body {
     margin: 0;
     height: 100%;
     color: var(--primary-text-color);
+
     /* ---------- COLORS ---------- */
-
-    /* Neutral colors */
-    --neutral-000: #f9f9fa;
-    --neutral-100: #ecedf0;
-    --neutral-200: #dfe1e5;
-    --neutral-300: #d1d3d9;
-    --neutral-400: #c1c4cc;
-    --neutral-500: #afb3be;
-    --neutral-600: #9ba0ad;
-    --neutral-700: #83899a;
-    --neutral-800: #666c7d;
-    --neutral-900: #3b3f49;
-    /* Primary color */
-    --primary-000: #f6fafd;
-    --primary-100: #e4eff7;
-    --primary-200: #d0e4f2;
-    --primary-300: #bad7ec;
-    --primary-400: #a2c9e5;
-    --primary-500: #86b9dd;
-    --primary-600: #66a6d5;
-    --primary-700: #3e8fca;
-    --primary-800: #2b71a3;
-    --primary-900: #1a4260;
-
     --primary-color: #0073ea;
     --primary-hover-color: #0060b9;
     --primary-selected-color: #cce5ff;
@@ -102,9 +79,9 @@ body {
 
 .notification {
     position: absolute;
-    /* left: 24; */
-    /* bottom: 8; */
-    /* min-width: 100%; */
+    left: 0;
+    bottom: 0;
+    min-width: 100vw;
     border-radius: 4;
     padding: 0;
     padding-left: 24px;

@@ -1,5 +1,4 @@
 h3 {
-    color: var(--neutral-900);
     font-weight: 200;
     margin: 0 0 28px 0;
 }
@@ -16,7 +15,8 @@ label {
     font-weight: 100;
 }
 
-input, select {
+input,
+select {
     margin-bottom: 12px;
     font-size: 16px;
     padding: 12px 12px 12px 12px;

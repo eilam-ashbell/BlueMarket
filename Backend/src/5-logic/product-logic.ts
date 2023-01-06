@@ -1,9 +1,5 @@
 import { IdNotFoundError, ValidationError } from "../4-models/client-errors";
-import {
-    IProductModel,
-    ProductModel,
-    ProductSchema,
-} from "../4-models/product-model";
+import { IProductModel, ProductModel } from "../4-models/product-model";
 import { v4 as uuid } from "uuid";
 import config from "../2-utils/config";
 import safeDelete from "../2-utils/safe-delete";
@@ -11,12 +7,12 @@ import { CategoryModel, ICategoryModel } from "../4-models/category-model";
 
 // Get all products:
 async function getAllProducts(): Promise<IProductModel[]> {
-    return ProductModel.find().populate("category").sort({"name":1}).exec();
+    return ProductModel.find().populate("category").sort({ name: 1 }).exec();
 }
 
 // Get product by id:
 async function getProduct(productId: string): Promise<IProductModel> {
-    return ProductModel.findById({_id: productId}).exec();
+    return ProductModel.findById({ _id: productId }).exec();
 }
 
 // Get all categories:
@@ -35,8 +31,8 @@ async function getAllProductsByCategory(
 async function getAllProductsBySearch(
     searchValue: string
 ): Promise<IProductModel[]> {
-    const regexTerm = new RegExp(searchValue, 'i')
-    return ProductModel.find({ name: {$regex: regexTerm} }).exec();
+    const regexTerm = new RegExp(searchValue, "i");
+    return ProductModel.find({ name: { $regex: regexTerm } }).exec();
 }
 
 // Add product:

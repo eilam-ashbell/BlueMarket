@@ -53,7 +53,7 @@ button:hover {
     background-color: var(--primary-hover-color);
 }
 button:disabled {
-    cursor:not-allowed;
+    cursor: not-allowed;
     background-color: var(--disabled-background-color);
     color: var(--disabled-text-color);
 }

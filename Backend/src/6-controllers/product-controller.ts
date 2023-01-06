@@ -1,4 +1,4 @@
-import express, { NextFunction, request, Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import verifyAdmin from "../3-middleware/verify-admin";
 import verifyLoggedIn from "../3-middleware/verify-logged-in";
 import { ProductModel } from "../4-models/product-model";
@@ -10,7 +10,7 @@ const router = express.Router();
 // GET http://localhost:3001/api/products
 router.get(
     "/",
-    // verifyLoggedIn,
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const products = await productLogic.getAllProducts();
@@ -25,7 +25,7 @@ router.get(
 // GET http://localhost:3001/api/products/categories
 router.get(
     "/categories",
-    // verifyLoggedIn,
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const categories = await productLogic.getAllCategories();
@@ -40,7 +40,7 @@ router.get(
 // GET http://localhost:3001/api/products/:productId
 router.get(
     "/:productId",
-    // verifyLoggedIn,
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const productId = request.params.productId;
@@ -56,11 +56,13 @@ router.get(
 // GET http://localhost:3001/api/products/categories/:categoryId
 router.get(
     "/categories/:categoryId",
-    // verifyLoggedIn,
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const categoryId = request.params.categoryId;
-            const products = await productLogic.getAllProductsByCategory(categoryId);
+            const products = await productLogic.getAllProductsByCategory(
+                categoryId
+            );
             response.json(products);
         } catch (err: any) {
             next(err);
@@ -72,11 +74,13 @@ router.get(
 // GET http://localhost:3001/api/products/search/:searchValue
 router.get(
     "/search/:searchValue",
-    // verifyLoggedIn,
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const searchValue = request.params.searchValue;
-            const products = await productLogic.getAllProductsBySearch(searchValue);
+            const products = await productLogic.getAllProductsBySearch(
+                searchValue
+            );
             response.json(products);
         } catch (err: any) {
             next(err);
@@ -88,7 +92,7 @@ router.get(
 // POST http://localhost:3001/api/products
 router.post(
     "/",
-    // verifyAdmin,
+    verifyAdmin,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             // get image file from the front
@@ -106,6 +110,7 @@ router.post(
 // PUT http://localhost:3001/api/products/:_id
 router.put(
     "/:_id",
+    verifyAdmin,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const _id = request.params._id;
@@ -125,6 +130,7 @@ router.put(
 // DELETE http://localhost:3001/api/products/:_id
 router.delete(
     "/:_id",
+    verifyAdmin,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const _id = request.params._id;
@@ -136,4 +142,4 @@ router.delete(
     }
 );
 
-export default router
+export default router;

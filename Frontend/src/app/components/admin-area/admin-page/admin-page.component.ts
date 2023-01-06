@@ -1,13 +1,13 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { CategoryModel } from 'src/app/models/category.model';
-import { ProductModel } from 'src/app/models/product.model';
-import { CartService } from 'src/app/services/cart.service';
-import { ProductsService } from 'src/app/services/products.service';
+import { Component, OnInit } from "@angular/core";
+import { CategoryModel } from "src/app/models/category.model";
+import { ProductModel } from "src/app/models/product.model";
+import { NotifyService } from "src/app/services/notify.service";
+import { ProductsService } from "src/app/services/products.service";
 
 @Component({
-  selector: 'app-admin-page',
-  templateUrl: './admin-page.component.html',
-  styleUrls: ['./admin-page.component.css']
+    selector: "app-admin-page",
+    templateUrl: "./admin-page.component.html",
+    styleUrls: ["./admin-page.component.css"],
 })
 export class AdminPageComponent implements OnInit {
     public productList: ProductModel[];
@@ -17,24 +17,32 @@ export class AdminPageComponent implements OnInit {
 
     constructor(
         private productsService: ProductsService,
-        private productService: ProductsService
+        private notifyService: NotifyService
     ) {}
 
     async ngOnInit(): Promise<void> {
-        // get all products from server and save in local variable
-        this.productList = await this.productsService.getAllProducts();
-        this.productsToDisplay = [...this.productList];
-        // get all categories from server and save in local variable
-        this.categories = await this.productsService.getAllCategories();
+        try {
+            // get all products from server and save in local variable
+            this.productList = await this.productsService.getAllProducts();
+            this.productsToDisplay = [...this.productList];
+            // get all categories from server and save in local variable
+            this.categories = await this.productsService.getAllCategories();
+        } catch (err: any) {
+            this.notifyService.error(err);
+        }
     }
 
     public async filterByCategory(categoryId: string) {
-        categoryId === "all"
-            ? (this.productsToDisplay = [...this.productList])
-            : (this.productsToDisplay =
-                  await this.productsService.getProductsFromCategory(
-                      categoryId
-                  ));
+        try {
+            categoryId === "all"
+                ? (this.productsToDisplay = [...this.productList])
+                : (this.productsToDisplay =
+                      await this.productsService.getProductsFromCategory(
+                          categoryId
+                      ));
+        } catch (err: any) {
+            this.notifyService.error(err);
+        }
     }
 
     public filterBySearchTerm() {
@@ -62,6 +70,6 @@ export class AdminPageComponent implements OnInit {
     }
 
     public get editedProduct() {
-        return this.productService.getProductToEdit();
+        return this.productsService.getProductToEdit();
     }
 }

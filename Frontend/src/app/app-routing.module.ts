@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AdminPageComponent } from "./components/admin-area/admin-page/admin-page.component";
-import { LoginComponent } from "./components/auth-area/login/login.component";
 import { LogoutComponent } from "./components/auth-area/logout/logout.component";
 import { RegisterComponent } from "./components/auth-area/register/register.component";
 import { LandingComponent } from "./components/home-area/landing/landing.component";

@@ -1,6 +1,5 @@
 import { RoleModel } from "./role.model";
-
-export class UserModel  {
+export class UserModel {
     _id?: string;
     firstName: string;
     lastName: string;
@@ -13,7 +12,7 @@ export class UserModel  {
     roleId?: string;
     role?: RoleModel;
 
-    constructor( user: UserModel ) {
+    constructor(user: UserModel) {
         this.firstName = user.firstName;
         this.lastName = user.lastName;
         this.email = user.email;

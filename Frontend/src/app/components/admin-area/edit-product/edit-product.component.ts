@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CategoryModel } from "src/app/models/category.model";
@@ -11,9 +11,9 @@ import { environment } from "src/environments/environment";
     templateUrl: "./edit-product.component.html",
     styleUrls: ["./edit-product.component.css"],
 })
-export class EditProductComponent {
+export class EditProductComponent implements OnInit {
     @Input() categories: CategoryModel[];
-    
+
     public product = new ProductModel();
     public imgPath: string;
 
@@ -24,8 +24,7 @@ export class EditProductComponent {
 
     constructor(
         private productService: ProductsService,
-        private notifyService: NotifyService,
-        private router: Router
+        private notifyService: NotifyService
     ) {}
 
     ngOnInit() {
@@ -68,8 +67,7 @@ export class EditProductComponent {
             this.productService.addProduct(this.product);
             this.notifyService.success("product has been added");
         }
-        // todo - handle page reload
-        window.location.reload()
+        window.location.reload();
         // remove value from productToWatch
         this.productService.clearProductToEdit();
         // reset form state

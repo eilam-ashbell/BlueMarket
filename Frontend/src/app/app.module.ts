@@ -4,13 +4,12 @@ import { AppRoutingModule } from "./app-routing.module";
 import { LayoutComponent } from "./components/layout-area/layout/layout.component";
 import { HeaderComponent } from "./components/layout-area/header/header.component";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ProductCardComponent } from "./components/products-area/product-card/product-card.component";
 import { ProductsListComponent } from "./components/products-area/products-list/products-list.component";
 import { LoginComponent } from "./components/auth-area/login/login.component";
 import { LogoutComponent } from "./components/auth-area/logout/logout.component";
 import { RegisterComponent } from "./components/auth-area/register/register.component";
-import { RequireAuthComponent } from "./components/auth-area/require-auth/require-auth.component";
 import { PageNotFoundComponent } from "./components/layout-area/page-not-found/page-not-found.component";
 import { JwtModule } from "@auth0/angular-jwt";
 import { environment } from "src/environments/environment";
@@ -27,10 +26,11 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { LandingComponent } from "./components/home-area/landing/landing.component";
-import { CountUpModule } from 'ngx-countup';
-import { AdminPageComponent } from './components/admin-area/admin-page/admin-page.component';
-import { AdminProductCardComponent } from './components/admin-area/admin-product-card/admin-product-card.component';
-import { EditProductComponent } from './components/admin-area/edit-product/edit-product.component';
+import { CountUpModule } from "ngx-countup";
+import { AdminPageComponent } from "./components/admin-area/admin-page/admin-page.component";
+import { AdminProductCardComponent } from "./components/admin-area/admin-product-card/admin-product-card.component";
+import { EditProductComponent } from "./components/admin-area/edit-product/edit-product.component";
+import { InterceptorService } from "./services/interceptor.service";
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -46,7 +46,6 @@ export function tokenGetter() {
         LoginComponent,
         LogoutComponent,
         RegisterComponent,
-        RequireAuthComponent,
         PageNotFoundComponent,
         CartComponent,
         ProductCartCardComponent,
@@ -78,7 +77,13 @@ export function tokenGetter() {
         MatFormFieldModule,
         CountUpModule,
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: InterceptorService,
+            multi: true,
+        },
+    ],
     bootstrap: [LayoutComponent],
 })
 export class AppModule {}

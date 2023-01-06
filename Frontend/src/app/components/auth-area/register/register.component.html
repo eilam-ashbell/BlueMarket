@@ -1,12 +1,8 @@
 <form class="form" [formGroup]="form">
     <h2>Register</h2>
-    <app-account-details 
-    *ngIf="currentStep === 0" 
-    [accountDetails]="currentGroup">
+    <app-account-details *ngIf="currentStep === 0" [accountDetails]="currentGroup">
     </app-account-details>
-    <app-personal-details
-     *ngIf="currentStep === 1" 
-     [personalDetails]="currentGroup">
+    <app-personal-details *ngIf="currentStep === 1" [personalDetails]="currentGroup">
     </app-personal-details>
 
     <div class="form-actions">

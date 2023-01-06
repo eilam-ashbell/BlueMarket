@@ -1,7 +1,5 @@
 import { createStore } from "redux";
 import { CartModel } from "../models/cart.model";
-import { ProductModel } from "../models/product.model";
-
 export class CartState {
     public cart: CartModel;
 }

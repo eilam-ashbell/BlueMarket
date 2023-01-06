@@ -1,7 +1,6 @@
 import hash from "../2-utils/cyber";
-import { v4 as uuid } from "uuid";
 import { IUserModel, UserModel } from "../4-models/user-model";
-import { ClientError, UnauthorizedError, ValidationError } from "../4-models/client-errors";
+import { UnauthorizedError, ValidationError } from "../4-models/client-errors";
 import auth from "../2-utils/auth";
 import { ICredentialModel } from "../4-models/credentials-model";
 import mongoose from "mongoose";
@@ -17,10 +16,9 @@ async function register(user: IUserModel): Promise<string> {
     const error = user.validateSync();
     if (error) throw new ValidationError(error.message);
     const addedUser = await user.save({});
-    await addedUser.populate("role")
+    await addedUser.populate("role");
 
     // Delete user's password, id num and roleId from user object
-    // Todo - remove user id
     addedUser.password = undefined;
     addedUser.identityNum = undefined;
     addedUser.roleId = undefined;
@@ -45,8 +43,7 @@ async function login(credentials: ICredentialModel): Promise<string> {
     )
         .populate("role")
         .exec();
-        
-        
+
     if (user === null || undefined)
         throw new UnauthorizedError("Incorrect username or password");
     // Remove roleId from token (it exist in role key from populate)
@@ -57,9 +54,9 @@ async function login(credentials: ICredentialModel): Promise<string> {
 }
 
 async function checkId(idNumber: string): Promise<boolean> {
-    const user = await UserModel.findOne({identityNum: idNumber});
-    if (!user) return null
-    return true
+    const user = await UserModel.findOne({ identityNum: idNumber });
+    if (!user) return null;
+    return true;
 }
 
 export default {

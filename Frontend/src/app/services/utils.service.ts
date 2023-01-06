@@ -2,10 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { firstValueFrom } from "rxjs";
 import { environment } from "src/environments/environment";
-import { OrderModel } from "../models/order.model";
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
-import { v4 as uuid } from 'uuid';
+import { jsPDF } from "jspdf";
+import { v4 as uuid } from "uuid";
 import { BusyDate } from "../models/busy-date.model";
 @Injectable({
     providedIn: "root",
@@ -39,14 +37,14 @@ export class UtilsService {
 
     exportCartToPDF(elements: HTMLElement) {
         const doc = new jsPDF({
-          unit: 'px',
-          format: [595, 842]
+            unit: "px",
+            format: [595, 842],
         });
         doc.html(elements, {
-          callback: (doc: jsPDF) => {
-            doc.output('dataurlnewwindow');
-            const fileName = uuid() + '.pdf'
-          }
+            callback: (doc: jsPDF) => {
+                doc.output("dataurlnewwindow");
+                const fileName = uuid() + ".pdf";
+            },
         });
-      }
+    }
 }

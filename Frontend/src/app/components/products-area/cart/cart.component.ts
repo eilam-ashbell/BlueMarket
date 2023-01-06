@@ -1,10 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CartModel } from "src/app/models/cart.model";
 import { CartService } from "src/app/services/cart.service";
 import { authStore } from "src/app/redux/auth-state";
 import { cartStore } from "src/app/redux/cart-state";
 import { UserModel } from "src/app/models/user-model";
 import { Router } from "@angular/router";
+import { NotifyService } from "src/app/services/notify.service";
 
 @Component({
     selector: "app-cart",
@@ -12,23 +13,30 @@ import { Router } from "@angular/router";
     styleUrls: ["./cart.component.css"],
 })
 export class CartComponent implements OnInit {
-
     public cart: CartModel = cartStore.getState().cart;
     public user: UserModel = authStore.getState().user;
-    public thereOlderCart: boolean = false
+    public thereOlderCart: boolean = false;
 
-    constructor(private cartService: CartService, private router: Router) {}
+    constructor(
+        private cartService: CartService,
+        private router: Router,
+        private notifyService: NotifyService
+    ) {}
 
     async ngOnInit(): Promise<void> {
-        // Get current cart
-        this.cart = await this.cartService.getCurrentCart();
-        const continueShopping = localStorage.getItem('continueShopping');
-        if (this.cart?.cartProducts?.length > 0 && !continueShopping) {
-            this.thereOlderCart = true;
-        }
-        // Create new cart if there is no cart
-        if (!this.cart) {
-            this.cart = await this.cartService.createNewCart();
+        try {
+            // Get current cart
+            this.cart = await this.cartService.getCurrentCart();
+            const continueShopping = localStorage.getItem("continueShopping");
+            if (this.cart?.cartProducts?.length > 0 && !continueShopping) {
+                this.thereOlderCart = true;
+            }
+            // Create new cart if there is no cart
+            if (!this.cart) {
+                this.cart = await this.cartService.createNewCart();
+            }
+        } catch (err: any) {
+            this.notifyService.error(err);
         }
     }
 
@@ -44,8 +52,8 @@ export class CartComponent implements OnInit {
     }
 
     public continueShopping(): void {
-        this.thereOlderCart = false
-        localStorage.setItem('continueShopping', 'true')
+        this.thereOlderCart = false;
+        localStorage.setItem("continueShopping", "true");
     }
 
     public order(): void {

@@ -31,7 +31,7 @@ h4 {
 .price-quantity {
     display: flex;
     width: 100%;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 button {
     position: absolute;
@@ -40,7 +40,6 @@ button {
     background-color: var(--negative-color);
     border: none;
     border-radius: 4px;
-    /* padding: 6px; */
     width: 20px;
     height: 20px;
     color: var(--primary-text-on-primary);

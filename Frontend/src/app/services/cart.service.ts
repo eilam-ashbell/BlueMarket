@@ -12,7 +12,6 @@ import { OrderModel } from "../models/order.model";
     providedIn: "root",
 })
 export class CartService {
-
     public isCartOpen: boolean = true;
 
     constructor(private http: HttpClient) {}
@@ -24,7 +23,7 @@ export class CartService {
             this.http.post<CartModel>(environment.cartsRoute + "current", {
                 userCartId: userCartId,
             })
-        );            
+        );
         // Place current cart in global state
         const action = {
             type: CartActionType.FetchCart,
@@ -46,10 +45,10 @@ export class CartService {
         // Assign new cart to global state
         const action: CartAction = {
             type: CartActionType.FetchCart,
-            payload: newCart
-        }
+            payload: newCart,
+        };
         cartStore.dispatch(action);
-        
+
         return newCart;
     }
 
@@ -81,7 +80,13 @@ export class CartService {
         // Add product to cart. Returns updated cart
         const updatedCart = await firstValueFrom(
             this.http.patch<CartModel>(
-                environment.cartsRoute + "delete-product/" + cartId + "/" + productId, null)
+                environment.cartsRoute +
+                    "delete-product/" +
+                    cartId +
+                    "/" +
+                    productId,
+                null
+            )
         );
         // Update products in global state
         const action = {
@@ -96,7 +101,12 @@ export class CartService {
         // Get cart id
         const cartId = cartStore.getState().cart._id;
         // Clear cart in server
-        const updatedCart = await firstValueFrom(this.http.patch<CartModel>(environment.cartsRoute + 'clear/' + cartId, null))
+        const updatedCart = await firstValueFrom(
+            this.http.patch<CartModel>(
+                environment.cartsRoute + "clear/" + cartId,
+                null
+            )
+        );
         // Update products in global state
         const action = {
             type: CartActionType.UpdateCartProducts,
@@ -107,8 +117,13 @@ export class CartService {
 
     // Place order
     public async placeOrder(order: OrderModel) {
-        const cartId = order.cartId
-        const placedOrder = firstValueFrom(this.http.post<OrderModel>(environment.cartsRoute + 'place-order/' + cartId, order))
-        return placedOrder
+        const cartId = order.cartId;
+        const placedOrder = firstValueFrom(
+            this.http.post<OrderModel>(
+                environment.cartsRoute + "place-order/" + cartId,
+                order
+            )
+        );
+        return placedOrder;
     }
 }

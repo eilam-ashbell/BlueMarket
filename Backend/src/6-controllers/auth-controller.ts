@@ -24,8 +24,8 @@ router.post(
     "/login",
     async (request: Request, response: Response, next: NextFunction) => {
         try {
-            const credentials = new CredentialsModel(request.body)
-            const token = await authLogic.login(credentials)
+            const credentials = new CredentialsModel(request.body);
+            const token = await authLogic.login(credentials);
             response.json(token);
         } catch (err: any) {
             next(err);
@@ -38,13 +38,12 @@ router.post(
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const idNumber = request.body.idNumber;
-            const isExist = await authLogic.checkId(idNumber)
-            response.json(isExist)
+            const isExist = await authLogic.checkId(idNumber);
+            response.json(isExist);
         } catch (err: any) {
-            next(err)
+            next(err);
         }
-
     }
-)
+);
 
 export default router;

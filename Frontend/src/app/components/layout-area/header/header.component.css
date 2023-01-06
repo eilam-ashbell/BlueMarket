@@ -18,9 +18,6 @@
     font-weight: 800;
     color: var(--primary-color);
 }
-.cls-1 {
-    fill: var(--primary-900);
-}
 
 .actions-wrapper {
     display: flex;
@@ -54,13 +51,12 @@ button:hover {
 }
 .cart-button.open:hover {
     background-color: var(--primary-hover-color);
-
 }
 .cart-button.open::after {
-    content:"\A";
+    content: "\A";
     border-style: solid;
     border-width: 0px 10px 15px 10px;
-    border-color: transparent transparent var(--primary-color)  transparent;
+    border-color: transparent transparent var(--primary-color) transparent;
     position: absolute;
     bottom: -19px;
     right: 16px;

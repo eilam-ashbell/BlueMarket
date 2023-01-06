@@ -9,7 +9,8 @@
                 <button class="logout" (click)="this.logout()">log out</button>
             </div>
         </div>
-        <button (click)="cartClickHandler()" class="cart-button" [ngClass]="isCartOpen ? 'open' : null" *ngIf="this.router.url === '/home'">
+        <button (click)="cartClickHandler()" class="cart-button" [ngClass]="isCartOpen ? 'open' : null"
+            *ngIf="this.router.url === '/home'">
             <mat-icon>shopping_cart</mat-icon>
         </button>
     </div>

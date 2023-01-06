@@ -1,17 +1,16 @@
-// Add new cart
-
 import express, { NextFunction, Request, Response } from "express";
-import mongoose from "mongoose";
-import { CartModel } from "../4-models/cart-model";
+import verifyLoggedIn from "../3-middleware/verify-logged-in";
 import { CartProductModel } from "../4-models/cart-product-model";
 import { OrderModel } from "../4-models/order-model";
 import cartLogic from "../5-logic/cart-logic";
 
 const router = express.Router();
 
+// Create new cart
 // POST http://localhost:3001/api/carts/new
 router.post(
     "/new",
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             // const cart = new CartModel(request.body);
@@ -28,11 +27,15 @@ router.post(
 // PATCH http://localhost:3001/api/carts/add-product/:cartId
 router.patch(
     "/add-product/:cartId",
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const cartId = request.params.cartId;
             const product = new CartProductModel(request.body);
-            const updatedCart = await cartLogic.addNewProductToCart(cartId, product);
+            const updatedCart = await cartLogic.addNewProductToCart(
+                cartId,
+                product
+            );
             response.status(200).json(updatedCart);
         } catch (err: any) {
             next(err);
@@ -44,11 +47,15 @@ router.patch(
 // PATCH http://localhost:3001/api/carts/delete-product/:cartId/:productId
 router.patch(
     "/delete-product/:cartId/:productId",
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const cartId = request.params.cartId;
             const productId = request.params.productId;
-            const updatedCart = await cartLogic.deleteProductFromCart(cartId, productId);
+            const updatedCart = await cartLogic.deleteProductFromCart(
+                cartId,
+                productId
+            );
             response.status(200).json(updatedCart);
         } catch (err: any) {
             next(err);
@@ -60,6 +67,7 @@ router.patch(
 // PATCH http://localhost:3001/api/carts/clear/:cartId
 router.patch(
     "/clear/:cartId",
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const cartId = request.params.cartId;
@@ -75,18 +83,19 @@ router.patch(
 // POST http://localhost:3001/api/carts/placeorder/:cartId
 router.post(
     "/place-order/:cartId",
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             // get cart id and insert to order object
             const cartId = request.params.cartId;
             request.body.cartId = cartId;
             // get last 4 digits of credit card
-            request.body.creditCard = request.body.creditCard.slice(-4)
-            const order = new OrderModel(request.body)
+            request.body.creditCard = request.body.creditCard.slice(-4);
+            const order = new OrderModel(request.body);
             // place order
             const placedOrder = await cartLogic.placeOrder(order);
             // close cart after placing order
-            await cartLogic.closeCart(cartId)
+            await cartLogic.closeCart(cartId);
             response.status(200).json(placedOrder);
         } catch (err: any) {
             next(err);
@@ -98,6 +107,7 @@ router.post(
 // PATCH http://localhost:3001/api/carts/close/:cartId
 router.patch(
     "/close/:cartId",
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const cartId = request.params.cartId;
@@ -112,6 +122,7 @@ router.patch(
 // GET http://localhost:3001/api/carts/current
 router.post(
     "/current",
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const userCartId = request.body.userCartId;
@@ -123,4 +134,4 @@ router.post(
     }
 );
 
-export default router
+export default router;

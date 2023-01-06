@@ -1,8 +1,8 @@
-<form (ngSubmit)="login()" #loginForm="ngForm" >
+<form (ngSubmit)="login()" #loginForm="ngForm">
     <h2>login</h2>
     <label for="emailInput">email</label>
-    <input type="email" id="emailInput" name="email" [(ngModel)]="credentials.email" #emailModel="ngModel" autocomplete="email"
-        required email="true" placeholder="super@bluemarket.com"/>
+    <input type="email" id="emailInput" name="email" [(ngModel)]="credentials.email" #emailModel="ngModel"
+        autocomplete="email" required email="true" placeholder="super@bluemarket.com" />
     <span class="hint" *ngIf="emailModel.errors?.['required'] && emailModel.touched">
         You must enter an email address to login your account
     </span>
@@ -10,14 +10,13 @@
         Not a valid email address
     </span>
     <label for="passwordInput">password</label>
-    <input type="password" id="passwordInput" name="password" [(ngModel)]="credentials.password" autocomplete="current-password"
-        #passwordModel="ngModel" required 
-        
-        [pattern]="passwordRegex" placeholder="blue*****"/>
+    <input type="password" id="passwordInput" name="password" [(ngModel)]="credentials.password"
+        autocomplete="current-password" #passwordModel="ngModel" required [pattern]="passwordRegex"
+        placeholder="blue*****" />
     <span class="hint" *ngIf="passwordModel.errors?.['required'] && passwordModel.touched">
         You must enter a password to login your account
     </span>
-    <span class="hint" *ngIf="passwordModel.errors?.['pattern'] && (passwordModel.dirty || passwordModel.touched)" >
+    <span class="hint" *ngIf="passwordModel.errors?.['pattern'] && (passwordModel.dirty || passwordModel.touched)">
         <ng-container *ngFor="let m of validatePasswordPattern()">
             {{m}}<br>
         </ng-container>

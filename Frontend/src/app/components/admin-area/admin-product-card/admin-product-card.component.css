@@ -39,7 +39,7 @@ h4 {
     border-radius: 4px;
     cursor: pointer;
     margin-top: auto;
-    text-transform:capitalize;
+    text-transform: capitalize;
     width: 100%;
     color: var(--primary-text-on-primary);
     margin-top: 24px;

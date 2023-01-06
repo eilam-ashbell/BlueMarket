@@ -50,8 +50,9 @@
 
             <div class="input-wrapper">
                 <label>Date for delivery</label>
-                <input matInput name="dateOfDelivery" readonly [matDatepickerFilter]="filterBusyDates" [matDatepicker]="picker"
-                    [min]="minDate" (click)="picker.open()" placeholder="mm/dd/yyyy" formControlName="dateOfDelivery">
+                <input matInput name="dateOfDelivery" readonly [matDatepickerFilter]="filterBusyDates"
+                    [matDatepicker]="picker" [min]="minDate" (click)="picker.open()" placeholder="mm/dd/yyyy"
+                    formControlName="dateOfDelivery">
                 <mat-datepicker #picker></mat-datepicker>
                 <span class="hint"
                     *ngIf="form.controls.dateOfDelivery.errors?.['required'] && (form.controls.dateOfDelivery.dirty || form.controls.dateOfDelivery.touched)">

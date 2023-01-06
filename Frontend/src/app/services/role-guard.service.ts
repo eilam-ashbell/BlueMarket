@@ -15,13 +15,11 @@ export class RoleGuardService implements CanActivate {
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        const role = route.data?.['roleAccess'];
+        const role = route.data?.["roleAccess"];
         const user = authStore.getState().user;
 
         // return false if there is no token
         if (!user) {
-            // this.notyf.error("you are not logged in");
-            // console.log("you are not logged in");
             this.router.navigate(["guest"]);
             return false;
         }
@@ -29,11 +27,12 @@ export class RoleGuardService implements CanActivate {
         // return false if token is expired
         if (!this.authService.isAuthenticated()) {
             const action: AuthAction = {
-                type: AuthActionType.Logout
-            }
-            authStore.dispatch(action)
-            // this.notyf.error("you are not logged in");
-            console.log("session token is expired");
+                type: AuthActionType.Logout,
+            };
+            authStore.dispatch(action);
+            this.notyf.error(
+                "This session has been expired. Please login again"
+            );
             this.router.navigate(["guest"]);
             return false;
         }
@@ -41,9 +40,8 @@ export class RoleGuardService implements CanActivate {
         // Return false if user role is not authorized
         if (user.role.role !== role) {
             this.notyf.error(
-                "you are not authorized. try to login with another account"
+                "you are not authorized. Try to login with another account"
             );
-            console.log("you are not authorized");
             role === "admin"
                 ? this.router.navigate(["/home"])
                 : this.router.navigate(["/admin"]);

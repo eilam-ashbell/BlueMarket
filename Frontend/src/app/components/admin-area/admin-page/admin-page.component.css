@@ -6,7 +6,6 @@
     transition: all 200ms;
 }
 
-/* Left column */
 .categories-wrapper {
     grid-area: left;
     display: flex;
@@ -42,7 +41,6 @@
     border: 1px solid var(--ui-border-color);
 }
 
-/* Main column */
 .products-wrapper {
     grid-area: main;
     overflow: scroll;

@@ -2,8 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import auth from "../2-utils/auth";
 import { ForbiddenError, UnauthorizedError } from "../4-models/client-errors";
 
-async function verifyAdmin(request: Request, response: Response, next: NextFunction ): Promise<void> {
-
+async function verifyAdmin(
+    request: Request,
+    response: Response,
+    next: NextFunction
+): Promise<void> {
     // extract authorization header's value
     const authHeader = request.header("authorization");
 
@@ -20,8 +23,8 @@ async function verifyAdmin(request: Request, response: Response, next: NextFunct
     const role = auth.getUserRoleIdFromToken(authHeader);
 
     if (role !== "6373d77c5cf769dda9da3cb8") {
-        next(new ForbiddenError("You are not an admin"))
-        return
+        next(new ForbiddenError("You are not an admin"));
+        return;
     }
 
     // if token is valid

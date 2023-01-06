@@ -18,10 +18,11 @@
                 This ID number already been used to register our store
             </span>
         </div>
-        
+
         <div class="input-wrapper">
             <label>Email</label>
-            <input type="email" name="email" autocomplete="email" formControlName="email" placeholder="super@bluemarket.com">
+            <input type="email" name="email" autocomplete="email" formControlName="email"
+                placeholder="super@bluemarket.com">
             <span class="hint" *ngIf="email.errors?.['required'] && (email.dirty || email.touched)">
                 You must enter an email address to create your account
             </span>
@@ -31,11 +32,12 @@
         </div>
         <div class="input-wrapper">
             <label>Password</label>
-            <input type="password" name="password" autocomplete="new-password" formControlName="password" placeholder="blue*****">
+            <input type="password" name="password" autocomplete="new-password" formControlName="password"
+                placeholder="blue*****">
             <span class="hint" *ngIf="password.errors?.['required'] && (password.dirty || password.touched)">
                 You must create a password for your account
             </span>
-            <span class="hint" *ngIf="password.errors?.['pattern'] && (password.dirty || password.touched)" >
+            <span class="hint" *ngIf="password.errors?.['pattern'] && (password.dirty || password.touched)">
                 <ng-container *ngFor="let m of password.errors?.['pattern']">
                     {{m}}<br>
                 </ng-container>
@@ -43,7 +45,8 @@
         </div>
         <div class="input-wrapper">
             <label>Confirm password</label>
-            <input type="password" name="passwordConfirm" autocomplete="new-password" formControlName="passwordConfirm" placeholder="blue*****">
+            <input type="password" name="passwordConfirm" autocomplete="new-password" formControlName="passwordConfirm"
+                placeholder="blue*****">
             <span class="hint"
                 *ngIf="passwordConfirm.errors?.['required'] && (passwordConfirm.dirty || passwordConfirm.touched)">
                 You must confirm your password

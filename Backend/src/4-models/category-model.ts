@@ -17,7 +17,7 @@ export const CategorySchema = new mongoose.Schema<ICategoryModel>(
             maxlength: [100, "Category to long"],
             // Options:
             trim: true,
-            unique: true
+            unique: true,
         },
     },
     {

@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
 import verifyLoggedIn from "../3-middleware/verify-logged-in";
-import { OrderModel } from "../4-models/order-model";
 import utilsLogic from "../5-logic/utils-logic";
 import ItemsLogic from "../5-logic/utils-logic";
 
@@ -52,6 +51,7 @@ router.get(
 // get busy dates
 router.get(
     "/orders/delivery/busy",
+    verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const dates = await utilsLogic.getBusyDates();

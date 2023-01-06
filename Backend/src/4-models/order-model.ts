@@ -56,7 +56,7 @@ export const OrderSchema = new mongoose.Schema<IOrderModel>(
             maxlength: [100, "date of order to long"],
             // Options:
             trim: true,
-            default: Date.now
+            default: Date.now,
         },
         dateOfDelivery: {
             // Type:

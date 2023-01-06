@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 const secretKey = "weGonnaShop";
 
 function generateNewToken(user: IUserModel): string {
-
     // Create container object to insert inside the token
     const container = { user };
 
@@ -25,6 +24,7 @@ function verifyToken(authHeader: string): Promise<boolean> {
 
             // extract the token from the header
             const token = authHeader.substring(7);
+            console.log(token);
             
             // If the header is empty > verify fail
             if (!token) {
@@ -46,22 +46,20 @@ function verifyToken(authHeader: string): Promise<boolean> {
             reject(err);
         }
     });
-
 }
 function getUserRoleIdFromToken(authHeader: string): string {
-
     // extract token
     const token = authHeader.substring(7);
-    
+
     // get user container from token
-    const container = jwt.decode(token) as {user: IUserModel};
-    
+    const container = jwt.decode(token) as { user: IUserModel };
+
     // get user data from container
     const user = container.user;
-    
+
     // get roleId of user
-    const role = user.roleId.toString()
-    
+    const role = user.roleId.toString();
+
     return role;
 }
 

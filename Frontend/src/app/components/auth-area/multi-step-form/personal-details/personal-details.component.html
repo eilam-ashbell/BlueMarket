@@ -16,7 +16,8 @@
         </div>
         <div class="input-wrapper">
             <label>Last name</label>
-            <input type="text" name="lastName" autocomplete="family-name" formControlName="lastName" placeholder="Market">
+            <input type="text" name="lastName" autocomplete="family-name" formControlName="lastName"
+                placeholder="Market">
             <span class="hint" *ngIf="lastName.errors?.['required'] && (lastName.dirty || lastName.touched)">
                 You must enter 'last name' to create your account
             </span>
@@ -39,7 +40,8 @@
         </div>
         <div class="input-wrapper">
             <label>Street</label>
-            <input type="text" name="street" autocomplete="street-address" formControlName="street" placeholder="Milky way 11th">
+            <input type="text" name="street" autocomplete="street-address" formControlName="street"
+                placeholder="Milky way 11th">
             <span class="hint" *ngIf="street.errors?.['required'] && (street.dirty || street.touched)">
                 You must enter 'street' to create your account
             </span>

@@ -8,7 +8,8 @@
     </nav>
     <div class="products-wrapper">
         <div class="list-wrapper">
-            <app-admin-product-card *ngFor="let p of productsToDisplay" [product]="p" ngClass='{{editedProduct?._id === p._id ? "active" : null}}'>
+            <app-admin-product-card *ngFor="let p of productsToDisplay" [product]="p"
+                ngClass='{{editedProduct?._id === p._id ? "active" : null}}'>
             </app-admin-product-card>
         </div>
     </div>

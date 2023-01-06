@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 import { RoleModel } from "./role-model";
 import { v4 as uuid } from "uuid";
 
@@ -47,7 +47,7 @@ export const UserSchema = new mongoose.Schema<IUserModel>(
             maxlength: [100, "Email to long"],
             // Options:
             trim: true,
-            unique: true
+            unique: true,
         },
         identityNum: {
             // Type:

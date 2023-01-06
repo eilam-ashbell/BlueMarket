@@ -9,7 +9,6 @@ export interface ICredentialModel extends mongoose.Document {
 // 2. Model schema - describing validation, data, constraints...
 export const CredentialSchema = new mongoose.Schema<ICredentialModel>(
     {
-        
         email: {
             // Type:
             type: String, // JavaScript String
@@ -19,7 +18,7 @@ export const CredentialSchema = new mongoose.Schema<ICredentialModel>(
             maxlength: [100, "Email to long"],
             // Options:
             trim: true,
-            unique: true
+            unique: true,
         },
         password: {
             // Type:

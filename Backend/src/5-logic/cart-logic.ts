@@ -1,12 +1,12 @@
 import { ICartModel, CartModel } from "../4-models/cart-model";
 import { CartProductModel } from "../4-models/cart-product-model";
 import { ValidationError } from "../4-models/client-errors";
-import { IOrderModel, OrderModel } from "../4-models/order-model";
+import { IOrderModel } from "../4-models/order-model";
 import { ObjectId } from "mongoose";
 
 // Add new cart:
-async function addNewCart(userCartId:string): Promise<ICartModel> {
-    const cart = new CartModel;
+async function addNewCart(userCartId: string): Promise<ICartModel> {
+    const cart = new CartModel();
     cart.userCartId = userCartId;
     const errors = cart.validateSync();
     if (errors) throw new ValidationError(errors.message);
@@ -90,37 +90,12 @@ async function closeCart(cartId: string): Promise<ICartModel> {
 }
 
 async function getCurrentCart(userCartId: string): Promise<ICartModel[]> {
-    return CartModel.find({userCartId: userCartId, isOrdered: false}).exec();
+    return CartModel.find({ userCartId: userCartId, isOrdered: false }).exec();
 }
 
 async function getCartById(cartId: ObjectId): Promise<ICartModel[]> {
-    return CartModel.find({cartId: cartId}).exec();
+    return CartModel.find({ cartId: cartId }).exec();
 }
-
-// function cartSocket(httpServer: HttpServer): void {
-
-//     // Create socket server:
-//     const options = { cors: { origin: "*" } };
-//     const socketServer = new SocketIoServer(httpServer, options);
-//     // Listen to client connections: 
-//     socketServer.sockets.on("connection", (socket: Socket) => {
-        
-//         console.log("Client has bee connected");
-
-//         socket.on("get-user-cart", userCartId => {
-//             getCurrentCart(userCartId).then(res => {
-//                 const currentCart = res
-//                 console.log(...currentCart);
-//                 socket.emit("current-cart", ...currentCart)
-//             });
-//         })
-
-//         socket.on('update-cart', payload => {
-//             socket.emit('')
-//         })
-
-//     });
-// }
 
 export default {
     addNewCart,
@@ -131,5 +106,4 @@ export default {
     closeCart,
     getCurrentCart,
     getCartById,
-    // cartSocket,
 };

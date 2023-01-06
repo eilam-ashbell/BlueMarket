@@ -3,7 +3,7 @@
     <h4 *ngIf="!product._id">Add new product</h4>
     <div class="input-wrapper hidden">
         <label>_id</label>
-        <input type="hidden" name="_id" [(ngModel)]="product._id"  #idModel="ngModel" placeholder="product _id">
+        <input type="hidden" name="_id" [(ngModel)]="product._id" #idModel="ngModel" placeholder="product _id">
     </div>
     <div class="input-wrapper image">
         <label for="imageInput">
@@ -16,33 +16,29 @@
     </div>
     <div class="input-wrapper">
         <label>name</label>
-        <input type="text" name="name" [(ngModel)]="product.name" #nameModel="ngModel" placeholder="product name" minlength="2" maxlength="100" required="true">
-        <span class="hint"
-            *ngIf="nameModel.errors?.['required'] && (nameModel.dirty || nameModel.touched)">
+        <input type="text" name="name" [(ngModel)]="product.name" #nameModel="ngModel" placeholder="product name"
+            minlength="2" maxlength="100" required="true">
+        <span class="hint" *ngIf="nameModel.errors?.['required'] && (nameModel.dirty || nameModel.touched)">
             product name is required
         </span>
-        <span class="hint"
-            *ngIf="nameModel.errors?.['minlength'] && (nameModel.dirty || nameModel.touched)">
+        <span class="hint" *ngIf="nameModel.errors?.['minlength'] && (nameModel.dirty || nameModel.touched)">
             product name must be at least 2 characters
         </span>
-        <span class="hint"
-            *ngIf="nameModel.errors?.['maxlength'] && (nameModel.dirty || nameModel.touched)">
+        <span class="hint" *ngIf="nameModel.errors?.['maxlength'] && (nameModel.dirty || nameModel.touched)">
             product name can't be over 100 characters
         </span>
     </div>
     <div class="input-wrapper">
         <label>price</label>
-        <input type="number" name="price" [(ngModel)]="product.price" #priceModel="ngModel" placeholder="product price" step="0.1" min="0.1" max="1000" required="true">
-        <span class="hint"
-            *ngIf="priceModel.errors?.['required'] && (priceModel.dirty || priceModel.touched)">
+        <input type="number" name="price" [(ngModel)]="product.price" #priceModel="ngModel" placeholder="product price"
+            step="0.1" min="0.1" max="1000" required="true">
+        <span class="hint" *ngIf="priceModel.errors?.['required'] && (priceModel.dirty || priceModel.touched)">
             price is required field
         </span>
-        <span class="hint"
-            *ngIf="priceModel.errors?.['min'] && (priceModel.dirty || priceModel.touched)">
+        <span class="hint" *ngIf="priceModel.errors?.['min'] && (priceModel.dirty || priceModel.touched)">
             price must be higher then 0
         </span>
-        <span class="hint"
-            *ngIf="priceModel.errors?.['max'] && (priceModel.dirty || priceModel.touched)">
+        <span class="hint" *ngIf="priceModel.errors?.['max'] && (priceModel.dirty || priceModel.touched)">
             price can't be over $1,000
         </span>
     </div>
@@ -52,8 +48,7 @@
             <option class="select-item" [disabled]="true" [defaultSelected]="true">select a category</option>
             <option class="select-item" *ngFor="let c of categories" [ngValue]="c._id">{{c.category}}</option>
         </select>
-        <span class="hint"
-            *ngIf="categoryModel.errors?.['required'] && (categoryModel.dirty || categoryModel.touched)">
+        <span class="hint" *ngIf="categoryModel.errors?.['required'] && (categoryModel.dirty || categoryModel.touched)">
             you should select a product category
         </span>
     </div>
@@ -61,11 +56,14 @@
         <label>
             imageName
         </label>
-        <input type="hidden" name="imageName" [(ngModel)]="product.imageName" #imageNameModel="ngModel" placeholder="image"
-            value="{{product?.imageName}}">
+        <input type="hidden" name="imageName" [(ngModel)]="product.imageName" #imageNameModel="ngModel"
+            placeholder="image" value="{{product?.imageName}}">
     </div>
     <button *ngIf="product._id" class="secondary" (click)="cancelEdit()">cancel</button>
-    <button *ngIf="product._id" class="primary" [disabled]="productForm.invalid" (click)="saveProduct(productForm)">save</button>
-    <button *ngIf="!product._id && productForm.touched && productForm.dirty" class="secondary" (click)="resetForm(productForm)">reset form</button>
-    <button *ngIf="!product._id" class="primary" [disabled]="productForm.invalid" (click)="saveProduct(productForm)">add new product</button>
+    <button *ngIf="product._id" class="primary" [disabled]="productForm.invalid"
+        (click)="saveProduct(productForm)">save</button>
+    <button *ngIf="!product._id && productForm.touched && productForm.dirty" class="secondary"
+        (click)="resetForm(productForm)">reset form</button>
+    <button *ngIf="!product._id" class="primary" [disabled]="productForm.invalid" (click)="saveProduct(productForm)">add
+        new product</button>
 </form>

@@ -13,7 +13,7 @@ export interface ICartModel extends mongoose.Document {
 // 2. Model schema - describing validation, data, constraints...
 export const CartSchema = new mongoose.Schema<ICartModel>(
     {
-        userCartId: {type: String},
+        userCartId: { type: String },
         creationDate: {
             // Type:
             type: Date, // JavaScript String
@@ -23,17 +23,17 @@ export const CartSchema = new mongoose.Schema<ICartModel>(
             maxlength: [100, "date to long"],
             // Options:
             trim: true,
-            default: Date.now
+            default: Date.now,
         },
         cartProducts: {
             type: [],
-            default: []
+            default: [],
         },
         isOrdered: {
             type: Boolean,
             required: [true, "Missing isOrdered"],
-            default: false
-        }
+            default: false,
+        },
     },
     {
         // Options

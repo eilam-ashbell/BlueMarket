@@ -7,7 +7,7 @@ export class AuthState {
     public user: UserModel = null;
 
     public constructor() {
-        // Get token from local storage 
+        // Get token from local storage
         this.token = localStorage.getItem("token");
         // If there is token in local storage
         if (this.token) {
@@ -52,7 +52,7 @@ export function authReducer(
             newState.user = null;
             // Delete token from local storage
             localStorage.removeItem("token");
-            localStorage.removeItem("continueShopping")
+            localStorage.removeItem("continueShopping");
             break;
     }
 

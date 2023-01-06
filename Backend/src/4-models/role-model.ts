@@ -17,7 +17,7 @@ export const RoleSchema = new mongoose.Schema<IRoleModel>(
             maxlength: [100, "Role to long"],
             // Options:
             trim: true,
-            unique: true
+            unique: true,
         },
     },
     {

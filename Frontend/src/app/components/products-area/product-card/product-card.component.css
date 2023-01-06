@@ -31,7 +31,6 @@ h4 {
     transform: scale(1.05);
 }
 
-
 .quantity-controller {
     display: flex;
     flex-flow: row nowrap;
@@ -67,9 +66,7 @@ h4 {
     text-align: center;
     border: 1px solid var(--ui-border-color);
 }
-.quantity-controller > input:hover {
-    background-color: var(--neutral-100);
-}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -91,7 +88,7 @@ input[type="number"] {
     border-radius: 4px;
     cursor: pointer;
     margin-top: auto;
-    text-transform:capitalize;
+    text-transform: capitalize;
     width: 100%;
     color: var(--primary-text-on-primary);
 }

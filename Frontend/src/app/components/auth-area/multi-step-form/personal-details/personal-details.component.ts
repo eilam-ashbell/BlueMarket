@@ -6,7 +6,7 @@ import { FormGroup } from "@angular/forms";
     templateUrl: "./personal-details.component.html",
     styleUrls: ["./personal-details.component.css"],
 })
-export class PersonalDetailsComponent implements OnInit {
+export class PersonalDetailsComponent {
     @Input() public personalDetails: FormGroup;
 
     public get city() {
@@ -22,9 +22,17 @@ export class PersonalDetailsComponent implements OnInit {
         return this.personalDetails.get("lastName");
     }
 
-    public cities: string[] = ['Jerusalem', "Tel Aviv", "Haifa", 'Petah Tikva', "Ashdod", "Rishon LeZiyyon", "Bnei Brak", "Holon", "Beer Sheba", "Ramat Gan", "Ashqelon"]
-
-    constructor() {}
-
-    ngOnInit(): void {}
+    public cities: string[] = [
+        "Jerusalem",
+        "Tel Aviv",
+        "Haifa",
+        "Petah Tikva",
+        "Ashdod",
+        "Rishon LeZiyyon",
+        "Bnei Brak",
+        "Holon",
+        "Beer Sheba",
+        "Ramat Gan",
+        "Ashqelon",
+    ];
 }
