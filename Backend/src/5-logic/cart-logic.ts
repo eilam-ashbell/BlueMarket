@@ -2,9 +2,6 @@ import { ICartModel, CartModel } from "../4-models/cart-model";
 import { CartProductModel } from "../4-models/cart-product-model";
 import { ValidationError } from "../4-models/client-errors";
 import { IOrderModel, OrderModel } from "../4-models/order-model";
-import { Server as HttpServer } from "http";
-import { Socket, Server as SocketIoServer } from "socket.io";
-import createPDF from "../2-utils/pdf-creator";
 import { ObjectId } from "mongoose";
 
 // Add new cart:
@@ -78,7 +75,6 @@ async function clearCart(cartId: string): Promise<ICartModel> {
 async function placeOrder(order: IOrderModel): Promise<IOrderModel> {
     const errors = order.validateSync();
     if (errors) throw new ValidationError(errors.message);
-    // createPDF(order.cartId)
     return order.save();
 }
 

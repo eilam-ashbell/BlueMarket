@@ -11,7 +11,7 @@ import { CategoryModel, ICategoryModel } from "../4-models/category-model";
 
 // Get all products:
 async function getAllProducts(): Promise<IProductModel[]> {
-    return ProductModel.find().populate("category").exec();
+    return ProductModel.find().populate("category").sort({"name":1}).exec();
 }
 
 // Get product by id:
