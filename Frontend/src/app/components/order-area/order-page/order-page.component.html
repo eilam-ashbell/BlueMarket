@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="cart-details-wrapper" #pdfContent>
-        <app-product-cart-card *ngFor="let p of cart?.cartProducts" [cartProduct]="p"></app-product-cart-card>
+        <app-product-order-card *ngFor="let p of cart?.cartProducts" [cartProduct]="p"></app-product-order-card>
         <span class="total-price">Total price {{calcTotalCartPrice() | currency}}</span>
     </div>
     <div class="ordering-wrapper">

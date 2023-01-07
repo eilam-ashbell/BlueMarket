@@ -9,7 +9,6 @@ async function verifyLoggedIn(
 ): Promise<void> {
     // extract authorization header's value
     const authHeader = request.header("authorization");
-    console.log(authHeader);
     
     // verify token
     const isValid = await auth.verifyToken(authHeader);

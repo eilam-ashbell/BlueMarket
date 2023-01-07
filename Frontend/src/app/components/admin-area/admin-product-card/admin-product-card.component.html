@@ -5,7 +5,6 @@
         <span>{{product.price | currency}}</span>
     </div>
 
-    <div ngClass="{{editedProduct?._id === product._id ? null : 'show-on-hover'}}">
-        <button class="edit-product" (click)="editProduct()">edit</button>
-    </div>
+    <button ngClass="edit-product {{editedProduct?._id === product._id ? null : 'show-on-hover'}}"
+        (click)="editProduct()">edit</button>
 </div>

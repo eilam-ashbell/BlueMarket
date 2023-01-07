@@ -13,6 +13,10 @@ export interface IUserModel extends mongoose.Document {
     password: string;
     userCartId: string;
     roleId: mongoose.Types.ObjectId;
+    role?: {
+        roleId:string;
+        role:string;
+    }
 }
 
 // 2. Model schema - describing validation, data, constraints...

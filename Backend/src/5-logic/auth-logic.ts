@@ -58,9 +58,15 @@ async function checkId(idNumber: string): Promise<boolean> {
     if (!user) return null;
     return true;
 }
+async function checkEmail(email: string): Promise<boolean> {
+    const user = await UserModel.findOne({ email: email });
+    if (!user) return null;
+    return true;
+}
 
 export default {
     register,
     login,
     checkId,
+    checkEmail,
 };

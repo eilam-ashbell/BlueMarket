@@ -77,6 +77,14 @@ export class AuthService {
             this.http.post<any>(environment.authRoute + "check_id", payload)
         );
     }
+    public async checkEmail(email: string): Promise<any> {
+        const payload = {
+            email: email,
+        };
+        return firstValueFrom(
+            this.http.post<any>(environment.authRoute + "check_email", payload)
+        );
+    }
 
     public checkPasswordValidation(value: string): string[] {
         const messages: string[] = [];

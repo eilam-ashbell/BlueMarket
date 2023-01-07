@@ -36,7 +36,11 @@ export class RegisterComponent {
                 ],
                 [this.idNumberNotExist.bind(this)]
             ),
-            email: new FormControl("", [Validators.required, Validators.email]),
+            email: new FormControl(
+                "",
+                [Validators.required, Validators.email],
+                [this.emailNotExist.bind(this)]
+            ),
             password: new FormControl(
                 "",
                 [Validators.required],
@@ -87,6 +91,11 @@ export class RegisterComponent {
         const response = await this.authService.checkIdNumber(control.value);
         return response ? { idExist: true } : null;
     }
+    // Costume validator for user email confirmation
+    private async emailNotExist(control: AbstractControl) {
+        const response = await this.authService.checkEmail(control.value);
+        return response ? { emailExist: true } : null;
+    }
 
     // continue to next step in the form
     public next(): void {
@@ -99,19 +108,19 @@ export class RegisterComponent {
     // submit form data
     public async submit(): Promise<void> {
         try {
-        // check if all form values are valid
-        if (!this.form.valid) {
-            this.form.markAllAsTouched();
-            return;
-        }
-        // build user model for submit
-        const user = new UserModel(
-            Object.assign(
-                this.form.value.accountDetails,
-                this.form.value.personalDetails
-            ) as UserModel
-        );
-        // submit registration
+            // check if all form values are valid
+            if (!this.form.valid) {
+                this.form.markAllAsTouched();
+                return;
+            }
+            // build user model for submit
+            const user = new UserModel(
+                Object.assign(
+                    this.form.value.accountDetails,
+                    this.form.value.personalDetails
+                ) as UserModel
+            );
+            // submit registration
             await this.authService.register(user);
             this.notifyService.success(
                 user.firstName + ", you are officially one of us!"

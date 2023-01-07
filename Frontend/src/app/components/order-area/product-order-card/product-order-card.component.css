@@ -22,10 +22,6 @@ img {
 h4 {
     margin: 0;
     margin-bottom: 12px;
-    width: 140px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .price-quantity {

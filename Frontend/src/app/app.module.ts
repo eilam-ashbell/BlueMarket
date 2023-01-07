@@ -17,6 +17,7 @@ import { CartComponent } from "./components/products-area/cart/cart.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { ProductCartCardComponent } from "./components/products-area/product-cart-card/product-cart-card.component";
+import { ProductOrderCardComponent } from "./components/order-area/product-order-card/product-order-card.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AccountDetailsComponent } from "./components/auth-area/multi-step-form/account-details/account-details.component";
 import { PersonalDetailsComponent } from "./components/auth-area/multi-step-form/personal-details/personal-details.component";
@@ -49,6 +50,7 @@ export function tokenGetter() {
         PageNotFoundComponent,
         CartComponent,
         ProductCartCardComponent,
+        ProductOrderCardComponent,
         AccountDetailsComponent,
         PersonalDetailsComponent,
         OrderPageComponent,

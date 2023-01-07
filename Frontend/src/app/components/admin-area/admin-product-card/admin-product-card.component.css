@@ -17,6 +17,7 @@ h4 {
 }
 .price-wrapper {
     font-size: 16px;
+    margin-bottom: 24px;
 }
 
 .show-on-hover {
@@ -42,7 +43,6 @@ h4 {
     text-transform: capitalize;
     width: 100%;
     color: var(--primary-text-on-primary);
-    margin-top: 24px;
 }
 .edit-product:hover {
     background-color: var(--primary-hover);

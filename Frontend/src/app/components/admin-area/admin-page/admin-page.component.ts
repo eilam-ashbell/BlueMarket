@@ -22,11 +22,11 @@ export class AdminPageComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         try {
+            // get all categories from server and save in local variable
+            this.categories = await this.productsService.getAllCategories();
             // get all products from server and save in local variable
             this.productList = await this.productsService.getAllProducts();
             this.productsToDisplay = [...this.productList];
-            // get all categories from server and save in local variable
-            this.categories = await this.productsService.getAllCategories();
         } catch (err: any) {
             this.notifyService.error(err);
         }

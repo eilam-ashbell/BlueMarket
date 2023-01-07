@@ -29,6 +29,9 @@
             <span class="hint" *ngIf="email.errors?.['email'] && (email.dirty || email.touched)">
                 Not a valid email address
             </span>
+            <span class="hint" *ngIf="email.errors?.['emailExist'] && (email.dirty || email.touched)">
+                This email already been used to register our store
+            </span>
         </div>
         <div class="input-wrapper">
             <label>Password</label>

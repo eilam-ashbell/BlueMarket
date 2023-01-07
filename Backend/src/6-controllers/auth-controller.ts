@@ -45,5 +45,17 @@ router.post(
         }
     }
 );
+router.post(
+    "/check_email/",
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const email = request.body.email;
+            const isExist = await authLogic.checkEmail(email);
+            response.json(isExist);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
 
 export default router;

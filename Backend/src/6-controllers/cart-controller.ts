@@ -13,10 +13,48 @@ router.post(
     verifyLoggedIn,
     async (request: Request, response: Response, next: NextFunction) => {
         try {
-            // const cart = new CartModel(request.body);
             const cartId = request.body.cartId;
             const addedCart = await cartLogic.addNewCart(cartId);
             response.status(201).json(addedCart);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
+// GET http://localhost:3001/api/carts/current
+router.post(
+    "/current",
+    verifyLoggedIn,
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const userCartId = request.body.userCartId;
+            const currentCart = await cartLogic.getCurrentCart(userCartId);
+            response.status(201).json(currentCart[0]);
+        } catch (err: any) {
+            next(err);
+        }
+    }
+);
+
+// Place order:
+// POST http://localhost:3001/api/carts/placeorder/:cartId
+router.post(
+    "/place-order/:cartId",
+    verifyLoggedIn,
+    async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            // get cart id and insert to order object
+            const cartId = request.params.cartId;
+            request.body.cartId = cartId;
+            // get last 4 digits of credit card
+            request.body.creditCard = request.body.creditCard.slice(-4);
+            const order = new OrderModel(request.body);
+            // place order
+            const placedOrder = await cartLogic.placeOrder(order);
+            // close cart after placing order
+            await cartLogic.closeCart(cartId);
+            response.status(200).json(placedOrder);
         } catch (err: any) {
             next(err);
         }
@@ -79,30 +117,6 @@ router.patch(
     }
 );
 
-// Place order:
-// POST http://localhost:3001/api/carts/placeorder/:cartId
-router.post(
-    "/place-order/:cartId",
-    verifyLoggedIn,
-    async (request: Request, response: Response, next: NextFunction) => {
-        try {
-            // get cart id and insert to order object
-            const cartId = request.params.cartId;
-            request.body.cartId = cartId;
-            // get last 4 digits of credit card
-            request.body.creditCard = request.body.creditCard.slice(-4);
-            const order = new OrderModel(request.body);
-            // place order
-            const placedOrder = await cartLogic.placeOrder(order);
-            // close cart after placing order
-            await cartLogic.closeCart(cartId);
-            response.status(200).json(placedOrder);
-        } catch (err: any) {
-            next(err);
-        }
-    }
-);
-
 // Close cart:
 // PATCH http://localhost:3001/api/carts/close/:cartId
 router.patch(
@@ -113,21 +127,6 @@ router.patch(
             const cartId = request.params.cartId;
             const updatedCart = await cartLogic.closeCart(cartId);
             response.status(200).json(updatedCart);
-        } catch (err: any) {
-            next(err);
-        }
-    }
-);
-
-// GET http://localhost:3001/api/carts/current
-router.post(
-    "/current",
-    verifyLoggedIn,
-    async (request: Request, response: Response, next: NextFunction) => {
-        try {
-            const userCartId = request.body.userCartId;
-            const currentCart = await cartLogic.getCurrentCart(userCartId);
-            response.status(201).json(currentCart[0]);
         } catch (err: any) {
             next(err);
         }

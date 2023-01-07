@@ -24,7 +24,6 @@ function verifyToken(authHeader: string): Promise<boolean> {
 
             // extract the token from the header
             const token = authHeader.substring(7);
-            console.log(token);
             
             // If the header is empty > verify fail
             if (!token) {
@@ -58,7 +57,7 @@ function getUserRoleIdFromToken(authHeader: string): string {
     const user = container.user;
 
     // get roleId of user
-    const role = user.roleId.toString();
+    const role = user.role.role.toString();
 
     return role;
 }

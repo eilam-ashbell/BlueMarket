@@ -22,7 +22,7 @@ async function verifyAdmin(
     // extract role of user
     const role = auth.getUserRoleIdFromToken(authHeader);
 
-    if (role !== "6373d77c5cf769dda9da3cb8") {
+    if (role !== "admin") {
         next(new ForbiddenError("You are not an admin"));
         return;
     }
